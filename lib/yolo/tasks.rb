@@ -1,1 +1,1 @@
-require 'yolo/tasks/build_task'
+require 'yolo/tasks/ios/build'
