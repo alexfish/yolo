@@ -1,5 +1,7 @@
-class Yolo
-  def self.hi
-    puts "Hello world!"
+module Yolo
+  def self.run
+    put "Running"
   end
 end
+
+require 'yolo/tasks'
