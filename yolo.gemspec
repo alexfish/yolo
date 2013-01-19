@@ -7,8 +7,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Alex Fish"]
   s.email       = 'alex@alexefihs.com'
   s.files       = ["lib/yolo.rb", "lib/yolo/tasks.rb", "lib/yolo/tasks/ios/build.rb"]
-  s.homepage    =
-    'http://rubygems.org/gems/yolo'
-  s.add_runtime_dependency "xcodebuild-rb",
-    ["= 0.2.0"]
+  s.homepage    = 'http://rubygems.org/gems/yolo'
+  s.add_runtime_dependency "xcodebuild-rb", ["= 0.2.0"]
+  s.add_runtime_dependency "ocunit2junit", ["= 1.2"]
 end
