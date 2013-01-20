@@ -1,8 +1,6 @@
 require 'rubygems'
 require 'yolo'
 
-Yolo::Tasks::Ios::Build.new
-
 namespace :gem do
   desc "Builds and then installs the gem"
   task :buildinstall do
