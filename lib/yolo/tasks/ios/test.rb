@@ -4,12 +4,26 @@ require 'xcodebuild'
 module Yolo
   module Tasks
     module Ios
-      class Build < XcodeBuild::Tasks::BuildTask
+      class Test < XcodeBuild::Tasks::BuildTask
+
+        attr_accessor :test_output
+
+        def initialize
+          self.sdk = "iphonesimulator" unless sdk
+          super
+        end
+
+        def build_opts_string(*additional_opts)
+          options = build_opts + additional_opts
+          options = options << "2>&1 | ocunit2junit" if test_output == :junit
+          return options.compact.join(" ")
+        end
+
         def define
           namespace :yolo do
             namespace :ios do
               desc "Builds the specified target(s)."
-              task :build do
+              task :test do
                 xcodebuild :build
               end
 
@@ -19,7 +33,7 @@ module Yolo
               end
 
               desc "Builds the specified target(s) from a clean slate."
-              task :cleanbuild => [:clean, :build]
+              task :cleantest => [:clean, :test]
             end
           end
         end
