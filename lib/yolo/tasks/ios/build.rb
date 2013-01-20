@@ -15,7 +15,7 @@ module Yolo
 
         def build_opts_string(*additional_opts)
           options = build_opts + additional_opts
-          options = options << "2>&1 | ocunit2junit" if test_output == "junit"
+          options = options << "2>&1 | ocunit2junit" if test_output == :junit
           return options.compact.join(" ")
         end
 
