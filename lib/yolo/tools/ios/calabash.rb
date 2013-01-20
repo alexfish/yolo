@@ -1,7 +1,7 @@
 require "calabash-cucumber"
 
 module Yolo
-  module Tests
+  module Tools
     module Ios
       module Calabash
         def self.run(format = :junit, output_dir = "test-reports/cucumber")

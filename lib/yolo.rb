@@ -1,2 +1,2 @@
 require 'yolo/tasks'
-require 'yolo/tests'
+require 'yolo/tools'
