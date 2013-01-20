@@ -19,6 +19,7 @@ module Yolo
               desc "Builds a release build of specified target(s)."
               task :release do
                 xcodebuild :build
+                # generate ipa...
               end
             end
           end
