@@ -7,9 +7,14 @@ module Yolo
       class Test < XcodeBuild::Tasks::BuildTask
 
         attr_accessor :test_output
+        attr_accessor :format
+        attr_accessor :output_dir
 
         def initialize
           self.sdk = "iphonesimulator" unless sdk
+          self.test_output = :junit
+          self.format = :junit
+          self.output_dir = "test-reports/cucumber"
           super
         end
 
@@ -25,6 +30,10 @@ module Yolo
               desc "Builds the specified target(s)."
               task :test do
                 xcodebuild :build
+              end
+
+              task :calabash => [:cleantest] do
+                Yolo::Tests::Ios::Calabash.run(format, output_dir)
               end
 
               desc "Cleans the specified target(s)."
