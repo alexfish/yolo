@@ -16,10 +16,15 @@ module Yolo
         def define
           namespace :yolo do
             namespace :ios do
+              desc "Builds a and packages a release build of specified target(s)."
+              task :release => :build do
+                #implement ipa packaking logic
+                puts "Doing release.."
+              end
+
               desc "Builds a release build of specified target(s)."
-              task :release do
+              task :build do
                 xcodebuild :build
-                # generate ipa...
               end
             end
           end
