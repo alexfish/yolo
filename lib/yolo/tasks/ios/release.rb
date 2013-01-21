@@ -18,7 +18,7 @@ module Yolo
             namespace :ios do
               desc "Builds a and packages a release build of specified target(s)."
               task :release => :build do
-                #implement ipa packaking logic
+                #implement ipa packaking logicg
                 puts "Doing release.."
               end
 
