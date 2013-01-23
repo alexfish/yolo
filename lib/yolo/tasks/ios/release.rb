@@ -37,8 +37,7 @@ module Yolo
             namespace :ios do
               desc "Builds a and packages a release build of specified target(s)."
               task :release => :build do
-                #implement ipa packaking logicg
-                puts "Doing release.. #{app_path} & #{dsym_path}"
+                Yolo::Tools::Ios::IPA.generate(app_path,"/tmp")
               end
 
               desc "Builds a release build of specified target(s)."
