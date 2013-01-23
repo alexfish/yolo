@@ -21,7 +21,15 @@ module Yolo
           Find.find(xcode.build_path) do |path|
             files << path if path =~ /.*#{name}-.*\/Build\/Products\/.*-iphoneos\/.*\.app$/
           end
-          files.sort_by { |filename| File.mtime(filename)}.last # get the newist app
+          files.sort_by { |filename| File.mtime(filename)}.last # get the latest
+        end
+
+        def dsym_path
+          paths = app_path.split("/")
+          app_file = paths.last
+          paths.pop
+          path = paths.join("/")
+          "#{path}/#{app_file}.dSYM"
         end
 
         def define
@@ -30,7 +38,7 @@ module Yolo
               desc "Builds a and packages a release build of specified target(s)."
               task :release => :build do
                 #implement ipa packaking logicg
-                puts "Doing release.. #{app_path}"
+                puts "Doing release.. #{app_path} & #{dsym_path}"
               end
 
               desc "Builds a release build of specified target(s)."

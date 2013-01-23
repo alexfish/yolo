@@ -22,7 +22,7 @@ module Yolo
 
         def build_path
           path = prefs["IDECustomDerivedDataLocation"]
-          path = "/Users/#{user}/Library/Developer/Xcode/DerivedData" unless  path
+          path = "/Users/#{user}/Library/Developer/Xcode/DerivedData" unless path
           path
         end
       end
