@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.description = "TBD..."
   s.authors     = ["Alex Fish"]
   s.email       = 'alex@alexefish.com'
-  s.files       = ["lib/yolo.rb", "lib/yolo/tasks.rb", "lib/yolo/tools.rb", "lib/yolo/tasks/ios/build.rb", "lib/yolo/tasks/ios/release.rb", "lib/yolo/tasks/ios/ocunit.rb", "lib/yolo/tasks/ios/calabash.rb", "lib/yolo/tools/ios/calabash.rb"]
+  s.files       = ["lib/yolo.rb", "lib/yolo/tasks.rb", "lib/yolo/tools.rb", "lib/yolo/tasks/ios/build.rb", "lib/yolo/tasks/ios/release.rb", "lib/yolo/tasks/ios/ocunit.rb", "lib/yolo/tasks/ios/calabash.rb", "lib/yolo/tools/ios/calabash.rb", "lib/yolo/tools/ios/xcode.rb"]
   s.homepage    = 'http://rubygems.org/gems/yolo'
   s.add_runtime_dependency "xcodebuild-rb", ["= 0.2.0"]
   s.add_runtime_dependency "ocunit2junit", ["= 1.2"]
