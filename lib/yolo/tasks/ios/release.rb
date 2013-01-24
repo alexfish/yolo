@@ -35,7 +35,7 @@ module Yolo
         def define
           namespace :yolo do
             namespace :ios do
-              desc "Builds a and packages a release build of specified target(s)."
+              desc "Builds a and packages a release build of specifiedg target(s)."
               task :release => :build do
                 Yolo::Tools::Ios::IPA.generate(app_path,"/tmp")
               end
