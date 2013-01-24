@@ -8,9 +8,11 @@ module Yolo
       class Release < XcodeBuild::Tasks::BuildTask
 
         attr_accessor :provisioning_profile
+        attr_accessor :ipa_directory
 
         def initialize
           self.sdk = "iphoneos" unless sdk
+          self.ipa_directory = "/tmp"
           super
         end
 
@@ -35,9 +37,19 @@ module Yolo
         def define
           namespace :yolo do
             namespace :ios do
-              desc "Builds a and packages a release build of specifiedg target(s)."
+              desc "Builds and packages a release build of specified target(s)."
               task :release => :build do
-                Yolo::Tools::Ios::IPA.generate(app_path,"/tmp")
+                Yolo::Tools::Ios::IPA.generate(app_path,ipa_directory)
+              end
+
+              desc "Builds and packages a release build for the newest git tag"
+              task :tagrelease do
+
+              end
+
+              desc "Builds and packages a release build for the newest commit"
+              task :commitrelease do
+
               end
 
               desc "Builds a release build of specified target(s)."
