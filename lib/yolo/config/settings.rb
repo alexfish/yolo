@@ -19,7 +19,7 @@ module Yolo
       end
 
       def bundle_directory
-        @yaml["settings"]["bundle_directory"]
+        @yaml["paths"]["bundle_directory"]
       end
 
       private
