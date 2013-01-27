@@ -64,7 +64,6 @@ module Yolo
               task :tag do
                 git = Yolo::Tools::Git.new
                 if git.is_new_tag(name)
-                  puts "New tag"
                   # build
                 end
               end
@@ -73,10 +72,8 @@ module Yolo
               task :commit do
                 git = Yolo::Tools::Git.new
                 if git.is_new_commit(name)
-                  puts "New commit"
                   # build
                 end
-                # check for new commit and then build
               end
 
               desc "Generates a release notes file"
