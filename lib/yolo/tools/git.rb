@@ -12,7 +12,7 @@ module Yolo
         @formatter = Yolo::Formatters::ProgressFormatter.new
       end
 
-      def is_new_commit(name)
+      def has_new_commit(name)
         self.project_name = name unless name.nil?
         commit = latest_commit
         if yaml_commit == commit
@@ -24,7 +24,7 @@ module Yolo
         end
       end
 
-      def is_new_tag(name)
+      def has_new_tag(name)
         self.project_name = name unless name.nil?
         tag = latest_tag
         if yaml_tag == tag
