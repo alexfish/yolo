@@ -1,2 +1,12 @@
+# The directory which applications are bundled to
+# e.g /my/bundle/directory
 paths:
   bundle_directory: "/tmp"
+
+# Email notification settings
+# No smtp support for this version..
+mail:
+  host: your.server.ip
+  from: example@example.com
+  to: example@example.com
+

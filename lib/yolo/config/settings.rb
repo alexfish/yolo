@@ -39,6 +39,18 @@ module Yolo
         end
       end
 
+      def mail_host
+        @yaml["mail"]["host"] if @yaml["mail"]["host"] and @yaml["mail"]["host"] != "your.server.ip"
+      end
+
+      def mail_to
+        @yaml["mail"]["to"] if @yaml["mail"]["to"] and @yaml["mail"]["to"] != "example@example.com"
+      end
+
+      def mail_from
+        @yaml["mail"]["from"] if @yaml["mail"]["from"] and @yaml["mail"]["from"] != "example@example.com"
+      end
+
     end
   end
 end
