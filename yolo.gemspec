@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.files       = ["lib/yolo.rb",
     "lib/yolo/tasks.rb",
     "lib/yolo/tools.rb",
+    "lib/yolo/config.rb",
     "lib/yolo/tasks/ios/build.rb",
     "lib/yolo/tasks/ios/release.rb",
     "lib/yolo/tasks/ios/ocunit.rb",
@@ -16,10 +17,13 @@ Gem::Specification.new do |s|
     "lib/yolo/tools/ios/calabash.rb",
     "lib/yolo/tools/ios/xcode.rb",
     "lib/yolo/tools/ios/ipa.rb",
+    "lib/yolo/tools/git.rb",
     "lib/yolo/tools/ios/release_notes.rb",
     "lib/yolo/formatters.rb",
     "lib/yolo/formatters/progress_formatter.rb",
-    "lib/yolo/formatters/error_formatter.rb"]
+    "lib/yolo/formatters/error_formatter.rb",
+    "lib/yolo/config/.yolo.yml",
+    "lib/yolo/config/settings.rb"]
   s.homepage    = 'http://rubygems.org/gems/yolo'
   s.add_runtime_dependency "xcodebuild-rb", ["= 0.2.0"]
   s.add_runtime_dependency "ocunit2junit", ["= 1.2"]

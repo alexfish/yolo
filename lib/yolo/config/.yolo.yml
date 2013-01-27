@@ -1,0 +1,3 @@
+settings:
+  ipa_directory: "/tmp"
+  build_directory: "/tmp"

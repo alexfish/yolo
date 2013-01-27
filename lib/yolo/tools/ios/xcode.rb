@@ -9,11 +9,11 @@ module Yolo
         attr_accessor :info_plist_path
 
         def initialize
-          self.prefs_plist_path = "/Users/#{user}/Library/Preferences/com.apple.dt.Xcode.plist"
+          self.prefs_plist_path = "#{user_directory}/Library/Preferences/com.apple.dt.Xcode.plist"
         end
 
-        def user
-          `whoami`.gsub("\n","") # get the current user
+        def user_directory
+          File.expand_path('~')
         end
 
         def prefs
@@ -23,7 +23,7 @@ module Yolo
 
         def build_path
           path = prefs["IDECustomDerivedDataLocation"]
-          path = "/Users/#{user}/Library/Developer/Xcode/DerivedData" unless path
+          path = "#{user_directory}/Library/Developer/Xcode/DerivedData" unless path
           path
         end
 

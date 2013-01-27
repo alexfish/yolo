@@ -12,7 +12,7 @@ module Yolo
 
         def initialize
           self.sdk = "iphoneos" unless sdk
-          self.ipa_directory = "/tmp"
+          self.ipa_directory = Yolo::Config::Settings.instance.ipa_directory
           super
         end
 
@@ -49,6 +49,7 @@ module Yolo
           namespace :yolo do
             desc "Builds and packages a release build of specified target(s)."
             task :release => :build do
+              #save to /directory/Name/Tag/name.ipa
               Yolo::Tools::Ios::IPA.generate(app_path,ipa_directory)
             end
 
