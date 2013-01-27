@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'yolo'
   s.version     = '1.0.0.pre'
-  s.date        = '2013-01-18'
+  s.date        = Date.today.to_s
   s.summary     = "YOLO!"
   s.description = "TBD..."
   s.authors     = ["Alex Fish"]
