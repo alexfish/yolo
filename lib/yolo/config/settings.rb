@@ -9,19 +9,17 @@ module Yolo
       include Singleton
 
       def initialize
+        formatter = Yolo::Formatters::ProgressFormatter.new
         create_yolo_dir
         unless File.exist?(yaml_path)
+          formatter.config_created(yaml_path)
           FileUtils.mv(File.dirname(__FILE__) + "/config.yml", yaml_path)
         end
         @yaml = YAML::load_file yaml_path
       end
 
-      def ipa_directory
-        @yaml["settings"]["ipa_directory"]
-      end
-
-      def archive_directory
-        @yaml["settings"]["archive_directory"]
+      def bundle_directory
+        @yaml["settings"]["bundle_directory"]
       end
 
       private

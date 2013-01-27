@@ -4,8 +4,12 @@ module Yolo
   module Formatters
     class ProgressFormatter < XcodeBuild::Formatters::ProgressFormatter
 
+      def config_created(config)
+        puts yellow("Config file created in: #{config}")
+      end
+
       def generating_ipa
-        puts "Generating IPA"
+        puts bold("Generating IPA")
       end
 
       def ipa_generated(ipa)
@@ -13,7 +17,7 @@ module Yolo
       end
 
       def generating_notes
-        puts "Generating release notes"
+        puts bold("Generating release notes")
       end
 
       def notes_generated(notes)
@@ -21,11 +25,19 @@ module Yolo
       end
 
       def new_tag(tag)
-        puts green("Found new tag: #{tag}")
+        puts cyan("Found new tag: #{tag}")
       end
 
       def new_commit(commit)
-        puts green("Found new commit: #{commit}")
+        puts cyan("Found new commit: #{commit}")
+      end
+
+      def no_new_commit
+        puts red("No new commit found")
+      end
+
+      def no_new_tag
+        puts red("No new tag found")
       end
 
     end

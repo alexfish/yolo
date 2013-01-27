@@ -8,13 +8,11 @@ module Yolo
       class Release < XcodeBuild::Tasks::BuildTask
 
         attr_accessor :provisioning_profile
-        attr_accessor :ipa_directory
-        attr_accessor :archive_directory
+        attr_accessor :bundle_directory
 
         def initialize
           self.sdk = "iphoneos" unless sdk
-          self.ipa_directory = Yolo::Config::Settings.instance.ipa_directory
-          self.archive_directory = Yolo::Config::Settings.instance.archive_directory
+          self.bundle_directory = Yolo::Config::Settings.instance.bundle_directory
           super
         end
 
@@ -47,12 +45,26 @@ module Yolo
           plist_path
         end
 
+        def version_folder
+          xcode = Yolo::Tools::Ios::Xcode.new
+          xcode.info_plist_path = info_plist_path
+          folder = ""
+          folder << xcode.version_number if xcode.version_number
+          folder << "-#{xcode.build_number}" if xcode.build_number
+          if folder.length == 0
+            time = Time.now
+            folder = "#{time.year}-#{time.month}-#{time.year}-#{time.hour}-#{time.min}-#{time.sec}"
+          end
+          folder
+        end
+
         def define
           namespace :yolo do
             namespace :release do
               desc "Builds and packages a release ipa of specified scheme."
               task :ipa => :build do
-                Yolo::Tools::Ios::IPA.generate(app_path,ipa_directory)
+                self.bundle_directory = "#{bundle_directory}/#{name}/#{version_folder}"
+                Yolo::Tools::Ios::IPA.generate(app_path,bundle_directory)
               end
 
               desc "Builds and packages a release ipa and archive of specified scheme"
@@ -64,7 +76,7 @@ module Yolo
               task :tag do
                 git = Yolo::Tools::Git.new
                 if git.has_new_tag(name)
-                  # build
+                  Rake::Task["yolo:release:ipa"].invoke
                 end
               end
 
@@ -72,7 +84,7 @@ module Yolo
               task :commit do
                 git = Yolo::Tools::Git.new
                 if git.has_new_commit(name)
-                  # build
+                  Rake::Task["yolo:release:ipa"].invoke
                 end
               end
 

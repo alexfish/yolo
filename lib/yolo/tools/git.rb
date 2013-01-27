@@ -16,10 +16,13 @@ module Yolo
         self.project_name = name unless name.nil?
         commit = latest_commit
         if yaml_commit == commit
+          @formatter.no_new_commit
+          @commit = nil
           false
         else
           @formatter.new_commit(commit)
           update_commit(commit)
+          @commit = commit
           true
         end
       end
@@ -28,12 +31,23 @@ module Yolo
         self.project_name = name unless name.nil?
         tag = latest_tag
         if yaml_tag == tag
+          @formatter.no_new_tag
+          @tag = nil
           false
         else
           @formatter.new_tag(tag)
           update_tag(tag)
+          @tag = tag
           true
         end
+      end
+
+      def tag
+        @tag
+      end
+
+      def commit
+        @commit
       end
 
       private

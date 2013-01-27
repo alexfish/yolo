@@ -32,7 +32,8 @@ module Yolo
             plist = CFPropertyList::List.new(:file => info_plist_path)
             CFPropertyList.native_types(plist.value)
           else
-            Yolo::Formatters::ErrorFormatter.info_plist_not_found
+            error = Yolo::Formatters::ErrorFormatter.new
+            error.info_plist_not_found
           end
         end
 
