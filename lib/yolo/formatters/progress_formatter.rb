@@ -12,6 +12,14 @@ module Yolo
         puts green("IPA saved to: #{ipa}")
       end
 
+      def generating_notes
+        puts "Generating release notes"
+      end
+
+      def notes_generated(notes)
+        puts green("Release notes generated")
+      end
+
     end
   end
 end

@@ -18,12 +18,15 @@ module Yolo
 
         def app_path
           xcode = Yolo::Tools::Ios::Xcode.new
-          name = self.scheme ? self.scheme : self.target
           files = []
           Find.find(xcode.build_path) do |path|
             files << path if path =~ /.*#{name}-.*\/Build\/Products\/.*-iphoneos\/.*\.app$/
           end
           files.sort_by { |filename| File.mtime(filename)}.last # get the latest
+        end
+
+        def name
+          self.scheme ? self.scheme : self.target
         end
 
         def dsym_path
@@ -32,6 +35,14 @@ module Yolo
           paths.pop
           path = paths.join("/")
           "#{path}/#{app_file}.dSYM"
+        end
+
+        def info_plist_path
+          plist_path = ""
+          Find.find(Dir.pwd) do |path|
+            plist_path = path if path =~ /#{name}-Info.plist$/
+          end
+          plist_path
         end
 
         def define
@@ -50,6 +61,11 @@ module Yolo
               desc "Builds and packages a release build for the newest commit"
               task :commitrelease do
 
+              end
+
+              desc "Generates a release notes file"
+              task :releasenotes do
+                Yolo::Tools::Ios::ReleaseNotes.generate(info_plist_path)
               end
 
               desc "Builds a release build of specified target(s)."

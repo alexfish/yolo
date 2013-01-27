@@ -5,7 +5,7 @@ namespace :gem do
   desc "Builds and then installs the gem"
   task :buildinstall do
     system 'gem build yolo.gemspec'
-    system 'gem install yolo-0.0.0.gem'
+    system 'gem install yolo-1.0.0.pre.gem'
   end
 end
 
