@@ -9,34 +9,22 @@ module Yolo
       include Singleton
 
       def initialize
-        formatter = Yolo::Formatters::ProgressFormatter.new
+        @formatter = Yolo::Formatters::ProgressFormatter.new
+        @error = Yolo::Formatters::ErrorFormatter.new
+        check_config
+        @yaml = YAML::load_file yaml_path
+      end
+
+      def load_config
         create_yolo_dir
         unless File.exist?(yaml_path)
-          formatter.config_created(yaml_path)
+          @formatter.config_created(yaml_path)
           FileUtils.mv(File.dirname(__FILE__) + "/config.yml", yaml_path)
         end
-        @yaml = YAML::load_file yaml_path
       end
 
       def bundle_directory
         @yaml["paths"]["bundle_directory"]
-      end
-
-      private
-
-      def user_directory
-        File.expand_path('~')
-      end
-
-      def yaml_path
-        "#{user_directory}/.yolo/config.yml"
-      end
-
-      def create_yolo_dir
-        dir = "#{user_directory}/.yolo"
-        unless File.directory?(dir)
-          FileUtils.mkdir_p(dir)
-        end
       end
 
       def mail_host
@@ -49,6 +37,34 @@ module Yolo
 
       def mail_from
         @yaml["mail"]["from"] if @yaml["mail"]["from"] and @yaml["mail"]["from"] != "example@example.com"
+      end
+
+      private
+
+      def check_config
+        unless File.directory?(yolo_dir) and File.exist?(yaml_path)
+          @error.run_setup
+          load_config
+          @formatter.setup_complete
+        end
+      end
+
+      def user_directory
+        File.expand_path('~')
+      end
+
+      def yaml_path
+        "#{user_directory}/.yolo/config.yml"
+      end
+
+      def yolo_dir
+        "#{user_directory}/.yolo"
+      end
+
+      def create_yolo_dir
+        unless File.directory?(yolo_dir)
+          FileUtils.mkdir_p(yolo_dir)
+        end
       end
 
     end

@@ -8,6 +8,10 @@ module Yolo
         puts yellow("Config file created in: #{config}")
       end
 
+      def setup_complete(confid)
+        puts green("Setup complete")
+      end
+
       def generating_ipa
         puts bold("Generating IPA")
       end

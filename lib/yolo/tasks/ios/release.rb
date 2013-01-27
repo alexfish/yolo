@@ -1,11 +1,9 @@
-require 'rake/tasklib'
-require 'xcodebuild'
 require 'find'
 
 module Yolo
   module Tasks
     module Ios
-      class Release < XcodeBuild::Tasks::BuildTask
+      class Release < Yolo::Tasks::BaseTask
 
         attr_accessor :provisioning_profile
         attr_accessor :bundle_directory
@@ -59,6 +57,7 @@ module Yolo
         end
 
         def define
+          super
           namespace :yolo do
             namespace :release do
               desc "Builds and packages a release ipa of specified scheme."

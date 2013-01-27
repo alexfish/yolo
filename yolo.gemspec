@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
     "lib/yolo/config.rb",
     "lib/yolo/tasks/ios/build.rb",
     "lib/yolo/tasks/ios/release.rb",
+    "lib/yolo/tasks/base_task.rb",
     "lib/yolo/tasks/ios/ocunit.rb",
     "lib/yolo/tasks/ios/calabash.rb",
     "lib/yolo/tools/ios/calabash.rb",

@@ -1,10 +1,7 @@
-require 'rake/tasklib'
-require 'xcodebuild'
-
 module Yolo
   module Tasks
     module Ios
-      class Calabash < XcodeBuild::Tasks::BuildTask
+      class Calabash < Yolo::Tasks::BaseTask
 
         attr_accessor :format
         attr_accessor :output_dir
@@ -17,6 +14,7 @@ module Yolo
         end
 
         def define
+          super
           namespace :yolo do
             namespace :calabash do
               desc "Runs the specified target(s) calabash tests."

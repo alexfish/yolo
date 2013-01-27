@@ -8,6 +8,10 @@ module Yolo
         puts red("Can't locate Info.plist")
       end
 
+      def run_setup
+        puts red("Setup required, running rake yolo:setup")
+      end
+
     end
   end
 end

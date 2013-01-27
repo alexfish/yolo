@@ -1,11 +1,9 @@
-require 'rake/tasklib'
-require 'xcodebuild'
-
 module Yolo
   module Tasks
     module Ios
-      class Build < XcodeBuild::Tasks::BuildTask
+      class Build < Yolo::Tasks::BaseTask
         def define
+          super
           namespace :yolo do
             desc "Builds the specified target(s)."
             task :build do

@@ -1,10 +1,7 @@
-require 'rake/tasklib'
-require 'xcodebuild'
-
 module Yolo
   module Tasks
     module Ios
-      class OCUnit < XcodeBuild::Tasks::BuildTask
+      class OCUnit < Yolo::Tasks::BaseTask
 
         attr_accessor :test_output
 
@@ -21,6 +18,7 @@ module Yolo
         end
 
         def define
+          super
           namespace :yolo do
             namespace :ocunit do
               desc "Runs the specified target(s) OCUnit tests."
