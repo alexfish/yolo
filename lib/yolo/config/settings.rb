@@ -12,7 +12,6 @@ module Yolo
         user_directory = File.expand_path('~')
         yaml_path = "#{user_directory}/.yolo.yml"
         unless File.exist?("#{user_directory}/.yolo.yml")
-          puts "moving file"
           FileUtils.mv(File.dirname(__FILE__) + "/.yolo.yml", yaml_path)
         end
         @yaml = YAML::load_file yaml_path
@@ -22,8 +21,8 @@ module Yolo
         @yaml["settings"]["ipa_directory"]
       end
 
-      def build_directory
-        @yaml["settings"]["build_directory"]
+      def archive_directory
+        @yaml["settings"]["archive_directory"]
       end
 
     end
