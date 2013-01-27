@@ -9,10 +9,9 @@ module Yolo
       include Singleton
 
       def initialize
-        user_directory = File.expand_path('~')
-        yaml_path = "#{user_directory}/.yolo.yml"
-        unless File.exist?("#{user_directory}/.yolo.yml")
-          FileUtils.mv(File.dirname(__FILE__) + "/.yolo.yml", yaml_path)
+        create_yolo_dir
+        unless File.exist?(yaml_path)
+          FileUtils.mv(File.dirname(__FILE__) + "/config.yml", yaml_path)
         end
         @yaml = YAML::load_file yaml_path
       end
@@ -23,6 +22,23 @@ module Yolo
 
       def archive_directory
         @yaml["settings"]["archive_directory"]
+      end
+
+      private
+
+      def user_directory
+        File.expand_path('~')
+      end
+
+      def yaml_path
+        "#{user_directory}/.yolo/config.yml"
+      end
+
+      def create_yolo_dir
+        dir = "#{user_directory}/.yolo"
+        unless File.directory?(dir)
+          FileUtils.mkdir_p(dir)
+        end
       end
 
     end

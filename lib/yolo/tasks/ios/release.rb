@@ -62,11 +62,20 @@ module Yolo
 
               desc "Builds and packages a release build for the newest git tag"
               task :tag do
-                # check for new tag and then build
+                git = Yolo::Tools::Git.new
+                if git.is_new_tag(name)
+                  puts "New tag"
+                  # build
+                end
               end
 
               desc "Builds and packages a release build for the newest commit"
               task :commit do
+                git = Yolo::Tools::Git.new
+                if git.is_new_commit(name)
+                  puts "New commit"
+                  # build
+                end
                 # check for new commit and then build
               end
 

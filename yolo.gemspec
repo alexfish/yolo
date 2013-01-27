@@ -22,7 +22,8 @@ Gem::Specification.new do |s|
     "lib/yolo/formatters.rb",
     "lib/yolo/formatters/progress_formatter.rb",
     "lib/yolo/formatters/error_formatter.rb",
-    "lib/yolo/config/.yolo.yml",
+    "lib/yolo/config/config.yml",
+    "lib/yolo/history/history.yml",
     "lib/yolo/config/settings.rb"]
   s.homepage    = 'http://rubygems.org/gems/yolo'
   s.add_runtime_dependency "xcodebuild-rb", ["= 0.2.0"]
