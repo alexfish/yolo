@@ -18,21 +18,19 @@ module Yolo
 
         def define
           namespace :yolo do
-            namespace :ios do
-              namespace :calabash do
-                desc "Runs the specified target(s) calabash tests."
-                task :test do
-                  Yolo::Tools::Ios::Calabash.run(format, output_dir)
-                end
-
-                desc "Cleans the specified target(s)."
-                task :clean do
-                  xcodebuild :clean
-                end
-
-                desc "Runs the specified target(s) calabash tests from a clean slate."
-                task :cleantest => [:clean, :test]
+            namespace :calabash do
+              desc "Runs the specified target(s) calabash tests."
+              task :test do
+                Yolo::Tools::Ios::Calabash.run(format, output_dir)
               end
+
+              desc "Cleans the specified target(s)."
+              task :clean do
+                xcodebuild :clean
+              end
+
+              desc "Runs the specified target(s) calabash tests from a clean slate."
+              task :cleantest => [:clean, :test]
             end
           end
         end

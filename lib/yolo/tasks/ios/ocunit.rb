@@ -22,21 +22,19 @@ module Yolo
 
         def define
           namespace :yolo do
-            namespace :ios do
-              namespace :ocunit do
-                desc "Runs the specified target(s) OCUnit tests."
-                task :test do
-                  xcodebuild :build
-                end
-
-                desc "Cleans the specified target(s)."
-                task :clean do
-                  xcodebuild :clean
-                end
-
-                desc "Runs the specified target(s) OCUnit tests from a clean slate."
-                task :cleantest => [:clean, :test]
+            namespace :ocunit do
+              desc "Runs the specified target(s) OCUnit tests."
+              task :test do
+                xcodebuild :build
               end
+
+              desc "Cleans the specified target(s)."
+              task :clean do
+                xcodebuild :clean
+              end
+
+              desc "Runs the specified target(s) OCUnit tests from a clean slate."
+              task :cleantest => [:clean, :test]
             end
           end
         end

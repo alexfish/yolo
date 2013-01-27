@@ -47,31 +47,29 @@ module Yolo
 
         def define
           namespace :yolo do
-            namespace :ios do
-              desc "Builds and packages a release build of specified target(s)."
-              task :release => :build do
-                Yolo::Tools::Ios::IPA.generate(app_path,ipa_directory)
-              end
+            desc "Builds and packages a release build of specified target(s)."
+            task :release => :build do
+              Yolo::Tools::Ios::IPA.generate(app_path,ipa_directory)
+            end
 
-              desc "Builds and packages a release build for the newest git tag"
-              task :tagrelease do
+            desc "Builds and packages a release build for the newest git tag"
+            task :tagrelease do
 
-              end
+            end
 
-              desc "Builds and packages a release build for the newest commit"
-              task :commitrelease do
+            desc "Builds and packages a release build for the newest commit"
+            task :commitrelease do
 
-              end
+            end
 
-              desc "Generates a release notes file"
-              task :releasenotes do
-                Yolo::Tools::Ios::ReleaseNotes.generate(info_plist_path)
-              end
+            desc "Generates a release notes file"
+            task :releasenotes do
+              Yolo::Tools::Ios::ReleaseNotes.generate(info_plist_path)
+            end
 
-              desc "Builds a release build of specified target(s)."
-              task :build do
-                xcodebuild :build
-              end
+            desc "Builds a release build of specified target(s)."
+            task :build do
+              xcodebuild :build
             end
           end
         end
