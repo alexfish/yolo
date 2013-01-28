@@ -4,16 +4,22 @@ module Yolo
   module Tools
     module Ios
       class IPA
-        def self.generate(app_file,output_directory)
+        def self.generate(app_path,dsym_path,output_directory)
           formatter = Yolo::Formatters::ProgressFormatter.new
           formatter.generating_ipa
-          ipa_name = app_file.split("/").last.split(".").first
+          ipa_name = app_path.split("/").last.split(".").first
 
           unless File.directory?(output_directory)
             FileUtils.mkdir_p(output_directory)
           end
 
-          `/usr/bin/xcrun -sdk iphoneos PackageApplication -v #{app_file} -o #{output_directory}/#{ipa_name}.ipa`
+          # make ipa
+          `/usr/bin/xcrun -sdk iphoneos PackageApplication -v #{app_path} -o #{output_directory}/#{ipa_name}.ipa`
+          # move dsym
+          FileUtils.mv(dsym_path, output_directory) if dsym_path
+          # move release notes
+          release_path = "#{Dir.pwd}/release_notes.md"
+          FileUtils.mv(release_path, output_directory) if File.exist?(release_path)
 
           formatter.ipa_generated("#{output_directory}/#{ipa_name}.ipa")
         end

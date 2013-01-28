@@ -52,7 +52,7 @@ module Yolo
           folder << "-#{xcode.build_number}" if xcode.build_number
           if folder.length == 0
             time = Time.now
-            folder = "#{time.year}-#{time.month}-#{time.year}-#{time.hour}-#{time.min}-#{time.sec}"
+            folder = "#{time.day}-#{time.month}-#{time.year}-#{time.hour}-#{time.min}-#{time.sec}"
           end
           folder
         end
@@ -64,7 +64,7 @@ module Yolo
               desc "Builds and packages a release ipa of specified scheme."
               task :ipa => :build do
                 self.bundle_directory = "#{bundle_directory}/#{name}/#{version_folder}"
-                Yolo::Tools::Ios::IPA.generate(app_path,bundle_directory)
+                Yolo::Tools::Ios::IPA.generate(app_path,dsym_path,bundle_directory)
               end
 
               desc "Builds and packages a release ipa and archive of specified scheme"
