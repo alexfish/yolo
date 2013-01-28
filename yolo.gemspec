@@ -12,4 +12,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "ocunit2junit", ["= 1.2"]
   s.add_runtime_dependency "activerecord"
   s.add_runtime_dependency "calabash-cucumber"
+  s.add_runtime_dependency "curb"
 end

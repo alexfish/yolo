@@ -4,7 +4,7 @@ module Yolo
   module Tools
     module Ios
       class IPA
-        def self.generate(app_path,dsym_path,output_directory)
+        def self.generate(app_path,dsym_path,output_directory, &block)
           formatter = Yolo::Formatters::ProgressFormatter.new
           formatter.generating_ipa
           ipa_name = app_path.split("/").last.split(".").first
@@ -22,6 +22,8 @@ module Yolo
           FileUtils.mv(release_path, output_directory) if File.exist?(release_path)
 
           formatter.ipa_generated("#{output_directory}/#{ipa_name}.ipa")
+
+          block.call("#{output_directory}/#{ipa_name}.ipa") if block
         end
       end
     end

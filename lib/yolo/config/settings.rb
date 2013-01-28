@@ -39,6 +39,10 @@ module Yolo
         @yaml["mail"]["from"] if @yaml["mail"]["from"] and @yaml["mail"]["from"] != "example@example.com"
       end
 
+      def deploy_url
+        @yaml["deployment"]["url"] if @yaml["deployment"]["url"] and @yaml["deployment"]["url"] != "http://url.com"
+      end
+
       private
 
       def check_config

@@ -12,6 +12,8 @@ module Yolo
         def initialize
           self.sdk = "iphoneos" unless sdk
           self.bundle_directory = Yolo::Config::Settings.instance.bundle_directory
+          self.deployment = :OTA
+          @error_formatter = Yolo::Formatters::ErrorFormatter.new
           super
         end
 
@@ -57,6 +59,18 @@ module Yolo
           folder
         end
 
+        def deploy(ipa_path)
+          klass = Object.const_get("Yolo").const_get("Deployment").const_get("#{deployment.to_s}").new
+          unless klass
+            @error_formatter.deployment_class_error(deployment.to_s)
+            return
+          end
+
+          klass.deploy(ipa_path) do |url, password|
+            puts "#{url}:#{password} ready for email"
+          end
+        end
+
         def define
           super
           namespace :yolo do
@@ -64,7 +78,9 @@ module Yolo
               desc "Builds and packages a release ipa of specified scheme."
               task :ipa => :build do
                 self.bundle_directory = "#{bundle_directory}/#{name}/#{version_folder}"
-                Yolo::Tools::Ios::IPA.generate(app_path,dsym_path,bundle_directory)
+                Yolo::Tools::Ios::IPA.generate(app_path,dsym_path,bundle_directory) do |ipa|
+                  deploy(ipa) if ipa and self.deployment
+                end
               end
 
               desc "Builds and packages a release ipa and archive of specified scheme"

@@ -44,6 +44,9 @@ module Yolo
         puts red("No new tag found")
       end
 
+      def deploy_complete
+        puts green("IPA deployed")
+      end
     end
   end
 end

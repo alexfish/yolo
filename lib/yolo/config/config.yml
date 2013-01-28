@@ -11,5 +11,4 @@ mail:
 
 # Deployment settings
 deployment:
-  OTA:
-    url: http://url.com
+  url: http://url.com
