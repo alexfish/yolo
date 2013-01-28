@@ -44,12 +44,12 @@ module Yolo
           response = JSON.parse(@curl.body_str)
           puts response #debug
         rescue JSON::ParserError
-          @error_formatter.deploy_failed("ParserError: Deployment server response is not JSON")
+          @error_formatter.deploy_failed("\n  ParserError: Deployment server response is not JSON")
           return
         end
 
         unless response
-          @error_formatter.deploy_failed("ParserError: Deployment server response is not JSON")
+          @error_formatter.deploy_failed("\n  ParserError: Deployment server response is not JSON")
           return
         end
 
