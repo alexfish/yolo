@@ -9,3 +9,7 @@ mail:
   host: your.server.ip
   from: example@example.com
 
+# Deployment settings
+deployment:
+  OTA:
+    url: http://url.com
