@@ -20,6 +20,10 @@ module Yolo
         puts red("There was a problem deploying the ipa")
       end
 
+      def no_deploy_url
+        puts red("No deploy url found, please specify one in ~/.yolo/config.yml")
+      end
+
     end
   end
 end

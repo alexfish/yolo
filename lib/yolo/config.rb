@@ -1,1 +1,1 @@
-require 'yolo/config/settings.rb'
+require 'yolo/config/settings'

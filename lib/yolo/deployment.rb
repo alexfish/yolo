@@ -1,2 +1,2 @@
-require 'yolo/deployment/base_deployer.rb'
-require 'yolo/deployment/ota.rb'
+require 'yolo/deployment/base_deployer'
+require 'yolo/deployment/ota'

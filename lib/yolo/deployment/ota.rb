@@ -3,17 +3,22 @@ require 'json'
 
 module Yolo
   module Deployment
-    class OTA << Yolo::Deployment::BaseDeployer
+    class OTA < Yolo::Deployment::BaseDeployer
 
       def initialize
-        @error_formatter = Yolo::Formatters::ProgressFormatter.new
-        @progress_formatter = Yolo::Formatters::ErrorFormatter.new
+        @error_formatter = Yolo::Formatters::ErrorFormatter.new
+        @progress_formatter = Yolo::Formatters::ProgressFormatter.new
         super
       end
 
       def deploy(ipa_path, &block)
         self.ipa_path = ipa_path
         @complete_block = block
+
+        unless self.url
+          @error_formatter.no_deploy_url
+          return
+        end
 
         upload
       end
