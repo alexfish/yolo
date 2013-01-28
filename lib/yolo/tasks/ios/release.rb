@@ -7,6 +7,7 @@ module Yolo
 
         attr_accessor :bundle_directory
         attr_accessor :mail_to
+        attr_accessor :deployment
 
         def initialize
           self.sdk = "iphoneos" unless sdk
