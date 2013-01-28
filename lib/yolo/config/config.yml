@@ -8,5 +8,4 @@ paths:
 mail:
   host: your.server.ip
   from: example@example.com
-  to: example@example.com
 

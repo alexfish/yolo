@@ -5,8 +5,8 @@ module Yolo
     module Ios
       class Release < Yolo::Tasks::BaseTask
 
-        attr_accessor :provisioning_profile
         attr_accessor :bundle_directory
+        attr_accessor :mail_to
 
         def initialize
           self.sdk = "iphoneos" unless sdk
