@@ -8,7 +8,7 @@ module Yolo
         puts yellow("Config file created in: #{config}")
       end
 
-      def setup_complete(confid)
+      def setup_complete
         puts green("Setup complete")
       end
 
