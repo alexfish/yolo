@@ -20,6 +20,8 @@ module Yolo
           return
         end
 
+        @progress_formatter.deploying_ipa
+
         upload
       end
 
@@ -31,15 +33,26 @@ module Yolo
         @curl = Curl::Easy.http_post(self.url,
                          Curl::PostField.content('fileContent', self.ipa_path),
                          Curl::PostField.content('params', package))
-        @curl.on_success {upload_complete}
-        @curl.on_failure {upload_failed}
+        @curl.on_complete {upload_complete}
         @curl.perform
       end
 
       def upload_complete
-        response = JSON.parse(@curl.body_str)
+        response = nil
+        begin
+          puts @curl.body_str
+          response = JSON.parse(@curl.body_str)
+          puts response #debug
+        rescue JSON::ParserError
+          @error_formatter.deploy_failed("ParserError: Deployment server response is not JSON")
+          return
+        end
 
-        puts response #debug
+        unless response
+          @error_formatter.deploy_failed("ParserError: Deployment server response is not JSON")
+          return
+        end
+
         url = response["link"]
         password = response["password"]
 
@@ -47,10 +60,7 @@ module Yolo
         @progress_formatter.deploy_complete
       end
 
-      def upload_failed
-        @error_formatter.deploy_failed
-      end
-
     end
   end
 end
+

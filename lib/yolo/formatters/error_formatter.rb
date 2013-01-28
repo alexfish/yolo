@@ -16,8 +16,8 @@ module Yolo
         puts red("#{klass} is not a valid Class in the Deployment module")
       end
 
-      def deploy_failed
-        puts red("There was a problem deploying the ipa")
+      def deploy_failed(error)
+        puts red("There was a problem deploying the ipa: #{error}")
       end
 
       def no_deploy_url

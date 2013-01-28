@@ -11,4 +11,4 @@ mail:
 
 # Deployment settings
 deployment:
-  url: http://url.com
+  url: http://example.com

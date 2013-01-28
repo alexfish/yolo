@@ -19,7 +19,7 @@ module Yolo
         create_yolo_dir
         unless File.exist?(yaml_path)
           @formatter.config_created(yaml_path)
-          FileUtils.mv(File.dirname(__FILE__) + "/config.yml", yaml_path)
+          FileUtils.cp_r(File.dirname(__FILE__) + "/config.yml", yaml_path)
         end
       end
 
@@ -40,7 +40,7 @@ module Yolo
       end
 
       def deploy_url
-        @yaml["deployment"]["url"] if @yaml["deployment"]["url"] and @yaml["deployment"]["url"] != "http://url.com"
+        @yaml["deployment"]["url"] if @yaml["deployment"]["url"] and @yaml["deployment"]["url"] != "http://example.com"
       end
 
       private

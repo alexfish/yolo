@@ -8,7 +8,6 @@ module Yolo
           directory = Dir.pwd
           time = Time.new
 
-
           File.open("#{directory}/release_notes.md", 'w') {|f|
             f.write("### Version\n- - -\n")
             f.write("#{xcode.version_number} (#{xcode.build_number})\n\n")

@@ -16,10 +16,10 @@ module Yolo
           # make ipa
           `/usr/bin/xcrun -sdk iphoneos PackageApplication -v #{app_path} -o #{output_directory}/#{ipa_name}.ipa`
           # move dsym
-          FileUtils.mv(dsym_path, output_directory) if dsym_path
+          FileUtils.cp_r(dsym_path, output_directory) if dsym_path
           # move release notes
           release_path = "#{Dir.pwd}/release_notes.md"
-          FileUtils.mv(release_path, output_directory) if File.exist?(release_path)
+          FileUtils.cp_r(release_path, output_directory) if File.exist?(release_path)
 
           formatter.ipa_generated("#{output_directory}/#{ipa_name}.ipa")
 

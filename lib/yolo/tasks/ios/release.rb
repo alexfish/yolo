@@ -60,9 +60,9 @@ module Yolo
         end
 
         def deploy(ipa_path)
-          klass = Object.const_get("Yolo").const_get("Deployment").const_get("#{deployment.to_s}").new
+          klass = Object.const_get("Yolo").const_get("Deployment").const_get("#{self.deployment.to_s}").new
           unless klass
-            @error_formatter.deployment_class_error(deployment.to_s)
+            @error_formatter.deployment_class_error(self.deployment.to_s)
             return
           end
 

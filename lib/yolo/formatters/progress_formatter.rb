@@ -16,6 +16,10 @@ module Yolo
         puts bold("Generating IPA")
       end
 
+      def deploying_ipa
+        puts bold("Deploying IPA")
+      end
+
       def ipa_generated(ipa)
         puts green("IPA saved to: #{ipa}")
       end
