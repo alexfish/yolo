@@ -25,7 +25,8 @@ module Yolo
       end
 
       def package
-        "{\"fileName\": \"#{self.ipa_path}\", \"password\": \"\", \"validUntil\": 1209600}"
+        filename = self.ipa_path.split("/").last
+        "{\"fileName\": \"#{filename}\", \"password\": \"\", \"validUntil\": \"2000000000\"}"
       end
 
       def upload
