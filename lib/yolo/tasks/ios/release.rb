@@ -67,7 +67,7 @@ module Yolo
           end
 
           klass.deploy(ipa_path) do |url, password|
-            puts "#{url}:#{password} ready for email"
+            # DO EMAIL
           end
         end
 

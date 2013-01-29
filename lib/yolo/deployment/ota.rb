@@ -65,7 +65,7 @@ module Yolo
         password = json["password"]
 
         @complete_block.call(url,password)
-        @progress_formatter.deploy_complete
+        @progress_formatter.deploy_complete(url,password)
       end
 
     end

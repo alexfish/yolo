@@ -48,8 +48,10 @@ module Yolo
         puts red("No new tag found")
       end
 
-      def deploy_complete
+      def deploy_complete(url,password)
         puts green("IPA deployed")
+        puts cyan("URL: #{url}")
+        puts cyan("Password: #{password}")
       end
     end
   end
