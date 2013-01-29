@@ -1,4 +1,3 @@
-require 'curb'
 require 'json'
 
 module Yolo
@@ -26,35 +25,45 @@ module Yolo
       end
 
       def package
-        "{'fileName': '#{self.ipa_path}', 'password': '', 'validUntil': 2000000000}"
+        "{\"fileName\": \"#{self.ipa_path}\", \"password\": \"\", \"validUntil\": 2000000000}"
       end
 
       def upload
-        @curl = Curl::Easy.http_post(self.url,
-                         Curl::PostField.content('fileContent', self.ipa_path),
-                         Curl::PostField.content('params', package))
-        @curl.on_complete {upload_complete}
-        @curl.perform
+        response =""
+        IO.popen("curl -s #{self.url} -X POST -F fileContent=@\"#{self.ipa_path}\" -F params='#{package}'") do |io|
+          begin
+            while line = io.readline
+              begin
+                response << line
+              rescue StandardError => e
+                 @error_formatter.deploy_failed("ParserError")
+              end
+            end
+          rescue EOFError
+            @error_formatter.deploy_failed("ParserError")
+          end
+        end
+        upload_complete(response)
       end
 
-      def upload_complete
-        response = nil
+      def upload_complete(response)
+        puts response
+        json = nil
         begin
-          puts @curl.body_str
-          response = JSON.parse(@curl.body_str)
+          json = JSON.parse(response)
           puts response #debug
         rescue JSON::ParserError
           @error_formatter.deploy_failed("\n  ParserError: Deployment server response is not JSON")
           return
         end
 
-        unless response
+        unless json
           @error_formatter.deploy_failed("\n  ParserError: Deployment server response is not JSON")
           return
         end
 
-        url = response["link"]
-        password = response["password"]
+        url = json["link"]
+        password = json["password"]
 
         @complete_block.call(url,password)
         @progress_formatter.deploy_complete
