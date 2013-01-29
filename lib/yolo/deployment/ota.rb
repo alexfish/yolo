@@ -25,7 +25,7 @@ module Yolo
       end
 
       def package
-        "{\"fileName\": \"#{self.ipa_path}\", \"password\": \"\", \"validUntil\": 2000000000}"
+        "{\"fileName\": \"#{self.ipa_path}\", \"password\": \"\", \"validUntil\": 1209600}"
       end
 
       def upload
@@ -40,7 +40,7 @@ module Yolo
               end
             end
           rescue EOFError
-            @error_formatter.deploy_failed("ParserError")
+            #@error_formatter.deploy_failed("ParserError")
           end
         end
         upload_complete(response)
