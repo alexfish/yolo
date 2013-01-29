@@ -47,11 +47,9 @@ module Yolo
       end
 
       def upload_complete(response)
-        puts response
         json = nil
         begin
           json = JSON.parse(response)
-          puts response #debug
         rescue JSON::ParserError
           @error_formatter.deploy_failed("\n  ParserError: Deployment server response is not JSON")
           return
