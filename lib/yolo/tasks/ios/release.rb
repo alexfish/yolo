@@ -38,6 +38,11 @@ module Yolo
           "#{path}/#{app_file}.dSYM"
         end
 
+        def folder_name
+          folder_name = name
+          folder_name = "#{name}-#{self.configuration}" if self.configuration
+        end
+
         def info_plist_path
           plist_path = ""
           Find.find(Dir.pwd) do |path|
@@ -77,7 +82,7 @@ module Yolo
             namespace :release do
               desc "Builds and packages a release ipa of specified scheme."
               task :ipa => :build do
-                self.bundle_directory = "#{bundle_directory}/#{name}/#{version_folder}"
+                self.bundle_directory = "#{bundle_directory}/#{folder_name}/#{version_folder}"
                 Yolo::Tools::Ios::IPA.generate(app_path,dsym_path,bundle_directory) do |ipa|
                   deploy(ipa) if ipa and self.deployment
                 end
