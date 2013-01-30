@@ -13,11 +13,19 @@ module Yolo
       end
 
       def generating_ipa
-        puts bold("Generating IPA")
+        puts
+        generating = "Generating IPA"
+        puts bold(generating)
+        puts generating.length.times.map {"="}.join
+        puts
       end
 
       def deploying_ipa
-        puts bold("Deploying IPA")
+        puts
+        deploying = "Deploying IPA"
+        puts bold(deploying)
+        puts deploying.length.times.map {"="}.join
+        puts
       end
 
       def ipa_generated(ipa)
@@ -25,7 +33,11 @@ module Yolo
       end
 
       def generating_notes
-        puts bold("Generating release notes")
+        puts
+        notes = "Generating release notes"
+        puts bold(notes)
+        puts notes.length.times.map {"="}.join
+        puts
       end
 
       def notes_generated(notes)
@@ -49,9 +61,16 @@ module Yolo
       end
 
       def deploy_complete(url,password)
-        puts green("IPA deployed")
-        puts cyan("URL: #{url}")
-        puts cyan("Password: #{password}")
+        deployed = "IPA deployed"
+        puts bold(deployed)
+        puts deployed.length.times.map {"="}.join
+        puts
+        puts green("URL")
+        puts green(url)
+        puts
+        puts green("Password")
+        puts green(password)
+        puts
       end
     end
   end
