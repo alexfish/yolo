@@ -3,9 +3,14 @@ module Yolo
     module Ios
       class Calabash < Yolo::Tasks::BaseTask
 
+        # The test report output format
         attr_accessor :format
+        # The directory to output the test reports
         attr_accessor :output_dir
 
+        #
+        # Initializes the class with default settings
+        #
         def initialize
           self.sdk = "iphonesimulator" unless sdk
           self.format = :junit
@@ -13,6 +18,9 @@ module Yolo
           super
         end
 
+        #
+        # Defines rake tasks available to the Calabash class
+        #
         def define
           super
           namespace :yolo do

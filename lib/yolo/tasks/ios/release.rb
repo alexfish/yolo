@@ -5,9 +5,14 @@ module Yolo
     module Ios
       class Release < Yolo::Tasks::BaseTask
 
+        # The email addresses used when notifying
         attr_accessor :mail_to
+        # The deployment class to use when deploying
         attr_accessor :deployment
 
+        #
+        # Initializes the class with default settings
+        #
         def initialize
           self.sdk = "iphoneos" unless sdk
           self.deployment = :OTA
@@ -18,6 +23,10 @@ module Yolo
           super
         end
 
+        #
+        # Uses Xcode to find the full path to generated app file
+        #
+        # @return [String] the path to the generated .app file
         def app_path
           files = []
           Find.find(@xcode.build_path) do |path|
@@ -26,10 +35,19 @@ module Yolo
           files.sort_by { |filename| File.mtime(filename)}.last # get the latest
         end
 
+        #
+        # The name to use for folders etc taken from the scheme or target name
+        #
+        # @return [String] a name
         def name
           self.scheme ? self.scheme : self.target
         end
 
+        #
+        # The path to the applications dSYM folder, the dSYM path is calculated by
+        # manipulating the app_path
+        #
+        # @return [String] the full path to the dSYM folder
         def dsym_path
           paths = app_path.split("/")
           app_file = paths.last
@@ -38,15 +56,31 @@ module Yolo
           "#{path}/#{app_file}.dSYM"
         end
 
+        #
+        # The full path used when saving files for the build, the path is created
+        # using the bundle_directory, folder_name and version methods combined into
+        # a single path
+        #
+        # @return [String] the path to save bundle files to
         def bundle_path
           "#{@bundle_directory}/#{folder_name}/#{version}"
         end
 
+        #
+        # The folder name to use for the build bundle directory, the name is created
+        # using the relevant scheme and build configuration
+        #
+        # @return [String] a folder name used in the bundle path
         def folder_name
           folder_name = name
           folder_name = "#{name}-#{self.configuration}" if self.configuration
         end
 
+        #
+        # The path to the info-plist file, the method persumes that the command is
+        # being called from the directory which contains the plist
+        #
+        # @return [String] the full path to the projects plist file
         def info_plist_path
           plist_path = ""
           Find.find(Dir.pwd) do |path|
@@ -55,6 +89,12 @@ module Yolo
           plist_path
         end
 
+        #
+        # The version string of the built application
+        # if the version number can not be retrieved from Xcode the current date
+        # time will be used
+        #
+        # @return [String] the applications version number
         def version
           @xcode.info_plist_path = info_plist_path
           folder = ""
@@ -67,6 +107,16 @@ module Yolo
           folder
         end
 
+        #
+        # Deploys the ipa using the defined deployment strategy, the deployment class is
+        # created using the deployment variable as the class name so it is crucial the correct
+        # class is in the project.
+        #
+        # Once deploy is succesful this method will also trigger an email notification using the
+        # OTAEmail class
+        #
+        # @param  ipa_path [String] The full path to the IPA file to deploy
+        #
         def deploy(ipa_path)
           klass = Object.const_get("Yolo").const_get("Deployment").const_get("#{self.deployment.to_s}").new
           unless klass
@@ -84,6 +134,9 @@ module Yolo
           end
         end
 
+        #
+        # Defines the rake tasks available to the class
+        #
         def define
           super
           namespace :yolo do

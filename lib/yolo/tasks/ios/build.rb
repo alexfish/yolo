@@ -2,6 +2,9 @@ module Yolo
   module Tasks
     module Ios
       class Build < Yolo::Tasks::BaseTask
+        #
+        # Defines rake tasks available to the Build class
+        #
         def define
           super
           namespace :yolo do
