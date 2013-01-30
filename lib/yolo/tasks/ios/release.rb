@@ -14,6 +14,7 @@ module Yolo
           self.bundle_directory = Yolo::Config::Settings.instance.bundle_directory
           self.deployment = :OTA
           @error_formatter = Yolo::Formatters::ErrorFormatter.new
+          @emailer = Yolo::Notify::Ios::Email.new
           super
         end
 
@@ -73,6 +74,7 @@ module Yolo
 
           klass.deploy(ipa_path) do |url, password|
             # DO EMAIL
+            @emailer.send(self.mail_to, :url => url, :password => password)
           end
         end
 
