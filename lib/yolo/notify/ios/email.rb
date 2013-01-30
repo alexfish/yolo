@@ -1,3 +1,5 @@
+require 'net/smtp'
+
 module Yolo
   module Notify
     module Ios
@@ -7,10 +9,10 @@ module Yolo
         attr_accessor :from
         attr_accessor :server
 
-        def initiliaze
-          self.server = Yolo::Config::Setting.instance.mail_host
-          self.from = Yolo::Config::Setting.instance.mail_from
-          self.to = Yolo::Config::Setting.instance.mail_to
+        def initialize
+          self.server = Yolo::Config::Settings.instance.mail_host
+          self.from = Yolo::Config::Settings.instance.mail_from
+          self.to = Yolo::Config::Settings.instance.mail_to
           @error_formatter = Yolo::Formatters::ErrorFormatter.new
         end
 
