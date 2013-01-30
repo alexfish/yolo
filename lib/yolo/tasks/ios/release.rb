@@ -5,17 +5,16 @@ module Yolo
     module Ios
       class Release < Yolo::Tasks::BaseTask
 
-        attr_accessor :bundle_directory
         attr_accessor :mail_to
         attr_accessor :deployment
 
         def initialize
           self.sdk = "iphoneos" unless sdk
-          self.bundle_directory = Yolo::Config::Settings.instance.bundle_directory
           self.deployment = :OTA
           @error_formatter = Yolo::Formatters::ErrorFormatter.new
           @emailer = Yolo::Notify::Ios::OTAEmail.new
           @xcode = Yolo::Tools::Ios::Xcode.new
+          @bundle_directory = Yolo::Config::Settings.instance.bundle_directory
           super
         end
 
@@ -37,6 +36,10 @@ module Yolo
           paths.pop
           path = paths.join("/")
           "#{path}/#{app_file}.dSYM"
+        end
+
+        def bundle_path
+          "#{@bundle_directory}/#{folder_name}/#{version}"
         end
 
         def folder_name
@@ -87,15 +90,9 @@ module Yolo
             namespace :release do
               desc "Builds and packages a release ipa of specified scheme."
               task :ipa => :build do
-                self.bundle_directory = "#{bundle_directory}/#{folder_name}/#{version}"
-                Yolo::Tools::Ios::IPA.generate(app_path,dsym_path,bundle_directory) do |ipa|
+                Yolo::Tools::Ios::IPA.generate(app_path,dsym_path,bundle_path) do |ipa|
                   deploy(ipa) if ipa and self.deployment
                 end
-              end
-
-              desc "Builds and packages a release ipa and archive of specified scheme"
-              task :ipaandarchive => :ipa do
-                #generate an archive and save to archive path
               end
 
               desc "Builds and packages a release build for the newest git tag"
@@ -120,7 +117,7 @@ module Yolo
               end
             end
 
-            desc "Builds a release build of specified scheme."
+            desc "Builds the specified scheme."
             task :build do
               xcodebuild :build
             end
