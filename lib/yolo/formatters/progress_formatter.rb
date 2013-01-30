@@ -20,11 +20,13 @@ module Yolo
         puts
       end
 
-      def deploying_ipa
+      def deploying_ipa(ipa)
         puts
         deploying = "Deploying IPA"
         puts bold(deploying)
         puts deploying.length.times.map {"="}.join
+        puts
+        puts ("#{filesize(ipa)}MB")
         puts
       end
 
@@ -83,6 +85,10 @@ module Yolo
         puts green("Password")
         puts green(password)
         puts
+      end
+
+      def filesize(file)
+        '%.2f' % (File.size(file).to_f / 2**20)
       end
     end
   end

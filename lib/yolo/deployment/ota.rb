@@ -19,7 +19,7 @@ module Yolo
           return
         end
 
-        @progress_formatter.deploying_ipa
+        @progress_formatter.deploying_ipa(self.ipa_path)
 
         upload
       end
@@ -32,16 +32,12 @@ module Yolo
       def upload
         response = ""
         IO.popen("curl -s #{self.url} -X POST -F fileContent=@\"#{self.ipa_path}\" -F params='#{package}'") do |io|
-          begin
-            while line = io.readline
-              begin
-                response << line
-              rescue StandardError => e
-                 @error_formatter.deploy_failed("ParserError")
-              end
+          while line = io.readline
+            begin
+              response << line
+            rescue StandardError => e
+               @error_formatter.deploy_failed("ParserError: #{e}")
             end
-          rescue EOFError
-            #@error_formatter.deploy_failed("ParserError")
           end
         end
         upload_complete(response)
