@@ -24,12 +24,8 @@ module Yolo
         puts red("No deploy url found, please specify one in ~/.yolo/config.yml")
       end
 
-      def no_email_server
-        puts red("Can't send mail notification, No email server set")
-      end
-
-      def no_email_to
-        puts red("Can't send mail notification, No recipient set")
+      def missing_email_details
+        puts red("Can't send mail notification, missing details")
       end
 
     end

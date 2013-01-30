@@ -14,14 +14,14 @@ module Yolo
           self.bundle_directory = Yolo::Config::Settings.instance.bundle_directory
           self.deployment = :OTA
           @error_formatter = Yolo::Formatters::ErrorFormatter.new
-          @emailer = Yolo::Notify::Ios::Email.new
+          @emailer = Yolo::Notify::Ios::OTAEmail.new
+          @xcode = Yolo::Tools::Ios::Xcode.new
           super
         end
 
         def app_path
-          xcode = Yolo::Tools::Ios::Xcode.new
           files = []
-          Find.find(xcode.build_path) do |path|
+          Find.find(@xcode.build_path) do |path|
             files << path if path =~ /.*#{name}-.*\/Build\/Products\/.*-iphoneos\/.*\.app$/
           end
           files.sort_by { |filename| File.mtime(filename)}.last # get the latest
@@ -52,12 +52,11 @@ module Yolo
           plist_path
         end
 
-        def version_folder
-          xcode = Yolo::Tools::Ios::Xcode.new
-          xcode.info_plist_path = info_plist_path
+        def version
+          @xcode.info_plist_path = info_plist_path
           folder = ""
-          folder << xcode.version_number if xcode.version_number
-          folder << "-#{xcode.build_number}" if xcode.build_number
+          folder << @xcode.version_number if @xcode.version_number
+          folder << "-#{@xcode.build_number}" if @xcode.build_number
           if folder.length == 0
             time = Time.now
             folder = "#{time.day}-#{time.month}-#{time.year}-#{time.hour}-#{time.min}-#{time.sec}"
@@ -73,8 +72,12 @@ module Yolo
           end
 
           klass.deploy(ipa_path) do |url, password|
-            # DO EMAIL
-            @emailer.send(self.mail_to, :url => url, :password => password)
+            @emailer.send(
+              :to => self.mail_to,
+              :ota_url => url,
+              :ota_password => password,
+              :subject => "New #{name} build: #{version}"
+            )
           end
         end
 
@@ -84,7 +87,7 @@ module Yolo
             namespace :release do
               desc "Builds and packages a release ipa of specified scheme."
               task :ipa => :build do
-                self.bundle_directory = "#{bundle_directory}/#{folder_name}/#{version_folder}"
+                self.bundle_directory = "#{bundle_directory}/#{folder_name}/#{version}"
                 Yolo::Tools::Ios::IPA.generate(app_path,dsym_path,bundle_directory) do |ipa|
                   deploy(ipa) if ipa and self.deployment
                 end

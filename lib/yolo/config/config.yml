@@ -4,10 +4,12 @@ paths:
   bundle_directory: "/tmp"
 
 # Email notification settings
-# No smtp support for this version..
 mail:
   host: your.server.ip
   from: example@example.com
+  account: example@example.com
+  password: example
+  port: 0
 
 # Deployment settings
 deployment:

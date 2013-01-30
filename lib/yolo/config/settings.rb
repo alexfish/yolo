@@ -27,6 +27,23 @@ module Yolo
         @yaml["paths"]["bundle_directory"]
       end
 
+      def deploy_url
+        @yaml["deployment"]["url"] if @yaml["deployment"]["url"] and @yaml["deployment"]["url"] != "http://example.com"
+      end
+
+      # email
+      def mail_account
+        @yaml["mail"]["account"] if @yaml["mail"]["account"] and @yaml["mail"]["account"] != "example@example.com"
+      end
+
+      def mail_password
+        @yaml["mail"]["password"] if @yaml["mail"]["password"]  and @yaml["mail"]["password"]  != "example"
+      end
+
+      def mail_port
+        @yaml["mail"]["port"] if @yaml["mail"]["port"] and @yaml["mail"]["port"] != 0
+      end
+
       def mail_host
         @yaml["mail"]["host"] if @yaml["mail"]["host"] and @yaml["mail"]["host"] != "your.server.ip"
       end
@@ -37,10 +54,6 @@ module Yolo
 
       def mail_from
         @yaml["mail"]["from"] if @yaml["mail"]["from"] and @yaml["mail"]["from"] != "example@example.com"
-      end
-
-      def deploy_url
-        @yaml["deployment"]["url"] if @yaml["deployment"]["url"] and @yaml["deployment"]["url"] != "http://example.com"
       end
 
       private

@@ -60,6 +60,18 @@ module Yolo
         puts red("No new tag found")
       end
 
+      def sending_email
+        puts
+        email = "Sending notification email"
+        puts bold(email)
+        puts email.length.times.map {"="}.join
+        puts
+      end
+
+      def email_sent(to)
+        puts green("Notification sent to: #{to}")
+      end
+
       def deploy_complete(url,password)
         deployed = "IPA deployed"
         puts bold(deployed)
