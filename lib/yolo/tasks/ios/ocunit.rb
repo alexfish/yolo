@@ -20,8 +20,7 @@ module Yolo
         # Overrides the superclass build_opts_string method and appends a pipe
         # if test_ouput is defined
         #
-        # @param  *additional_opts [Array] an array of additional options for the
-        # build command
+        # @param  *additional_opts [Array] an array of additional options for the build command
         #
         # @return [String] the option string with additional options and test output
         # pipe appended if defined
