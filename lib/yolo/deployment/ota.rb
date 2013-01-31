@@ -32,13 +32,17 @@ module Yolo
       def upload
         response = ""
         IO.popen("curl -s #{self.url} -X POST -F fileContent=@\"#{self.ipa_path}\" -F params='#{package}'") do |io|
-          while line = io.readline
-            begin
-              response << line
-            rescue StandardError => e
-               @error_formatter.deploy_failed("ParserError: #{e}")
+          begin
+            while line = io.readline
+              begin
+                response << line
+              rescue StandardError => e
+                 @error_formatter.deploy_failed("ParserError: #{e}")
+              end
             end
-          end
+          rescue EOFError
+            #@error_formatter.deploy_failed("ParserError")
+           end
         end
         upload_complete(response)
       end
