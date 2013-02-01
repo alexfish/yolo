@@ -5,7 +5,7 @@ module Yolo
     class ProgressFormatter < XcodeBuild::Formatters::ProgressFormatter
 
       def config_created(config)
-        puts yellow("Config file created in: #{config}")
+        puts green("Config file created in: #{config}")
       end
 
       def setup_complete
@@ -75,6 +75,7 @@ module Yolo
       end
 
       def deploy_complete(url,password)
+        puts
         deployed = "IPA deployed"
         puts bold(deployed)
         puts deployed.length.times.map {"="}.join

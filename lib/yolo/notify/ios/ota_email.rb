@@ -6,7 +6,8 @@ module Yolo
       class OTAEmail < Yolo::Notify::Email
 
         def body(opts)
-          "Subject: #{opts[:subject]}\n\nURL:\n#{opts[:ota_url]}\n\nPassword:\n#{opts[:ota_password]}\n"
+          file = File.open(§ + "/email.html", "r")
+          file.read
         end
 
       end
