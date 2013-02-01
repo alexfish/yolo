@@ -7,9 +7,17 @@ module Yolo
 
         def body(opts)
           file = File.open(File.dirname(__FILE__) + "/email.html", "r")
-          file.read
-        end
+          content = file.read
 
+          message = <<MESSAGE_END
+To: A Test User <test@todomain.com>
+MIME-Version: 1.0
+Content-type: text/html
+Subject: #{opts[:subject]}
+
+#{content}
+MESSAGE_END
+        end
       end
     end
   end
