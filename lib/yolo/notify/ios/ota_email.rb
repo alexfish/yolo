@@ -6,7 +6,7 @@ module Yolo
       class OTAEmail < Yolo::Notify::Email
 
         def body(opts)
-          file = File.open(§ + "/email.html", "r")
+          file = File.open(File.dirname(__FILE__) + "/email.html", "r")
           file.read
         end
 
