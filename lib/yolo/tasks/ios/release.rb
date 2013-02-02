@@ -129,7 +129,8 @@ module Yolo
               :to => self.mail_to,
               :ota_url => url,
               :ota_password => password,
-              :subject => "New #{name} build: #{version}"
+              :subject => "New #{name} build: #{version}",
+              :title => name
             )
           end
         end

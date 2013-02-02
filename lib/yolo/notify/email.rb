@@ -28,6 +28,7 @@ module Yolo
         opts[:server]      ||= self.server
         opts[:from]        ||= self.from
         opts[:subject]     ||= "New Build!"
+        opts[:title]       ||= "New Build!"
         opts[:body]        ||= body(opts)
         opts[:password]    ||= self.password
         opts[:account]     ||= self.account

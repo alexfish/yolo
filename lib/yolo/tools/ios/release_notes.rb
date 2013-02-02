@@ -1,3 +1,5 @@
+require 'Redcarpet'
+
 module Yolo
   module Tools
     module Ios
@@ -27,6 +29,17 @@ module Yolo
           formatter.notes_generated("#{directory}/release_notes.md")
 
           `open #{directory}/release_notes.md`
+        end
+
+        def self.html
+          notes = "#{Dir.pwd}/release_notes.md"
+          file = File.open(notes, "r")
+          file_content = file.read
+          markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
+          :autolink => true, :space_after_headers => true)
+          content = markdown.render(file_content)
+          content.gsub("\n","")
+          content
         end
       end
     end
