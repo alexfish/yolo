@@ -3,6 +3,11 @@ require 'find'
 module Yolo
   module Tasks
     module Ios
+      #
+      # Executes all release related tasks
+      #
+      # @author [Alex Fish]
+      #
       class Release < Yolo::Tasks::BaseTask
 
         # The email addresses used when notifying

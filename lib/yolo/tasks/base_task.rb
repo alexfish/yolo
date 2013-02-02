@@ -3,6 +3,11 @@ require 'rake/tasklib'
 
 module Yolo
   module Tasks
+    #
+    # A base task class to subclass from when creating tasks
+    #
+    # @author [Alex Fish]
+    #
     class BaseTask < XcodeBuild::Tasks::BuildTask
       #
       # Defines available rake tasks

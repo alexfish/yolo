@@ -1,6 +1,11 @@
 module Yolo
   module Tasks
     module Ios
+      #
+      # Executes all build related tasks
+      #
+      # @author [Alex Fish]
+      #
       class Build < Yolo::Tasks::BaseTask
         #
         # Defines rake tasks available to the Build class

@@ -1,6 +1,11 @@
 module Yolo
   module Tasks
     module Ios
+      #
+      # Executes all OCunit related tasks
+      #
+      # @author [Alex Fish]
+      #
       class OCUnit < Yolo::Tasks::BaseTask
 
         # the test_output type used when running tests, currently only supports

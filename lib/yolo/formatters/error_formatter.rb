@@ -28,6 +28,10 @@ module Yolo
         puts red("Can't send mail notification, missing details")
       end
 
+      def no_notes(notes)
+        puts red("No release notes found in the current directory: #{notes}")
+      end
+
     end
   end
 end

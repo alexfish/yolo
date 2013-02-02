@@ -1,6 +1,11 @@
 module Yolo
   module Tasks
     module Ios
+      #
+      # Executes all calabash related tasks
+      #
+      # @author [Alex Fish]
+      #
       class Calabash < Yolo::Tasks::BaseTask
 
         # The test report output format

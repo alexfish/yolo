@@ -2,6 +2,11 @@ require 'net/smtp'
 
 module Yolo
   module Notify
+    #
+    # Sends emails via SMTP
+    #
+    # @author [Alex Fish]
+    #
     class Email
 
       # An array of email addresses used in the to field

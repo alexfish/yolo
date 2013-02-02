@@ -3,7 +3,16 @@ require 'Redcarpet'
 module Yolo
   module Tools
     module Ios
+      #
+      # Generates and parses release notes for application releases
+      #
+      # @author [Alex Fish]
+      #
       module ReleaseNotes
+        #
+        # Generates a release notes markdown file in the current directory
+        # @param  plist_path [String] The full path to the applications info.plist
+        #
         def self.generate(plist_path)
           xcode = Yolo::Tools::Ios::Xcode.new
           xcode.info_plist_path = plist_path
@@ -31,8 +40,18 @@ module Yolo
           `open #{directory}/release_notes.md`
         end
 
+        #
+        # Uses Redcarpet to parse the release notes markdown file into html.
+        #
+        # @return [String] An html string representation of the current release_notes.md file
         def self.html
           notes = "#{Dir.pwd}/release_notes.md"
+          unless File.exists(notes)
+            error_formatter = Yolo::Formatters::ErrorFormatter.new
+            error_formatter.no_notes(notes)
+            return ""
+          end
+
           file = File.open(notes, "r")
           file_content = file.read
           markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
