@@ -4,13 +4,23 @@ module Yolo
   module Notify
     class Email
 
+      # An array of email addresses used in the to field
       attr_accessor :to
+      # The email address used in the from feild
       attr_accessor :from
+      # An SMTP server
       attr_accessor :server
+      # The port to use when sending mail
       attr_accessor :port
+      # The email account to use when sending mail
       attr_accessor :account
+      # The account password to use when sending mail
       attr_accessor :password
 
+      #
+      # Initilizes an instance of the class with default settings
+      # Loads defaults from Yolo::Config::Settings
+      #
       def initialize
         self.server = Yolo::Config::Settings.instance.mail_host
         self.from = Yolo::Config::Settings.instance.mail_from
@@ -23,6 +33,10 @@ module Yolo
         @progress_formatter = Yolo::Formatters::ProgressFormatter.new
       end
 
+      #
+      # Sends a nofification email using SMTP
+      # @param  opts={} [Hash] An options hash, options are: server, from, subject, title, body, password, account, port, to
+      #
       def send(opts={})
 
         opts[:server]      ||= self.server
@@ -56,6 +70,11 @@ module Yolo
         end
       end
 
+      #
+      # The body of them notification email, this method should be overwritten in subclasses
+      # to provide custom content
+      # @param  opts [Hash] A populated options hash, allows the use of options when generating email content
+      #
       def body(opts)
         ""
       end
