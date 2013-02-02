@@ -10,6 +10,5 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://rubygems.org/gems/yolo'
   s.add_runtime_dependency "xcodebuild-rb", ["= 0.2.0"]
   s.add_runtime_dependency "ocunit2junit", ["= 1.2"]
-  s.add_runtime_dependency "activerecord"
   s.add_runtime_dependency "calabash-cucumber"
 end
