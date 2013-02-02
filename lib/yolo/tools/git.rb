@@ -2,6 +2,11 @@ require 'yaml'
 
 module Yolo
   module Tools
+    #
+    # Runs git commands
+    #
+    # @author [Alex Fish]
+    #
     class Git
 
       # A unique name used to identify the project and its history

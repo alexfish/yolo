@@ -1,9 +1,19 @@
-require 'CFPropertyList'
-
 module Yolo
   module Tools
     module Ios
+      #
+      # Generates iOS IPA packages using xcrun
+      #
+      # @author [Alex Fish]
+      #
       class IPA
+        #
+        # Generates an ipa package
+        # @param  app_path [String] The full path to the .app file
+        # @param  dsym_path [String] The full path to the dSYM folder
+        # @param  output_directory [String] The full path to the ipa save destination
+        # @param  &block [Block] Block called on completion
+        #
         def self.generate(app_path,dsym_path,output_directory, &block)
           formatter = Yolo::Formatters::ProgressFormatter.new
           formatter.generating_ipa

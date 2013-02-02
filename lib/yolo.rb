@@ -1,5 +1,5 @@
 #
-# The master Yolo module wrapper which contains all of yolo's classes
+# The master Yolo module wrapper which contains all of yolo's classes and modules
 #
 # @author Alex Fish
 module Yolo
