@@ -24,7 +24,7 @@ MESSAGE_END
           content = content.gsub("YOLO.TITLE",opts[:title])
           content = content.gsub("YOLO.CONTENT",markdown)
           content = content.gsub("YOLO.PASSWORD","<h3>Password</h3><hr><p>#{opts[:ota_password]}</p>")
-          content = content.gsub("YOLO.Link",opts[:ota_url])
+          content = content.gsub("YOLO.LINK",opts[:ota_url])
           content
         end
 
