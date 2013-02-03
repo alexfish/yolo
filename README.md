@@ -34,7 +34,19 @@ It is recommended that you have [rvm](https://rvm.io/) installed and do not inst
 ## Running Tests
 
 * [OCUnit & Kiwi](https://github.com/alexefish/yolo/wiki/OCUnit-&-Kiwi)
-* [Calabash](https://github.com/alexefish/yolo/wiki/Calabash)
+* [Calabash](https://github.com/alexefish/yolo/wiki/Calabashg)
+
+## Jenkins
+Running yolo from your Jenkins jobs is very simple, the following plugins are required:
+
+* [Rake Plugin](http://wiki.jenkins-ci.org/display/JENKINS/Rake+Plugin)
+* [ruby-runtime](http://jenkins-ci.org/plugin/ruby-runtime/)
+* [rvm](https://wiki.jenkins-ci.org/display/JENKINS/RVM+Plugin)
+* [Jenkins Git Plugin](http://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin)
+
+You can then simply add a rake build step to execute yolo rake tasks, e.g:
+
+![Jenkins Setup](http://i.imgur.com/7zm05pT.png)
 
 ## License 
 
