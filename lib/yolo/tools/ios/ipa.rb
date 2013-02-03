@@ -12,7 +12,7 @@ module Yolo
         # @param  app_path [String] The full path to the .app file
         # @param  dsym_path [String] The full path to the dSYM folder
         # @param  output_directory [String] The full path to the ipa save destination
-        # @param  &block [Block] Block called on completion
+        # @param  block [Block] Block called on completion
         #
         def self.generate(app_path,dsym_path,output_directory, &block)
           formatter = Yolo::Formatters::ProgressFormatter.new

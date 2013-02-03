@@ -2,16 +2,32 @@ require 'json'
 
 module Yolo
   module Deployment
+
+    #
+    # Deploys IPA's using ustwo's OTA
+    #
+    # @author [Alex Fish]
+    #
     class OTA < Yolo::Deployment::BaseDeployer
 
+      #
+      # Creates a new OTA instance
+      #
+      # @return [OTA] A new OTA deployer instance
       def initialize
         @error_formatter = Yolo::Formatters::ErrorFormatter.new
         @progress_formatter = Yolo::Formatters::ProgressFormatter.new
         super
       end
 
-      def deploy(ipa_path, &block)
-        self.ipa_path = ipa_path
+
+      #
+      # Overides the super deploy method
+      # @param  package_path [String] A full path to the package to deploy
+      # @param  block [Block] Block fired on completing
+      #
+      def deploy(package_path, &block)
+        self.package_path = package_path
         @complete_block = block
 
         unless self.url
@@ -19,19 +35,26 @@ module Yolo
           return
         end
 
-        @progress_formatter.deploying_ipa(self.ipa_path)
+        @progress_formatter.deploying_ipa(self.package_path)
 
         upload
       end
 
+      #
+      # Creates a json package for the OTA uploader params
+      #
+      # @return [String] A JSON string package
       def package
-        filename = self.ipa_path.split("/").last
+        filename = self.package_path.split("/").last
         "{\"fileName\": \"#{filename}\", \"password\": \"\", \"validUntil\": \"2000000000\"}"
       end
 
+      #
+      # Uploades the package using CURL
+      #
       def upload
         response = ""
-        IO.popen("curl -s #{self.url} -X POST -F fileContent=@\"#{self.ipa_path}\" -F params='#{package}'") do |io|
+        IO.popen("curl -s #{self.url} -X POST -F fileContent=@\"#{self.package_path}\" -F params='#{package}'") do |io|
           begin
             while line = io.readline
               begin
@@ -47,6 +70,10 @@ module Yolo
         upload_complete(response)
       end
 
+      #
+      # Method called when the upload is complete, parses the json response form OTA which contains the package url and password
+      # @param  response [String] The OTA servers response
+      #
       def upload_complete(response)
         json = nil
         begin

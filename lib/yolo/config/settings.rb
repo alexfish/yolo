@@ -4,10 +4,18 @@ require 'fileutils'
 
 module Yolo
   module Config
+    #
+    # The Settings Singleton class provides yolo with a number of configurable settings using a config.yml file written to the users home directory
+    #
+    # @author [Alex Fish]
+    #
     class Settings
 
       include Singleton
 
+      #
+      # Creates a new Settings instance with default settings, also checks for the presence of a settings file in the users home directory
+      #
       def initialize
         @formatter = Yolo::Formatters::ProgressFormatter.new
         @error = Yolo::Formatters::ErrorFormatter.new
@@ -15,6 +23,9 @@ module Yolo
         @yaml = YAML::load_file yaml_path
       end
 
+      #
+      # Moves the config.yml settings file into the usrs home directory
+      #
       def load_config
         create_yolo_dir
         unless File.exist?(yaml_path)
@@ -23,41 +34,67 @@ module Yolo
         end
       end
 
+      #
+      # The bundle_directory option is the directory which applications are bundled too
+      #
+      # @return [String] The bundle_directory path defined in config.yml
       def bundle_directory
         @yaml["paths"]["bundle_directory"]
       end
 
+      #
+      # The deploy_url is the target url used when deploying
+      #
+      # @return [String] The deployment url defined in config.yml
       def deploy_url
         @yaml["deployment"]["url"] if @yaml["deployment"]["url"] and @yaml["deployment"]["url"] != "http://example.com"
       end
 
-      # email
+      #
+      # The mail account is the account used when sending SMTP mail
+      #
+      # @return [String] The mail account defined in config.yml
       def mail_account
         @yaml["mail"]["account"] if @yaml["mail"]["account"] and @yaml["mail"]["account"] != "example@example.com"
       end
 
+      #
+      # The mail password is the password used when sending SMTP mail
+      #
+      # @return [String] The mail password defined in config.yml
       def mail_password
         @yaml["mail"]["password"] if @yaml["mail"]["password"]  and @yaml["mail"]["password"]  != "example"
       end
 
+      #
+      # The mail port used when sending SMTP mail
+      #
+      # @return [Number] The mail port defined in config.yml
       def mail_port
         @yaml["mail"]["port"] if @yaml["mail"]["port"] and @yaml["mail"]["port"] != 0
       end
 
+      #
+      # The mail host used when sending SMTP mail
+      #
+      # @return [String] The mail host defined in config.yml
       def mail_host
         @yaml["mail"]["host"] if @yaml["mail"]["host"] and @yaml["mail"]["host"] != "your.server.ip"
       end
 
-      def mail_to
-        @yaml["mail"]["to"] if @yaml["mail"]["to"] and @yaml["mail"]["to"] != "example@example.com"
-      end
-
+      #
+      # The email address that SMTP mails are sent from
+      #
+      # @return [String] The from address defined in config.yml
       def mail_from
         @yaml["mail"]["from"] if @yaml["mail"]["from"] and @yaml["mail"]["from"] != "example@example.com"
       end
 
       private
 
+      #
+      # Checks for the existance of the config directory in the users home directory and creates it if not present
+      #
       def check_config
         unless File.directory?(yolo_dir) and File.exist?(yaml_path)
           @error.run_setup
@@ -66,18 +103,33 @@ module Yolo
         end
       end
 
+      #
+      # The path to the users home directory, same as ~
+      #
+      # @return [String] The full path to the current users home directory
       def user_directory
         File.expand_path('~')
       end
 
+      #
+      # The path to the users config.yml
+      #
+      # @return [String] The full path to the users config.yml file in their home directory
       def yaml_path
         "#{user_directory}/.yolo/config.yml"
       end
 
+      #
+      # The path to the users .yolo directory, this is directory which contains config.yml
+      #
+      # @return [String] The full path to the users .yolo directory
       def yolo_dir
         "#{user_directory}/.yolo"
       end
 
+      #
+      # Creates the .yolo directory in the users home directory (~)
+      #
       def create_yolo_dir
         unless File.directory?(yolo_dir)
           FileUtils.mkdir_p(yolo_dir)

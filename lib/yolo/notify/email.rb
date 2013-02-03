@@ -40,7 +40,7 @@ module Yolo
 
       #
       # Sends a nofification email using SMTP
-      # @param  opts={} [Hash] An options hash, options are: server, from, subject, title, body, password, account, port, to
+      # @param  opts [Hash] An options hash, options are: server, from, subject, title, body, password, account, port, to
       #
       def send(opts={})
 
