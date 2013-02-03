@@ -33,9 +33,8 @@ It is recommended that you have [rvm](https://rvm.io/) installed and do not inst
 
 ## Running Tests
 
-* OCUnit & Kiwi
-
-* Calabash
+* [OCUnit & Kiwi](https://github.com/alexefish/yolo/wiki/OCUnit-&-Kiwi)
+* [Calabash](https://github.com/alexefish/yolo/wiki/Calabash)
 
 ## License 
 
