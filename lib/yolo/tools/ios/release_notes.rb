@@ -46,7 +46,7 @@ module Yolo
         # @return [String] An html string representation of the current release_notes.md file
         def self.html
           notes = "#{Dir.pwd}/release_notes.md"
-          unless File.exists(notes)
+          unless File.exist?(notes)
             error_formatter = Yolo::Formatters::ErrorFormatter.new
             error_formatter.no_notes(notes)
             return ""

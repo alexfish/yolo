@@ -29,7 +29,6 @@ module Yolo
       def initialize
         self.server = Yolo::Config::Settings.instance.mail_host
         self.from = Yolo::Config::Settings.instance.mail_from
-        self.to = Yolo::Config::Settings.instance.mail_to
         self.port = Yolo::Config::Settings.instance.mail_port
         self.account = Yolo::Config::Settings.instance.mail_account
         self.password = Yolo::Config::Settings.instance.mail_password
