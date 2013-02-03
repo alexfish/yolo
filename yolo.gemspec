@@ -3,7 +3,7 @@ Gem::Specification.new do |s|
   s.version     = '1.0.0'
   s.date        = Date.today.to_s
   s.summary     = "YOLO!"
-  s.description = "A ruby interface to Continuous integration"
+  s.description = "yolo is a RubyGem which provides a Ruby interface to Continuous Integration build tools. yolo is currently geared towards the Xcode toolchain and iOS development."
   s.authors     = ["Alex Fish"]
   s.email       = 'alex@alexefish.com'
   s.files        = Dir['Rakefile', '{bin,lib,test,spec}/**/*', 'README*', 'LICENSE*'] & `git ls-files -z`.split("\0")
