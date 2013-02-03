@@ -13,17 +13,17 @@ module Yolo
         def define
           super
           namespace :yolo do
-            desc "Builds the specified target(s)."
+            desc "Builds the specified scheme(s)."
             task :build do
               xcodebuild :build
             end
 
-            desc "Cleans the specified target(s)."
+            desc "Cleans the specified scheme(s)."
             task :clean do
               xcodebuild :clean
             end
 
-            desc "Builds the specified target(s) from a clean slate."
+            desc "Builds the specified scheme(s) from a clean slate."
             task :cleanbuild => [:clean, :build]
           end
         end

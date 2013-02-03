@@ -30,17 +30,17 @@ module Yolo
           super
           namespace :yolo do
             namespace :calabash do
-              desc "Runs the specified target(s) calabash tests."
+              desc "Runs the specified scheme(s) calabash tests."
               task :test do
                 Yolo::Tools::Ios::Calabash.run(format, output_dir)
               end
 
-              desc "Cleans the specified target(s)."
+              desc "Cleans the specified scheme(s)."
               task :clean do
                 xcodebuild :clean
               end
 
-              desc "Runs the specified target(s) calabash tests from a clean slate."
+              desc "Runs the specified scheme(s) calabash tests from a clean slate."
               task :cleantest => [:clean, :test]
             end
           end
