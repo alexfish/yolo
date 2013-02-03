@@ -23,53 +23,18 @@ It is recommended that you have [rvm](https://rvm.io/) installed and do not inst
 
 ## Getting Started
 
-### Quick Start
-Create a `Rakefile` in the root of your Xcode project, here is an example of a basic Rakefile with a Build task:
-
-    require 'yolo'
-
-    Yolo::Tasks::Ios::Build.new do |t|
-      t.workspace = "MyProject.xcworkspace"
-      t.scheme = "MyProject"
-    end
-
-You may now run `rake -T` to output all available rake tasks. 
-
-    rake yolo:build       # Builds the specified scheme(s).
-    rake yolo:clean       # Cleans the specified scheme(s).
-    rake yolo:cleanbuild  # Builds the specified scheme(s) from a clean slate.
-    rake yolo:setup       # Sets up yolo and moves config into place
+* [Quick Start](https://github.com/alexefish/yolo/wiki/Quick-Start)
+* [Configuration](https://github.com/alexefish/yolo/wiki/Configuration)
 
 ## Advanced topics
 
-### Configuration
+* Release builds
 
-Yolo will create a configuration file in `~/.yolo/config.yml` the first time you execute a rake command or call `rake yolo:setup`. The configuration file defines a number of default options:
+* Deployment
 
-    # The directory which applications are bundled to
-    # e.g /my/bundle/directory
-    paths:
-      bundle_directory: "/tmp"
+* OCUnit & Kiwi
 
-    # Email notification settings
-    mail:
-      host: your.server.ip
-      from: example@example.com
-      account: example@example.com
-      password: example
-      port: 0
-
-    # Deployment settings
-    deployment:
-      url: http://example.com
-
-### Release builds
-
-### Deployment
-
-### OCUnit & Kiwi
-
-### Calabash
+* Calabash
 
 ## License 
 
