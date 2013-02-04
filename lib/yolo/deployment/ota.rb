@@ -26,7 +26,7 @@ module Yolo
       # @param  package_path [String] A full path to the package to deploy
       # @param  block [Block] Block fired on completing
       #
-      def deploy(package_path, &block)
+      def deploy(package_path, dysm_path, &block)
         self.package_path = package_path
         @complete_block = block
 

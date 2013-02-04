@@ -129,14 +129,16 @@ module Yolo
             return
           end
 
-          klass.deploy(ipa_path) do |url, password|
-            @emailer.send(
-              :to => self.mail_to,
-              :ota_url => url,
-              :ota_password => password,
-              :subject => "New #{name} build: #{version}",
-              :title => name
-            )
+          klass.deploy(ipa_path, dsym_path) do |url, password|
+            if url and password
+              @emailer.send(
+                :to => self.mail_to,
+                :ota_url => url,
+                :ota_password => password,
+                :subject => "New #{name} build: #{version}",
+                :title => name
+              )
+            end
           end
         end
 

@@ -14,3 +14,4 @@ mail:
 # Deployment settings
 deployment:
   url: http://example.com
+  apitoken: example

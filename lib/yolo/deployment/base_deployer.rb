@@ -23,9 +23,10 @@ module Yolo
       #
       # Deploys the package, all deployer subclasses must implement this method
       # @param  package_path [String] A full path to the package to deploy
+      # @param  dsym_path [String] A full path to the package dsym
       # @param  block [Block] Block fired on completing
       #
-      def deploy(package_path, &block)
+      def deploy(package_path, dsym_path, &block)
       end
 
     end
