@@ -10,3 +10,4 @@ end
 
 require 'yolo/deployment/base_deployer'
 require 'yolo/deployment/ota'
+require 'yolo/deployment/test_flight'
