@@ -24,7 +24,7 @@ It is recommended that you have [rvm](https://rvm.io/) installed and do not inst
 ## Getting Started
 
 * [Quick Start](https://github.com/alexefish/yolo/wiki/Quick-Start)
-* [Configuration](https://github.gcom/alexefish/yolo/wiki/Configuration)
+* [Configuration](https://github.com/alexefish/yolo/wiki/Configuration)
 
 ## Release Builds
 
