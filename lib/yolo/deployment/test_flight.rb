@@ -17,15 +17,7 @@ module Yolo
       #
       def deploy(package_path, dsym_path, opts={}, &block)
         response = ""
-        IO.popen("curl -s http://testflightapp.com/api/builds.json
-          -F file=@#{package_path}
-          -F dsym=@#{dsym_path}
-          -F api_token=#{api_token}
-          -F team_token=#{team_token(opts)}
-          -F notes=#{notes}
-          -F notify=#{notify(opts)}
-          -F distribution_lists=#{distribution_lists(opts)}
-           ") do |io|
+        IO.popen(curl_string(package_path, dsym_path, opts)) do |io|
           begin
             while line = io.readline
               begin
@@ -38,7 +30,7 @@ module Yolo
             #@error_formatter.deploy_failed("ParserError")
            end
         end
-        upload_complete(response)
+        block.call()
       end
 
       private
@@ -99,8 +91,17 @@ module Yolo
       # @return [String] The release notes
       def notes
         notes = Yolo::Tools::Ios::ReleaseNotes.html
-        notes = "" unless notes
+        notes = "No notes provided" unless notes
         notes
+      end
+
+      #
+      # Generates the CURL command string for test flight distribution
+      # @param  opts [Hash] The options array
+      #
+      # @return [String] The CURL command
+      def curl_string(package_path, dsym_path, opts)
+        "curl -X POST http://testflightapp.com/api/builds.json -F file=@#{package_path} -F dsym=@#{dsym_path} -F api_token=#{api_token} -F team_token=#{team_token(opts)} -F notes=#{notes} -F notify=#{notify(opts)} -F distribution_lists=#{distribution_lists(opts)}"
       end
 
     end
