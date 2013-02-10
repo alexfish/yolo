@@ -58,8 +58,8 @@ module Yolo
 
         url = json["install_url"]
 
-        @completion_block.call(url)
-        @progress_formatter.deploy_complete(url)
+        @completion_block.call(url,nil)
+        @progress_formatter.deploy_complete(url,nil)
       end
 
       #
