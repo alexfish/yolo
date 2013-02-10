@@ -20,13 +20,13 @@ module Yolo
         IO.popen("curl -s http://testflightapp.com/api/builds.json
           -F file=@#{package_path}
           -F dsym=@#{dsym_path}
-          -F api_token=@#{api_token}
-          -F team_token=@#{opts[:team_token]}
-          -F notes=@#{notes}
-          -F notify=@#{opts[:notify]}
-          -F distribution_lists=@#{opts[:distribution_lists].join(",")}
+          -F api_token=#{api_token}
+          -F team_token=#{opts[:team_token]}
+          -F notes=#{notes}
+          -F notify=#{opts[:notify]}
+          -F distribution_lists=#{opts[:distribution_lists].join(",")}
            ")
-        do |io|
+        do |io|g
           begin
             while line = io.readline
               begin
