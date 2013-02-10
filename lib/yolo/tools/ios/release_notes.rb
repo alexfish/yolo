@@ -51,7 +51,11 @@ module Yolo
             error_formatter.no_notes(notes)
             return ""
           end
-          notes
+
+          file = File.open(notes, "r")
+          file_content = file.read
+
+          file_content
         end
 
         #

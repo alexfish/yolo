@@ -24,11 +24,10 @@ module Yolo
       #
       # Overides the super deploy method
       # @param  package_path [String] A full path to the package to deploy
-      # @param  dsym_path [String] A full path to the package dsym
       # @param  opts [Hash] A hash of deployment options
       # @param  block [Block] Block fired on completing
       #
-      def deploy(package_path, dsym_path, opts={}, &block)
+      def deploy(package_path, opts={}, &block)
         self.package_path = package_path
         @complete_block = block
 

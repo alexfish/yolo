@@ -54,6 +54,13 @@ module Yolo
       end
 
       #
+      # Outputs a red string stating that no team token is defined
+      #
+      def no_team_token
+        puts red("No team token is defined in config.yml")
+      end
+
+      #
       # Outputs a red string stating that email notification failed because of missing details
       #
       def missing_email_details

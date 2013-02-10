@@ -60,6 +60,14 @@ module Yolo
       end
 
       #
+      # The team token used for deployment
+      #
+      # @return [String] The team token defined in config.yml
+      def team_token
+        @yaml["deployment"]["team_token"] if @yaml["deployment"]["team_token"] and @yaml["deployment"]["teamt_oken"] != "example"
+      end
+
+      #
       # The mail account is the account used when sending SMTP mail
       #
       # @return [String] The mail account defined in config.yml
@@ -118,6 +126,13 @@ module Yolo
           @yaml = YAML::load_file yaml_path
           unless @yaml["deployment"]["api_token"]
             @yaml["deployment"]["api_token"] = "example"
+            File.open(yaml_path, 'w') {|f|
+              f.write(@yaml.to_yaml)
+            }
+            @formatter.config_updated(yaml_path)
+          end
+          unless @yaml["deployment"]["team_token"]
+            @yaml["deployment"]["team_token"] = "example"
             File.open(yaml_path, 'w') {|f|
               f.write(@yaml.to_yaml)
             }
