@@ -147,9 +147,11 @@ module Yolo
         puts green("URL")
         puts green(url)
         puts
-        puts green("Password")
-        puts green(password)
-        puts
+        if password
+          puts green("Password")
+          puts green(password)
+          puts
+        end
       end
 
       #
