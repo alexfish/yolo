@@ -130,7 +130,7 @@ module Yolo
       #
       # @return [String] The CURL command
       def curl_string(package_path, opts)
-        string = "curl http://testflightapp.com/api/builds.json -X POST "
+        string = "curl http://testflightapp.com/api/builds.json -X POST -# "
         string = string + "-F file=@#{package_path} "
         string = string + "-F api_token='#{api_token}' " if api_token.length > 0
         string = string + "-F team_token='#{team_token}' " if team_token.length > 0
