@@ -20,6 +20,7 @@ module Yolo
         @formatter = Yolo::Formatters::ProgressFormatter.new
         @error = Yolo::Formatters::ErrorFormatter.new
         check_config
+        update_config
         @yaml = YAML::load_file yaml_path
       end
 
@@ -49,6 +50,14 @@ module Yolo
       def deploy_url
         @yaml["deployment"]["url"] if @yaml["deployment"]["url"] and @yaml["deployment"]["url"] != "http://example.com"
       end
+
+      #
+      # The api token used for deployment
+      #
+      # @return [String] The api token defined in config.yml
+      def api_token
+        @yaml["deployment"]["api_token"] if @yaml["deployment"]["api_token"] and @yaml["deployment"]["api_token"] != "example"
+      private
 
       #
       # The mail account is the account used when sending SMTP mail
@@ -90,8 +99,6 @@ module Yolo
         @yaml["mail"]["from"] if @yaml["mail"]["from"] and @yaml["mail"]["from"] != "example@example.com"
       end
 
-      private
-
       #
       # Checks for the existance of the config directory in the users home directory and creates it if not present
       #
@@ -100,6 +107,22 @@ module Yolo
           @error.run_setup
           load_config
           @formatter.setup_complete
+        end
+      end
+
+      #
+      # Checks the config file is update to the latest and adds any options that are missing
+      #
+      def update_config
+        if File.directory?(yolo_dir) and File.exist?(yaml_path)
+          @yaml = YAML::load_file yaml_path
+          unless @yaml["deployment"]["api_token"]
+            @yaml["deployment"]["api_token"] = "example"
+            File.open(yaml_path, 'w') {|f|
+              f.write(@yaml.to_yaml)
+            }
+            @formatter.config_updated(yaml_path)
+          end
         end
       end
 

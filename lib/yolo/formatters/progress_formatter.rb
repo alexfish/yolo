@@ -25,6 +25,14 @@ module Yolo
       end
 
       #
+      # Outputs a green string stating that the config file was updated
+      # @param  config [String] The path to the config file
+      #
+      def config_updated(config)
+        puts green("Config updated at: #{config}")
+      end
+
+      #
       # Outputs an underlined bold string stating that the ipa is being generated
       #
       def generating_ipa

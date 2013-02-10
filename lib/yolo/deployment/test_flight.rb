@@ -25,8 +25,7 @@ module Yolo
           -F notes=#{notes}
           -F notify=#{opts[:notify]}
           -F distribution_lists=#{opts[:distribution_lists].join(",")}
-           ")
-        do |io|g
+           ") do |io|
           begin
             while line = io.readline
               begin
