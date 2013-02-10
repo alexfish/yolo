@@ -47,6 +47,13 @@ module Yolo
       end
 
       #
+      # Outputs a red string stating that no API token is defined
+      #
+      def no_api_token
+        puts red("No API token is defined in config.yml")
+      end
+
+      #
       # Outputs a red string stating that email notification failed because of missing details
       #
       def missing_email_details

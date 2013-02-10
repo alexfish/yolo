@@ -57,7 +57,7 @@ module Yolo
       # @return [String] The api token defined in config.yml
       def api_token
         @yaml["deployment"]["api_token"] if @yaml["deployment"]["api_token"] and @yaml["deployment"]["api_token"] != "example"
-      private
+      end
 
       #
       # The mail account is the account used when sending SMTP mail

@@ -28,7 +28,7 @@ module Yolo
       # @param  opts [Hash] A hash of deployment options
       # @param  block [Block] Block fired on completing
       #
-      def deploy(package_path, dysm_path, opts={}, &block)
+      def deploy(package_path, dsym_path, opts={}, &block)
         self.package_path = package_path
         @complete_block = block
 
