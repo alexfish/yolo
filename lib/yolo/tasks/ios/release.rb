@@ -14,6 +14,8 @@ module Yolo
         attr_accessor :mail_to
         # The deployment class to use when deploying
         attr_accessor :deployment
+        # A Hash of additional options
+        attr_accessor :options
 
         #
         # Initializes the class with default settings
@@ -129,7 +131,7 @@ module Yolo
             return
           end
 
-          klass.deploy(ipa_path, dsym_path) do |url, password|
+          klass.deploy(ipa_path, dsym_path, options) do |url, password|
             if url and password
               @emailer.send(
                 :to => self.mail_to,

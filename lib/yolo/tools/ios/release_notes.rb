@@ -41,6 +41,20 @@ module Yolo
         end
 
         #
+        # Returns a plaintext string of the release notes file
+        #
+        # @return [String] The release notes as plain text
+        def self.plaintext
+          notes = "#{Dir.pwd}/release_notes.md"
+          unless File.exist?(notes)
+            error_formatter = Yolo::Formatters::ErrorFormatter.new
+            error_formatter.no_notes(notes)
+            return ""
+          end
+          notes
+        end
+
+        #
         # Uses Redcarpet to parse the release notes markdown file into html.
         #
         # @return [String] An html string representation of the current release_notes.md file
