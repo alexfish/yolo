@@ -34,7 +34,7 @@ It is recommended that you have [rvm](https://rvm.io/) installed and do not inst
 ## Running Tests
 
 * [OCUnit & Kiwi](https://github.com/alexefish/yolo/wiki/OCUnit-&-Kiwi)
-* [Calabash](https://github.com/alexefish/yolo/wiki/Calabashg)
+* [Calabash](https://github.com/alexefish/yolo/wiki/Calabash)
 
 ## Jenkins
 Running yolo from your Jenkins jobs is very simple, the following plugins are required:
