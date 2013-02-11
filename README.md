@@ -40,7 +40,6 @@ It is recommended that you have [rvm](https://rvm.io/) installed and do not inst
 Running yolo from your Jenkins jobs is very simple, the following plugins are required:
 
 * [Rake Plugin](http://wiki.jenkins-ci.org/display/JENKINS/Rake+Plugin)
-* [ruby-runtime](http://jenkins-ci.org/plugin/ruby-runtime/)
 * [rvm](https://wiki.jenkins-ci.org/display/JENKINS/RVM+Plugin)
 * [Jenkins Git Plugin](http://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin)
 
