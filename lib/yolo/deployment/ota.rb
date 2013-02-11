@@ -55,7 +55,6 @@ module Yolo
       #
       def upload
         response = ""
-        puts "URL: #{self.url}"
         IO.popen("curl #{self.url} -X POST -# -F fileContent=@\"#{self.package_path}\" -F params='#{package}'") do |io|
           begin
             while line = io.readline
