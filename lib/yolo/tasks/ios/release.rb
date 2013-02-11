@@ -179,11 +179,11 @@ module Yolo
               task :notes do
                 Yolo::Tools::Ios::ReleaseNotes.generate(info_plist_path)
               end
-            end
 
-            desc "Builds the specified scheme."
-            task :build do
-              xcodebuild :build
+              desc "Builds the specified release scheme."
+              task :build do
+                xcodebuild :build
+              end
             end
           end
         end
