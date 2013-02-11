@@ -31,13 +31,18 @@ module Yolo
           namespace :yolo do
             namespace :calabash do
               desc "Runs the specified scheme(s) calabash tests."
-              task :test do
+              task :test => :build do
                 Yolo::Tools::Ios::Calabash.run(format, output_dir)
               end
 
               desc "Cleans the specified scheme(s)."
               task :clean do
                 xcodebuild :clean
+              end
+
+              desc "Builds the specified scheme(s)."
+              task :build do
+                xcodebuild :build
               end
 
               desc "Runs the specified scheme(s) calabash tests from a clean slate."
