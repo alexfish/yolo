@@ -13,7 +13,7 @@ module Yolo
       # Outputs a red string stating that the info.plist file could not be found
       #
       def info_plist_not_found
-        puts red("Can't locate Info.plist")
+        puts red("Can't locate Info.plist, is it in your project root?")
       end
 
       #
