@@ -174,7 +174,7 @@ module Yolo
       #
       # @return [String] git log's output
       def log
-        `git log #{current_branch} --decorate=short -n 1 --pretty=oneline`
+        `git log --decorate=short -n 1 --pretty=oneline`
       end
 
       #
