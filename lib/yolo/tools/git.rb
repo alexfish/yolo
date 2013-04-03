@@ -122,7 +122,7 @@ module Yolo
       #
       # @return [String] The tag
       def latest_tag
-        match = log.scan(/tag:\sv?[0-9]*\.[0-9]*[\.[0-9]*]*[[a-zA-Z]*]?/).first
+        match = log.scan(/tag:\sv?[0-9]*\.[0-9]*\.[0-9]*[a-zA-Z]*?/).first
         if match.nil?
           ""
         else
