@@ -10,6 +10,13 @@ module Yolo
     class ErrorFormatter < XcodeBuild::Formatters::ProgressFormatter
 
       #
+      # Outputs a red string stating that the required directory paths are missing
+      #
+      def coverage_directory_error
+        puts red("Aborting coverage calculation, coverage requires a build path and output directory")
+      end
+
+      #
       # Outputs a red string stating that the info.plist file could not be found
       #
       def info_plist_not_found
