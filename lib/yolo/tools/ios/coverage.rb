@@ -13,7 +13,7 @@ module Yolo
         # @param  output_dir = "" [String] Folder destination to output the report file too
         #
         # @return [type] [description]
-        def self.run(build_path = "", output_dir = "")
+        def self.calculate(build_path = "", output_dir = "")
           error_formatter = Yolo::Formatters::ErrorFormatter.new
           if build_path.length == 0 or output_dir.length == 0
             error_formatter.coverage_directory_error

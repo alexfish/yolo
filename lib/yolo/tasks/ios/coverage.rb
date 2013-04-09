@@ -42,7 +42,7 @@ module Yolo
 
               desc "Calculates the specified scheme(s) test coverage."
               task :calculate => :build do
-                Yolo::Tools::Ios::Coverage.generate(build_path, Dir.pwd)
+                Yolo::Tools::Ios::Coverage.calculate(build_path.gsub(" ", "\\ "), Dir.pwd)
               end
 
               desc "Cleans the specified scheme(s)."
