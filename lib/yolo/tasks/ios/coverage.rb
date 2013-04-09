@@ -25,7 +25,8 @@ module Yolo
           Find.find(@xcode.build_path) do |path|
             files << path if path =~ /.*#{name}-.*\/Build\/Intermediates\/#{name}.build\/.*-iphoneos\/#{name}.build\/Objects-normal/
           end
-          files.sort_by { |filename| File.mtime(filename)}.last # get the latest
+          latest = files.sort_by { |filename| File.mtime(filename)}.last # get the latest
+          latest.split("/")[0..-2].join("/") # remove the file and get the dir
         end
 
         #
