@@ -54,7 +54,7 @@ module Yolo
         #
         # @return [Hash] A hash representation of the instances info.plist
         def info_plist
-          if info_plist_path
+          if info_plist_path.length > 0
             plist = CFPropertyList::List.new(:file => info_plist_path)
             CFPropertyList.native_types(plist.value)
           else

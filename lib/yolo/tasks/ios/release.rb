@@ -43,14 +43,6 @@ module Yolo
         end
 
         #
-        # The name to use for folders etc taken from the scheme or target name
-        #
-        # @return [String] a name
-        def name
-          self.scheme ? self.scheme : self.target
-        end
-
-        #
         # The path to the applications dSYM folder, the dSYM path is calculated by
         # manipulating the app_path
         #
