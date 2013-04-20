@@ -23,9 +23,10 @@ module Yolo
         def build_path
           files = []
           Find.find(@xcode.build_path) do |path|
-            files << path if path =~ /.*#{name}-.*\/Build\/Intermediates\/#{name}.build\/.*-iphoneos\/#{name}.build\/Objects-normal/
+            files << path if path =~ /.*#{name}-.*\/Build\/Intermediates\/#{name}.build\/.*-iphonesimulator\/#{name}.build\/Objects-normal/
           end
-          files.sort_by { |filename| File.mtime(filename)}.last # get the latest
+          latest = files.sort_by { |filename| File.mtime(filename)}.last # get the latest
+          latest.split("/")[0..-2].join("/") # remove the file and get the dir
         end
 
         #
@@ -35,23 +36,10 @@ module Yolo
           super
           namespace :yolo do
             namespace :coverage do
-              desc "Builds the specified scheme(s)."
-              task :build => :clean do
-                xcodebuild :build
-              end
-
               desc "Calculates the specified scheme(s) test coverage."
-              task :calculate => :build do
+              task :calculate do
                 Yolo::Tools::Ios::Coverage.calculate(build_path.gsub(" ", "\\ "), Dir.pwd)
               end
-
-              desc "Cleans the specified scheme(s)."
-              task :clean do
-                xcodebuild :clean
-              end
-
-              desc "Builds the specified scheme(s) from a clean slate."
-              task :cleanbuild => [:clean, :build]
             end
           end
         end
