@@ -5,6 +5,8 @@ describe Yolo::Tools::Git do
 
   before do
     @git = Yolo::Tools::Git.new
+    @git.project_name = "test"
+    YAML.stub!(:load_file){{}}
     Yolo::Formatters::ProgressFormatter.any_instance.stub(:puts)
   end
 
@@ -44,27 +46,77 @@ describe Yolo::Tools::Git do
     end
   end
 
-  pending "should keep track of the latest tag" do
+  describe "when updating tags and commits" do
+
+    before do
+      @git.stub(:save_yaml)
+    end
+
+    it "should keep track of the latest tag" do
+      @git.instance_eval{update_tag("new tag")}
+      @git.tag.should match("new tag")
+    end
+
+    it "should keep track of the latest commit" do
+      @git.instance_eval{update_commit("new commit")}
+      @git.commit.should match("new commit")
+    end
+
+    it "should store the latest tag" do
+      @git.instance_eval{update_tag("new tag")}
+      @git.instance_eval{yaml_tag}.should match("new tag")
+    end
+
+    it "should store the latest commit" do
+      @git.instance_eval{update_commit("new commit")}
+      @git.instance_eval{yaml_commit}.should match("new commit")
+    end
+
   end
 
-  pending "should keep track of the latest commit" do
+  describe "when saving data" do
+    it "should save data to disk" do
+      test_file = mock(File)
+      test_file.stub(:write)
+      File.stub(:open).and_yield(test_file)
+      test_file.should_receive(:write)
+
+      @git.instance_eval{save_yaml}
+    end
   end
 
-  pending "should store the latest tag" do
-  end
+  describe "when checking for new data" do
 
-  pending "should store the latest commit" do
-  end
+    it "should use git log" do
+      @git.should_receive(:`).with(/git log/)
+      @git.instance_eval{log}
+    end
 
-  pending "should save data to disk" do
-  end
+    it "should get the latest tag" do
+      @git.stub(:log){"tag: v1.0, head, tag: v1.3.1"}
+      @git.instance_eval{latest_tag}.should eq("v1.0")
+    end
 
-  pending "should get the latest tag" do
-  end
+    it "should recognise invalid tags" do
+      @git.stub(:log){"junk"}
+      @git.instance_eval{latest_tag}.should eq("")
+    end
 
-  pending "should get the latest commit" do
-  end
+    it "should get the latest commit" do
+      @git.stub(:log){"0e4672b678"}
+      @git.instance_eval{latest_commit}.should eq("0e4672b678")
+    end
 
-  pending "should get the current branch" do
+    it "should recognise invalid commits" do
+      @git.stub(:log){"junk"}
+      @git.instance_eval{latest_commit}.should eq("")
+    end
+
+    it "should get the current branch" do
+      @git.stub(:`){
+        "branch\n* activebranch"
+      }
+      @git.instance_eval{current_branch}.should eq("activebranch")
+    end
   end
 end

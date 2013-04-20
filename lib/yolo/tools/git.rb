@@ -32,12 +32,10 @@ module Yolo
         commit = latest_commit
         if yaml_commit == commit
           @formatter.no_new_commit
-          @commit = nil
           false
         else
           @formatter.new_commit(commit)
           update_commit(commit)
-          @commit = commit
           true
         end
       end
@@ -52,12 +50,10 @@ module Yolo
         tag = latest_tag
         if yaml_tag == tag
           @formatter.no_new_tag
-          @tag = nil
           false
         else
           @formatter.new_tag(tag)
           update_tag(tag)
-          @tag = tag
           true
         end
       end
@@ -86,6 +82,7 @@ module Yolo
       # @param  new_tag [String] The new tag to store as the latest
       #
       def update_tag(new_tag)
+        @tag = new_tag
         if @yaml[project_name]
           @yaml[project_name]["tag"] = new_tag
         else
@@ -99,6 +96,7 @@ module Yolo
       # @param  new_commit [String] The new commit hash to store as the latest
       #
       def update_commit(new_commit)
+        @commit = new_commit
         if @yaml[project_name]
           @yaml[project_name]["commit"] = new_commit
          else
@@ -122,11 +120,11 @@ module Yolo
       #
       # @return [String] The tag
       def latest_tag
-        match = log.scan(/tag:\sv?[0-9]*\.[0-9]*\.[0-9]*[a-zA-Z]*?/).first
+        match = log.scan(/tag:\s(.+?),\s/).first
         if match.nil?
           ""
         else
-          match
+          match.first
         end
       end
 
