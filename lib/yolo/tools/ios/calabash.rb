@@ -29,7 +29,7 @@ module Yolo
             rescue EOFError
             end
           end
-          $?.exitstatus
+          $?.exitstatus if $?
         end
       end
     end
