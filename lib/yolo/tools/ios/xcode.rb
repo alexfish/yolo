@@ -15,20 +15,13 @@ module Yolo
         attr_accessor :info_plist_path
 
         #
-        # Creates a new instance of Xcode
+        # Creates a new instance of Xcode with the default preferences p list location loaded
         #
         # @param info_plist_path [String] The full path to an xcode projects info_plist
         # @return [Xcode] An Xcode instance
-        def new(info_plist_path = "")
-          self.info_plist_path = info_plist_path
-        end
-
-        #
-        # Creates a new instance of Xcode with the default preferences p list location loaded
-        #
-        # @return [Xcode] An Xcode instance
-        def initialize
+        def initialize(info_plist_path = "")
           self.prefs_plist_path = "#{Dir.pwd}/Library/Preferences/com.apple.dt.Xcode.plist"
+          self.info_plist_path = info_plist_path
         end
 
         #
