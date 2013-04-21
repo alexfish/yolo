@@ -7,4 +7,6 @@ group :test do
   gem "calabash-cucumber"
   gem "bundler"
   gem "rake"
+  gem "guard"
+  gem "guard-rspec"
 end
