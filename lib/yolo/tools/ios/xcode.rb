@@ -1,4 +1,4 @@
-require 'CFPropertyList'
+require 'cfpropertylist'
 
 module Yolo
   module Tools

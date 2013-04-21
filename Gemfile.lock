@@ -92,6 +92,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  CFPropertyList
   bundler
   calabash-cucumber
   guard
