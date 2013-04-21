@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'yolo/tools/ios/Xcode'
+require 'yolo/tools/ios/xcode'
 
 describe Yolo::Tools::Ios::Xcode do
 
