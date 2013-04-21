@@ -11,3 +11,5 @@ group :test do
   gem "guard-rspec"
   gem "CFPropertyList"
 end
+
+gem 'coveralls', require: false
