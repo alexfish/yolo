@@ -15,19 +15,20 @@ module Yolo
         attr_accessor :info_plist_path
 
         #
+        # Creates a new instance of Xcode
+        #
+        # @param info_plist_path [String] The full path to an xcode projects info_plist
+        # @return [Xcode] An Xcode instance
+        def new(info_plist_path = "")
+          self.info_plist_path = info_plist_path
+        end
+
+        #
         # Creates a new instance of Xcode with the default preferences p list location loaded
         #
         # @return [Xcode] An Xcode instance
         def initialize
-          self.prefs_plist_path = "#{user_directory}/Library/Preferences/com.apple.dt.Xcode.plist"
-        end
-
-        #
-        # The current users home directory path
-        #
-        # @return [String] The path to the current users home directory, same as ~
-        def user_directory
-          File.expand_path('~')
+          self.prefs_plist_path = "#{Dir.pwd}/Library/Preferences/com.apple.dt.Xcode.plist"
         end
 
         #
@@ -45,7 +46,7 @@ module Yolo
         # @return [String] The full path to Xcode's build location
         def build_path
           path = prefs["IDECustomDerivedDataLocation"]
-          path = "#{user_directory}/Library/Developer/Xcode/DerivedData" unless path
+          path = "#{Dir.pwd}/Library/Developer/Xcode/DerivedData" unless path
           path
         end
 
@@ -54,7 +55,7 @@ module Yolo
         #
         # @return [Hash] A hash representation of the instances info.plist
         def info_plist
-          if info_plist_path.length > 0
+          if info_plist_path
             plist = CFPropertyList::List.new(:file => info_plist_path)
             CFPropertyList.native_types(plist.value)
           else
