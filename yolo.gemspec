@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'yolo'
-  s.version     = '1.1.9.pre'
+  s.version     = '1.1.11'
   s.date        = Date.today.to_s
   s.summary     = "YOLO!"
   s.description = "yolo is a RubyGem which provides a Ruby interface to Continuous Integration build tools. yolo is currently geared towards the Xcode toolchain and iOS development."

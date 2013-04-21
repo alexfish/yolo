@@ -1,6 +1,8 @@
 yolo
 ====
 
+[![Build Status](https://travis-ci.org/alexefish/yolo.png)](https://travis-ci.org/alexefish/yolo)
+
 yolo is a RubyGem which provides a Ruby interface to Continuous Integration build tools. yolo is currently geared towards the Xcode toolchain and iOS development.  
 
 yolo allows you to run a number of continuous integration tasks and is best implemented with an installation of [Jenkins](http://jenkins-ci.org/). 
