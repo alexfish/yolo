@@ -1,4 +1,4 @@
-require 'Redcarpet'
+require 'redcarpet'
 
 module Yolo
   module Tools
