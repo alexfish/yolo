@@ -29,7 +29,7 @@ module Yolo
               puts "Error while executing"
             end
           end
-          $?.exitstatus
+          $?.exitstatus if $?
         end
       end
     end
