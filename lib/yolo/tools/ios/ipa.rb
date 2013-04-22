@@ -17,24 +17,64 @@ module Yolo
         def self.generate(app_path,dsym_path,output_directory, &block)
           formatter = Yolo::Formatters::ProgressFormatter.new
           formatter.generating_ipa
-          ipa_name = app_path.split("/").last.split(".").first
-
-          unless File.directory?(output_directory)
-            FileUtils.mkdir_p(output_directory)
-          end
-
+          name = self.app_name(app_path)
+          # create directory
+          self.create_directory(output_directory)
           # make ipa
-          `/usr/bin/xcrun -sdk iphoneos PackageApplication -v #{app_path} -o #{output_directory}/#{ipa_name}.ipa`
+          `/usr/bin/xcrun -sdk iphoneos PackageApplication -v #{app_path} -o #{output_directory}/#{name}.ipa`
+          # move files
+          self.move_file(dsym_path,output_directory)
+          self.move_release_notes(output_directory)
+
+          formatter.ipa_generated("#{output_directory}/#{name}.ipa")
+
+          block.call("#{output_directory}/#{name}.ipa") if block
+        end
+
+        private
+
+        #
+        # Calculates the application name form the .app path
+        #
+        # @param  app_path [String] The full path to the .app file
+        # @return [String] The name of the app
+        def self.app_name(app_path)
+          app_path.split("/").last.split(".").first
+        end
+
+        #
+        # Creates a directory if missing
+        # @param  directory [String] The path to the directory to create
+        #
+        def self.create_directory(directory)
+          unless File.directory?(directory)
+            FileUtils.mkdir_p(directory)
+          end
+        end
+
+        #
+        # Moves a file to a location
+        # @param  file [String] The path to the file to move
+        # @param  directory [String] The path to the directory to move the file to
+        #
+        def self.move_file(file, directory)
           # move dsym
-          FileUtils.cp_r(dsym_path, output_directory) if dsym_path
+          FileUtils.cp_r(file, directory) if file
+        end
+
+        #
+        # Moves the projects releas notes file to a location
+        # @param  output_directory [type] [description]
+        #
+        # @return [type] [description]
+        def self.move_release_notes(directory)
           # move release notes
           release_path = "#{Dir.pwd}/release_notes.md"
-          FileUtils.cp_r(release_path, output_directory) if File.exist?(release_path)
-
-          formatter.ipa_generated("#{output_directory}/#{ipa_name}.ipa")
-
-          block.call("#{output_directory}/#{ipa_name}.ipa") if block
+          if File.exist?(directory) and File.exist?(release_path)
+            FileUtils.cp_r(release_path, directory)
+          end
         end
+
       end
     end
   end
