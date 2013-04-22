@@ -23,14 +23,10 @@ module Yolo
           IO.popen("cd #{build_path} && gcovr --xml > #{output_dir}/coverage.xml") do |io|
             begin
               while line = io.readline
-                begin
-                  STDOUT << line
-                rescue StandardError => e
-                  puts "Error from output buffer: #{e.inspect}"
-                  puts e.backtrace
-                end
+                puts line
               end
             rescue EOFError
+              puts "Error while executing"
             end
           end
           $?.exitstatus

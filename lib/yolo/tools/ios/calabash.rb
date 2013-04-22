@@ -20,7 +20,7 @@ module Yolo
             begin
               while line = io.readline
                 begin
-                  STDOUT << line
+                  puts line
                 rescue StandardError => e
                   puts "Error from output buffer: #{e.inspect}"
                   puts e.backtrace
