@@ -10,6 +10,7 @@ group :test do
   gem "guard"
   gem "guard-rspec"
   gem "CFPropertyList"
+  gem "redcarpet"
 end
 
 gem 'coveralls', require: false
