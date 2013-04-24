@@ -7,6 +7,7 @@ describe Yolo::Config::Settings do
   before do
     Yolo::Config::Settings.instance.stub(:yolo_dir)
     FileUtils.stub(:cp_r)
+    FileUtils.stub(:mkdir_p)
     Yolo::Formatters::ProgressFormatter.any_instance.stub(:puts)
     Yolo::Formatters::ErrorFormatter.any_instance.stub(:puts)
   end
