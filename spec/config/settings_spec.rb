@@ -5,7 +5,7 @@ require 'yolo/formatters'
 describe Yolo::Config::Settings do
 
   before do
-    Yolo::Config::Settings.instance.stub(:yolo_dir)
+    Yolo::Config::Settings.instance.stub(:yolo_dir){"test_dir"}
     FileUtils.stub(:cp_r)
     FileUtils.stub(:mkdir_p)
     Yolo::Formatters::ProgressFormatter.any_instance.stub(:puts)
@@ -29,6 +29,18 @@ describe Yolo::Config::Settings do
       File.stub(:directory?){false}
       Yolo::Config::Settings.instance.should_receive(:load_config)
       Yolo::Config::Settings.instance.check_config
+    end
+
+    it "should create the yolo directory" do
+      File.stub(:directory?){false}
+      FileUtils.should_receive(:mkdir_p).with("test_dir")
+      Yolo::Config::Settings.instance.create_yolo_dir
+    end
+
+    it "should not create the yolo directory if it exists" do
+      File.stub(:directory?){true}
+      FileUtils.should_not_receive(:mkdir_p).with("test_dir")
+      Yolo::Config::Settings.instance.create_yolo_dir
     end
   end
 
@@ -55,7 +67,6 @@ describe Yolo::Config::Settings do
   end
 
   describe "when asked for settings" do
-
     before do
       @yaml = {
         "paths" => {
@@ -114,5 +125,4 @@ describe Yolo::Config::Settings do
       Yolo::Config::Settings.instance.mail_from.should eq("test_from")
     end
   end
-
 end
