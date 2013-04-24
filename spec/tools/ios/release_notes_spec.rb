@@ -12,6 +12,7 @@ describe Yolo::Tools::Ios::ReleaseNotes do
     @xcode.stub(:version_number)
     @xcode.stub(:build_number)
     @release_notes = Yolo::Tools::Ios::ReleaseNotes
+    Yolo::Formatters::ErrorFormatter.any_instance.stub(:puts)
     Yolo::Formatters::ProgressFormatter.any_instance.stub(:puts)
   end
 
@@ -59,6 +60,41 @@ describe Yolo::Tools::Ios::ReleaseNotes do
     it "should open the release notes after writting" do
       @release_notes.should_receive(:`).with(/open current_path\/release_notes.md/)
       @release_notes.generate("path")
+    end
+  end
+
+  describe "when parsing release notes to plain text" do
+    before do
+      Dir.stub(:pwd){"current_path"}
+    end
+
+    it "should not attempt to parse a nil file" do
+      File.stub(:exist?){false}
+      @release_notes.plaintext.should eq("")
+    end
+
+    it "should return the notes in plaintext" do
+      File.stub(:exist?){true}
+      @file = mock(File)
+      File.stub(:open){@file}
+      @file.stub(:read){"plaintext"}
+      @release_notes.plaintext.should eq("plaintext")
+    end
+  end
+
+  describe "when parsing release notes to html" do
+
+    it "should not attempt to parse a nil file" do
+      File.stub(:exist?){false}
+      @release_notes.plaintext.should eq("")
+    end
+
+    it "should return release notes in html format" do
+      File.stub(:exist?){true}
+      @file = mock(File)
+      File.stub(:open){@file}
+      @file.stub(:read){"# hello"}
+      @release_notes.html.should eq("<h1>hello</h1>\n")
     end
   end
 end
