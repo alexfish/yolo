@@ -1,0 +1,18 @@
+# The directory which applications are bundled to
+# e.g /my/bundle/directory
+paths:
+  bundle_directory: "/tmp"
+
+# Email notification settings
+mail:
+  host: your.server.ip
+  from: example@example.com
+  account: example@example.com
+  password: example
+  port: 0
+
+# Deployment settings
+deployment:
+  url: http://example.com
+  api_token: example
+  team_token: example

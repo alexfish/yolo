@@ -21,6 +21,12 @@ module Yolo
         @error = Yolo::Formatters::ErrorFormatter.new
         check_config
         update_config
+      end
+
+      #
+      # Loads the @yaml instance var
+      #
+      def load_yaml
         @yaml = YAML::load_file yaml_path
       end
 
@@ -32,6 +38,40 @@ module Yolo
         unless File.exist?(yaml_path)
           @formatter.config_created(yaml_path)
           FileUtils.cp_r(File.dirname(__FILE__) + "/config.yml", yaml_path)
+        end
+      end
+
+      #
+      # Checks for the existance of the config directory in the users home directory and creates it if not present
+      #
+      def check_config
+        unless File.directory?(yolo_dir) and File.exist?(yaml_path)
+          @error.run_setup
+          load_config
+          @formatter.setup_complete
+        end
+      end
+
+      #
+      # Checks the config file is update to the latest and adds any options that are missing
+      #
+      def update_config
+        if File.directory?(yolo_dir) and File.exist?(yaml_path)
+          @yaml = YAML::load_file yaml_path
+          unless @yaml["deployment"]["api_token"]
+            @yaml["deployment"]["api_token"] = "example"
+            File.open(yaml_path, 'w') {|f|
+              f.write(@yaml.to_yaml)
+            }
+            @formatter.config_updated(yaml_path)
+          end
+          unless @yaml["deployment"]["team_token"]
+            @yaml["deployment"]["team_token"] = "example"
+            File.open(yaml_path, 'w') {|f|
+              f.write(@yaml.to_yaml)
+            }
+            @formatter.config_updated(yaml_path)
+          end
         end
       end
 
@@ -108,45 +148,11 @@ module Yolo
       end
 
       #
-      # Checks for the existance of the config directory in the users home directory and creates it if not present
-      #
-      def check_config
-        unless File.directory?(yolo_dir) and File.exist?(yaml_path)
-          @error.run_setup
-          load_config
-          @formatter.setup_complete
-        end
-      end
-
-      #
-      # Checks the config file is update to the latest and adds any options that are missing
-      #
-      def update_config
-        if File.directory?(yolo_dir) and File.exist?(yaml_path)
-          @yaml = YAML::load_file yaml_path
-          unless @yaml["deployment"]["api_token"]
-            @yaml["deployment"]["api_token"] = "example"
-            File.open(yaml_path, 'w') {|f|
-              f.write(@yaml.to_yaml)
-            }
-            @formatter.config_updated(yaml_path)
-          end
-          unless @yaml["deployment"]["team_token"]
-            @yaml["deployment"]["team_token"] = "example"
-            File.open(yaml_path, 'w') {|f|
-              f.write(@yaml.to_yaml)
-            }
-            @formatter.config_updated(yaml_path)
-          end
-        end
-      end
-
-      #
       # The path to the users home directory, same as ~
       #
       # @return [String] The full path to the current users home directory
       def user_directory
-        File.expand_path('~')
+        Dir.pwd
       end
 
       #
