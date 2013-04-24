@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'yolo/tools/git'
 require 'yolo/formatters'
 
