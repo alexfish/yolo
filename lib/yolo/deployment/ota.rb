@@ -58,17 +58,13 @@ module Yolo
         IO.popen("curl #{self.url} -X POST -# -F fileContent=@\"#{self.package_path}\" -F params='#{package}'") do |io|
           begin
             while line = io.readline
-              begin
-                response << line
-              rescue StandardError => e
-                 @error_formatter.deploy_failed("ParserError: #{e}")
-              end
+              response << line
             end
           rescue EOFError
-            #@error_formatter.deploy_failed("ParserError")
-           end
+            @error_formatter.deploy_failed("Upload error")
+          end
         end
-        upload_complete(response)
+        upload_complete(response) if response.length > 0
       end
 
       #
