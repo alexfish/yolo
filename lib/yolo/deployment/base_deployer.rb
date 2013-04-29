@@ -1,4 +1,4 @@
-opts={}, module Yolo
+module Yolo
   module Deployment
 
     #
