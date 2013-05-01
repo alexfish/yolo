@@ -39,7 +39,7 @@ module Yolo
         # @return [String] The full path to Xcode's build location
         def build_path
           path = prefs["IDECustomDerivedDataLocation"]
-          path = "#{Dir.pwd}/Library/Developer/Xcode/DerivedData" unless path
+          path = "#{File.expand_path('~')}/Library/Developer/Xcode/DerivedData" unless path
           path
         end
 
