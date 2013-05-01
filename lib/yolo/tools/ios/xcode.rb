@@ -20,7 +20,7 @@ module Yolo
         # @param info_plist_path [String] The full path to an xcode projects info_plist
         # @return [Xcode] An Xcode instance
         def initialize(info_plist_path = "")
-          self.prefs_plist_path = "#{Dir.pwd}/Library/Preferences/com.apple.dt.Xcode.plist"
+          self.prefs_plist_path = "#{File.expand_path('~')}/Library/Preferences/com.apple.dt.Xcode.plist"
           self.info_plist_path = info_plist_path
         end
 
