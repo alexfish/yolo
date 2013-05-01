@@ -50,6 +50,15 @@ describe Yolo::Deployment::TestFlight do
     end
   end
 
+  pending "when parsing options" do
+  end
+
+  pending "when loading settings" do
+  end
+
+  pending "when loading notes" do
+  end
+
   describe "when building a curl string" do
 
     before do
