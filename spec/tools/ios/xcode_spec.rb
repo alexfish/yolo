@@ -38,7 +38,7 @@ describe Yolo::Tools::Ios::Xcode do
 
     it "should recognise a default build folder location" do
       @xcode.stub(:prefs){{}}
-      Dir.stub(:pwd){"path"}
+      File.stub(:expand_path){"path"}
       @xcode.build_path.should eq("path/Library/Developer/Xcode/DerivedData")
     end
   end
