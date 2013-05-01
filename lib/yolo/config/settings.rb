@@ -152,7 +152,7 @@ module Yolo
       #
       # @return [String] The full path to the current users home directory
       def user_directory
-        Dir.pwd
+        File.expand_path('~')
       end
 
       #
