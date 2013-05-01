@@ -18,7 +18,7 @@ module Yolo
         # pipe appended if defined
         def build_opts_string(*additional_opts)
           options = build_opts + additional_opts
-          if configuration == "Debug" or configuration.length == 0
+          if configuration == "Debug" or configuration.nil?
             options = options << "CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO"
           end
           return options.compact.join(" ")
