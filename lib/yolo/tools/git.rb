@@ -120,11 +120,18 @@ module Yolo
       #
       # @return [String] The tag
       def latest_tag
-        match = log.scan(/tag:\s(.+?),\s/).first
-        if match.nil?
+        match = ""
+        matches = log.scan(/tag:\s(.+?),\s/)
+        if matches.nil?
           ""
         else
-          match.first
+          matches.each do |tag|
+            if !tag.first.include? "jenkins"
+              match = tag.first
+              break
+            end
+          end
+          return match
         end
       end
 

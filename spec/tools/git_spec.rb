@@ -94,8 +94,14 @@ describe Yolo::Tools::Git do
     end
 
     it "should get the latest tag" do
-      @git.stub(:log){"tag: v1.0, head, tag: v1.3.1"}
+      @git.stub(:log){"tag: v1.0, head, tag: v1.3.1, master"}
       @git.instance_eval{latest_tag}.should eq("v1.0")
+    end
+
+    it "should ignore jenkins tags" do
+      @git.stub(:log){"tag: jenkins-tag, head, tag: v1.3.1, master"}
+      @git.instance_eval{latest_tag}.should_not eq("jenkins-tag")
+      @git.instance_eval{latest_tag}.should eq("v1.3.1")
     end
 
     it "should recognise invalid tags" do
