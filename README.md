@@ -41,11 +41,16 @@ It is recommended that you have [rvm](https://rvm.io/) installed and do not inst
 * [Calabash](https://github.com/alexefish/yolo/wiki/Calabash)
 
 ## Jenkins
-Running yolo from your Jenkins jobs is very simple, the following plugins are required:
+Running yolo from your Jenkins jobs is very simple.
 
-* [Jenkins Git Plugin](http://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin)
+Ensure you project contains a Gemfile with the required gems, e.g:
 
-You can then simply add an execute shellbuild step to execute yolo rake tasks, e.g:
+    source 'https://rubygems.org'
+
+    gem 'rake'
+    gem 'yolo', '>= 1.1.12'
+
+You can simply add an execute shell build step to execute yolo rake tasks, e.g:
 
 ![Jenkins Setup](http://i.imgur.com/HoXQVoe.png)
 
