@@ -23,17 +23,13 @@ module Yolo
         IO.popen(curl_string(package_path, opts)) do |io|
           begin
             while line = io.readline
-              begin
-                response << line
-              rescue StandardError => e
-                 @error_formatter.deploy_failed("ParserError: #{e}")
-              end
+              response << line
             end
-          rescue EOFError
-            #@error_formatter.deploy_failed("ParserError")
-           end
+          rescue StandardError
+            @error_formatter.deploy_failed("Upload error")
+          end
         end
-        upload_complete(response)
+        upload_complete(response) if response.length > 0
       end
 
       private

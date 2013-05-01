@@ -60,7 +60,7 @@ module Yolo
             while line = io.readline
               response << line
             end
-          rescue EOFError
+          rescue StandardError
             @error_formatter.deploy_failed("Upload error")
           end
         end
