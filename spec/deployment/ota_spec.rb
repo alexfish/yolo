@@ -18,7 +18,6 @@ describe Yolo::Deployment::OTA do
   end
 
   describe "when deploying" do
-
     before do
       @ota.stub(:upload)
     end
@@ -85,11 +84,9 @@ describe Yolo::Deployment::OTA do
     end
   end
 
-  describe "on completion" do
-
+  describe "when upload completes" do
     before do
       @ota.stub(:upload)
-      @json = "{'link':'test_link','password','test_password'}"
     end
 
     it "should catch json parse errors" do
@@ -98,12 +95,11 @@ describe Yolo::Deployment::OTA do
     end
 
     it "should parse the response" do
-      @ota.upload_complete(@json)
       @ota.deploy("test", nil) do |url, password|
         password.should eq("test_password")
         url.should eq("test_link")
       end
+      @ota.upload_complete('{"link":"test_link","password":"test_password"}')
     end
-
   end
 end

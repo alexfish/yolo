@@ -50,17 +50,59 @@ describe Yolo::Deployment::TestFlight do
     end
   end
 
-  pending "when parsing options" do
+  describe "when parsing options" do
+    it "should parse the distribution lists" do
+      @tf.instance_eval{distribution_lists({:distribution_lists => ["test", "test"]})}.should eq("test,test")
+    end
+
+    it "should parse the notify option" do
+      @tf.instance_eval{notify({:notify => true})}.should eq("True")
+    end
   end
 
-  pending "when loading settings" do
+  describe "when loading settings" do
+    it "should load the api token" do
+      Yolo::Config::Settings.instance.stub(:api_token){"apitoken"}
+      @tf.instance_eval{api_token}.should eq("apitoken")
+    end
+
+    it "should load the team token" do
+      Yolo::Config::Settings.instance.stub(:team_token){"teamtoken"}
+      @tf.instance_eval{team_token}.should eq("teamtoken")
+    end
   end
 
-  pending "when loading notes" do
+  describe "when loading notes" do
+    it "should set default notes" do
+      @tf.instance_eval{notes}.should eq("No notes provided")
+    end
+
+    it "should load notes from release notes" do
+      Yolo::Tools::Ios::ReleaseNotes.stub(:plaintext){"test notes"}
+      @tf.instance_eval{notes}.should eq("test notes")
+    end
+  end
+
+  describe "when the upload completes" do
+    before do
+      @io = mock(IO)
+      IO.stub(:popen).and_yield(@io)
+    end
+
+    it "should catch json parse errors" do
+      @error_formatter.should_receive(:deploy_failed)
+      @tf.instance_eval{upload_complete("json")}
+    end
+
+    it "should parse the response" do
+      @io.stub(:readline).and_return('{"install_url":"test_link"}', nil)
+      @tf.deploy("test", nil) do |url, password|
+        url.should eq("test_link")
+      end
+    end
   end
 
   describe "when building a curl string" do
-
     before do
       @tf.stub(:api_token){"apitoken"}
       @tf.stub(:team_token){"teamtoken"}
