@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Yolo by alexefish</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Yolo</h1>
+        <p>yolo is a RubyGem which provides a Ruby interface to Continuous Integration build tools. yolo is currently geared towards the Xcode toolchain and iOS development.</p>
+
+        <p class="view"><a href="https://github.com/alexefish/yolo">View the Project on GitHub <small>alexefish/yolo</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/alexefish/yolo/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/alexefish/yolo/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/alexefish/yolo">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>yolo</h1>
+
+<p><a href="https://codeclimate.com/github/alexefish/yolo"><img src="https://codeclimate.com/github/alexefish/yolo.png" alt="Code Climate"></a>
+<a href="https://coveralls.io/r/alexefish/yolo"><img src="https://coveralls.io/repos/alexefish/yolo/badge.png?branch=master" alt="Coverage Status"></a>
+<a href="https://travis-ci.org/alexefish/yolo"><img src="https://travis-ci.org/alexefish/yolo.png" alt="Build Status"></a></p>
+
+<p>yolo is a RubyGem which provides a Ruby interface to Continuous Integration build tools. yolo is currently geared towards the Xcode toolchain and iOS development.  </p>
+
+<p>yolo allows you to run a number of continuous integration tasks and is best implemented with an installation of <a href="http://jenkins-ci.org/">Jenkins</a>. </p>
+
+<p>Examples of tasks yolo can complete for you are:</p>
+
+<ul>
+<li>Building Xcode projects</li>
+<li>Running OCUnit &amp; Kiwi unit tests and generating reports</li>
+<li>Running Calabash integration tests and generating reports</li>
+<li>Packaging iOS IPA files and deploying them to external services</li>
+<li>Sending notification emails</li>
+<li>Running tasks on each new git tag or commit</li>
+</ul><p>Hat tip to <a href="https://github.com/lukeredpath">Luke Redpath</a> and his <a href="https://github.com/lukeredpath/xcodebuild-rb">xcodebuild-rb</a> gem which is the foundation of this project.</p>
+
+<h2>Installing yolo</h2>
+
+<p>It is recommended that you have <a href="https://rvm.io/">rvm</a> installed and do not install yolo on system ruby as you may find a number of permissions issues.</p>
+
+<pre><code>gem install yolo
+</code></pre>
+
+<h2>Getting Started</h2>
+
+<ul>
+<li><a href="https://github.com/alexefish/yolo/wiki/Quick-Start">Quick Start</a></li>
+<li><a href="https://github.com/alexefish/yolo/wiki/Configuration">Configuration</a></li>
+</ul><h2>Release Builds</h2>
+
+<ul>
+<li><a href="https://github.com/alexefish/yolo/wiki/Generating-IPAs">Generating IPAs</a></li>
+<li><a href="https://github.com/alexefish/yolo/wiki/Deployment">Deployment</a></li>
+</ul><h2>Running Tests</h2>
+
+<ul>
+<li><a href="https://github.com/alexefish/yolo/wiki/OCUnit-&amp;-Kiwi">OCUnit &amp; Kiwi</a></li>
+<li><a href="https://github.com/alexefish/yolo/wiki/Calabash">Calabash</a></li>
+</ul><h2>Jenkins</h2>
+
+<p>Running yolo from your Jenkins jobs is very simple.</p>
+
+<p>Ensure you project contains a Gemfile with the required gems, e.g:</p>
+
+<pre><code>source 'https://rubygems.org'
+
+gem 'rake'
+gem 'yolo', '&gt;= 1.1.12'
+</code></pre>
+
+<p>You can simply add an execute shell build step to execute yolo rake tasks, e.g:</p>
+
+<p><img src="http://i.imgur.com/HoXQVoe.png" alt="Jenkins Setup"></p>
+
+<h2>License</h2>
+
+<pre><code>Copyright (C) 2013 by Alex Fish
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+</code></pre>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/alexefish">alexefish</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
