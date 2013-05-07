@@ -17,7 +17,6 @@ module Yolo
         #
         def body(opts)
           message = <<MESSAGE_END
-To: A Test User <test@todomain.com>
 MIME-Version: 1.0
 Content-type: text/html
 Subject: #{opts[:subject]}
