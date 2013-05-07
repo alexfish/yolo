@@ -19,14 +19,10 @@ module Yolo
           IO.popen("cucumber --format #{format.to_s} --out #{output_dir}") do |io|
             begin
               while line = io.readline
-                begin
-                  puts line
-                rescue StandardError => e
-                  puts "Error from output buffer: #{e.inspect}"
-                  puts e.backtrace
-                end
+                puts line
               end
             rescue EOFError
+              puts "Error while executing"
             end
           end
           $?.exitstatus if $?
