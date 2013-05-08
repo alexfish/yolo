@@ -17,7 +17,7 @@ module Yolo
         end
 
         #
-        # Uses Xcode to find the full path to generated app file
+        # Uses Xcode to find the full path to the build objects
         #
         # @return [String] the path to the generated .app file
         def build_path
@@ -26,7 +26,7 @@ module Yolo
             files << path if path =~ /.*#{name}-.*\/Build\/Intermediates\/#{name}.build\/.*-iphonesimulator\/#{name}.build\/Objects-normal/
           end
           latest = files.sort_by { |filename| File.mtime(filename)}.last # get the latest
-          latest.split("/")[0..-2].join("/") # remove the file and get the dir
+          latest.split("/")[0..-2].join("/") if latest # remove the file and get the dir
         end
 
         #
