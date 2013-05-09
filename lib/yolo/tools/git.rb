@@ -28,14 +28,13 @@ module Yolo
       #
       # @return [BOOL] returns if there is a new commit to build
       def has_new_commit(name)
-        self.project_name = name unless name.nil?
-        commit = latest_commit
-        if yaml_commit == commit
+        set_project_name(name)
+        if yaml_commit == latest_commit
           @formatter.no_new_commit
           false
         else
-          @formatter.new_commit(commit)
-          update_commit(commit)
+          @formatter.new_commit(latest_commit)
+          update_commit(latest_commit)
           true
         end
       end
@@ -46,14 +45,13 @@ module Yolo
       #
       # @return [BOOL] returns if there is a new tag to build
       def has_new_tag(name)
-        self.project_name = name unless name.nil?
-        tag = latest_tag
-        if yaml_tag == tag
+        set_project_name(name)
+        if yaml_tag == latest_tag
           @formatter.no_new_tag
           false
         else
-          @formatter.new_tag(tag)
-          update_tag(tag)
+          @formatter.new_tag(latest_tag)
+          update_tag(latest_tag)
           true
         end
       end
@@ -76,6 +74,12 @@ module Yolo
 
       private
 
+      #
+      # Sets the current project name
+      #
+      def set_project_name(name)
+        self.project_name = name unless name.nil?
+      end
 
       #
       # Updates the tag history
