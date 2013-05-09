@@ -88,8 +88,8 @@ module Yolo
       #
       # @return [String] The deployment url defined in config.yml
       def deploy_url
-        if !@yaml["deployment"]["url"]
-          return ""
+        unless @yaml["deployment"]["url"]
+          return
         end
         if @yaml["deployment"]["url"] != "http://example.com"
           @yaml["deployment"]["url"]
@@ -101,7 +101,12 @@ module Yolo
       #
       # @return [String] The api token defined in config.yml
       def api_token
-        @yaml["deployment"]["api_token"] if @yaml["deployment"]["api_token"] and @yaml["deployment"]["api_token"] != "example"
+        unless @yaml["deployment"]["api_token"]
+          return
+        end
+        if @yaml["deployment"]["api_token"] != "example"
+          @yaml["deployment"]["api_token"]
+        end
       end
 
       #
@@ -109,7 +114,12 @@ module Yolo
       #
       # @return [String] The team token defined in config.yml
       def team_token
-        @yaml["deployment"]["team_token"] if @yaml["deployment"]["team_token"] and @yaml["deployment"]["teamt_oken"] != "example"
+        unless @yaml["deployment"]["team_token"]
+          return
+        end
+        if @yaml["deployment"]["teamt_token"] != "example"
+          @yaml["deployment"]["team_token"]
+        end
       end
 
       #
@@ -117,7 +127,12 @@ module Yolo
       #
       # @return [String] The mail account defined in config.yml
       def mail_account
-        @yaml["mail"]["account"] if @yaml["mail"]["account"] and @yaml["mail"]["account"] != "example@example.com"
+        unless @yaml["mail"]["account"]
+          return
+        end
+        if @yaml["mail"]["account"] != "example@example.com"
+          @yaml["mail"]["account"]
+        end
       end
 
       #
@@ -125,7 +140,12 @@ module Yolo
       #
       # @return [String] The mail password defined in config.yml
       def mail_password
-        @yaml["mail"]["password"] if @yaml["mail"]["password"]  and @yaml["mail"]["password"]  != "example"
+        unless @yaml["mail"]["password"]
+          return
+        end
+        if @yaml["mail"]["password"]  != "example"
+          @yaml["mail"]["password"]
+        end
       end
 
       #
@@ -133,7 +153,12 @@ module Yolo
       #
       # @return [Number] The mail port defined in config.yml
       def mail_port
-        @yaml["mail"]["port"] if @yaml["mail"]["port"] and @yaml["mail"]["port"] != 0
+        unless @yaml["mail"]["port"]
+          return
+        end
+        if @yaml["mail"]["port"] != 0
+          @yaml["mail"]["port"]
+        end
       end
 
       #
@@ -141,7 +166,12 @@ module Yolo
       #
       # @return [String] The mail host defined in config.yml
       def mail_host
-        @yaml["mail"]["host"] if @yaml["mail"]["host"] and @yaml["mail"]["host"] != "your.server.ip"
+        unless @yaml["mail"]["host"]
+          return
+        end
+        if @yaml["mail"]["host"] != "your.server.ip"
+          return @yaml["mail"]["host"]
+        end
       end
 
       #
@@ -149,7 +179,12 @@ module Yolo
       #
       # @return [String] The from address defined in config.yml
       def mail_from
-        @yaml["mail"]["from"] if @yaml["mail"]["from"] and @yaml["mail"]["from"] != "example@example.com"
+        unless @yaml["mail"]["from"]
+          return
+        end
+        if @yaml["mail"]["from"] != "example@example.com"
+          return @yaml["mail"]["from"]
+        end
       end
 
       #
