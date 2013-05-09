@@ -88,7 +88,12 @@ module Yolo
       #
       # @return [String] The deployment url defined in config.yml
       def deploy_url
-        @yaml["deployment"]["url"] if @yaml["deployment"]["url"] and @yaml["deployment"]["url"] != "http://example.com"
+        if !@yaml["deployment"]["url"]
+          return ""
+        end
+        if @yaml["deployment"]["url"] != "http://example.com"
+          @yaml["deployment"]["url"]
+        end
       end
 
       #
