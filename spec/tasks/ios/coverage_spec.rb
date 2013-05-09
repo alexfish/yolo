@@ -1,6 +1,7 @@
 require 'yolo/tasks'
 require 'yolo/tools'
 require 'active_support/all'
+
 describe Yolo::Tasks::Ios::Coverage do
   before do
     @xcode = mock(Yolo::Tools::Ios::Xcode)

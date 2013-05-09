@@ -73,6 +73,7 @@ module Yolo
         def folder_name
           folder_name = name
           folder_name = "#{name}-#{self.configuration}" if self.configuration
+          folder_name
         end
 
         #
