@@ -253,7 +253,10 @@
       * @section button style
       * @tip Set the styling for your email's button. Choose a style that draws attention.
       */
-      .templateButtonContent, .templateButtonContent a:link, .templateButtonContent a:visited, /* Yahoo! Mail Override */ .templateButtonContent a .yshortcuts /* Yahoo! Mail Override */{
+      .templateButtonContent {
+        padding: 0; /* Override standard td element styles */
+      }
+      .templateButtonContent a:link, .templateButtonContent a:visited, /* Yahoo! Mail Override */ .templateButtonContent a .yshortcuts /* Yahoo! Mail Override */{
         /*@editable*/ color:#FFFFFF;
         /*@editable*/ font-family:Helvetica;
         /*@editable*/ font-size:18px;
@@ -261,6 +264,9 @@
         /*@editable*/ line-height:100%;
         text-align:center;
         text-decoration:none;
+        display: inline-block;
+        width: 100%;
+        padding: 20px 0;
       }
 
       .bodyContent img{
