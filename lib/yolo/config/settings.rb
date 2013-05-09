@@ -58,32 +58,21 @@ module Yolo
       def update_config
         if File.directory?(yolo_dir) and File.exist?(yaml_path)
           @yaml = YAML::load_file yaml_path
-          update_api_token(@yaml)
-          update_team_token(@yaml)
+          update_yaml_setting(@yaml, "deployment", "api_token", "example")
+          update_yaml_setting(@yaml, "deployment", "team_token", "example")
         end
       end
 
       #
       # Check the config file for an api_token key and add it if missing
-      # @param  yaml [Hash] The settings yaml hash
+      # @param yaml [Hash] The settings yaml hash
+      # @param key [String] The setting key to update
+      # @param setting [String] The setting to update
+      # @param default [String] [description]
       #
-      def update_api_token(yaml)
-        unless yaml["deployment"]["api_token"]
-          yaml["deployment"]["api_token"] = "example"
-          File.open(yaml_path, 'w') {|f|
-            f.write(yaml.to_yaml)
-          }
-          @formatter.config_updated(yaml_path)
-        end
-      end
-
-      #
-      # Check the config file for a team_token key and add it if missing
-      # @param  yaml [Hash] The settings yaml hash
-      #
-      def update_team_token(yaml)
-        unless yaml["deployment"]["team_token"]
-          yaml["deployment"]["team_token"] = "example"
+      def update_yaml_setting(yaml, key, setting, default)
+        unless yaml[key][setting]
+          yaml[key][setting] = default
           File.open(yaml_path, 'w') {|f|
             f.write(yaml.to_yaml)
           }
