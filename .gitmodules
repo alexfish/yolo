@@ -1,0 +1,3 @@
+[submodule "xcode-sample"]
+	path = xcode-sample
+	url = git@github.com:alexefish/yolo-xcode-sample.git
