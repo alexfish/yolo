@@ -9,3 +9,4 @@ module Yolo
 end
 
 require 'yolo/config/settings'
+require 'yolo/config/install'

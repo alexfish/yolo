@@ -3,6 +3,5 @@
 require 'yolo'
 
 if ARGV[0] == "install"
-  `touch Rakefile`
-  Yolo::Config::Settings.instance
+  Yolo::Config::Install.run
 end
