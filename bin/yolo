@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require 'yolo'
+
+if ARGV[0] == "install"
+  puts "Installing"
+  `touch Rakefile`
+end
