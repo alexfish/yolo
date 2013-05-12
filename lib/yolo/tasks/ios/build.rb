@@ -32,16 +32,9 @@ module Yolo
           namespace :yolo do
             desc "Builds the specified scheme(s)."
             task :build do
+              xcodebuild :clean
               xcodebuild :build
             end
-
-            desc "Cleans the specified scheme(s)."
-            task :clean do
-              xcodebuild :clean
-            end
-
-            desc "Builds the specified scheme(s) from a clean slate."
-            task :cleanbuild => [:clean, :build]
           end
         end
       end

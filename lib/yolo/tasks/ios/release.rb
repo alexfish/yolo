@@ -145,8 +145,9 @@ module Yolo
           super
           namespace :yolo do
             namespace :release do
-              desc "Builds and packages a release ipa of specified scheme."
-              task :ipa => :build do
+              desc "Builds and deploys a release ipa of specified scheme."
+              task :ipa do
+                xcodebuild :build
                 Yolo::Tools::Ios::IPA.generate(app_path,dsym_path,bundle_path) do |ipa|
                   deploy(ipa) if ipa and self.deployment
                 end
@@ -171,11 +172,6 @@ module Yolo
               desc "Generates a release notes file"
               task :notes do
                 Yolo::Tools::Ios::ReleaseNotes.generate(info_plist_path)
-              end
-
-              desc "Builds the specified release scheme."
-              task :build do
-                xcodebuild :build
               end
             end
           end

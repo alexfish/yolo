@@ -44,16 +44,9 @@ module Yolo
             namespace :ocunit do
               desc "Runs the specified scheme(s) OCUnit tests."
               task :test do
+                xcodebuild :clean
                 xcodebuild :build
               end
-
-              desc "Cleans the specified scheme(s)."
-              task :clean do
-                xcodebuild :clean
-              end
-
-              desc "Runs the specified scheme(s) OCUnit tests from a clean slate."
-              task :cleantest => [:clean, :test]
             end
           end
         end
