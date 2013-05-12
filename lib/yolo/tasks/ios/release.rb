@@ -118,24 +118,45 @@ module Yolo
         # @param  ipa_path [String] The full path to the IPA file to deploy
         #
         def deploy(ipa_path)
+          klass = deploy_class_from_string "#{self.deployment.to_s}"
+          if klass
+            klass.deploy(ipa_path, options) do |url, password|
+              send_notification(url, password)
+            end
+          end
+        end
+
+        #
+        # Sends a notificaiton email from a deployment
+        # @param  url [String] The URL which the build has been deplyed too
+        # @param  password [String] The password required to install the build
+        #
+        # @return [type] [description]
+        def send_notification(url, password)
+          if url
+            mail_options = {
+              :to => self.mail_to,
+              :ota_url => url,
+              :subject => "New #{name} build: #{version}",
+              :title => name
+            }
+            mail_options[:ota_password] = password if password
+            @emailer.send(mail_options)
+          end
+        end
+
+        #
+        # Initlizes an object from a deployment string
+        # @param  string [String] the deployment class name string
+        #
+        # @return [Object] an object of type specified in the paramater
+        def deploy_class_from_string(string)
           klass = Object.const_get("Yolo").const_get("Deployment").const_get("#{self.deployment.to_s}").new
           unless klass
             @error_formatter.deployment_class_error(self.deployment.to_s)
             return
           end
-
-          klass.deploy(ipa_path, options) do |url, password|
-            if url
-              mail_options = {
-                :to => self.mail_to,
-                :ota_url => url,
-                :subject => "New #{name} build: #{version}",
-                :title => name
-              }
-              mail_options[:ota_password] = password if password
-              @emailer.send(mail_options)
-            end
-          end
+          klass
         end
 
         #
