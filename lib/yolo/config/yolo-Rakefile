@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'yolo'
 
 #
@@ -40,5 +41,5 @@ end
 # Coverage task
 #
 # Yolo::Tasks::Ios::Coverage.new do |t|
-#   t.scheme = "Honk"
+#   t.scheme = "MyProject"
 # end

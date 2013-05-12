@@ -1,7 +1,27 @@
 #!/usr/bin/env ruby
-
 require 'yolo'
+require 'optparse'
 
-if ARGV[0] == "install"
+#if ARGV[0] == "install"
+#  Yolo::Config::Install.run
+#end
+
+@opt_parser = OptionParser.new do |opts|
+  opts.banner = "Usage: yolo COMMAND"
+  opts.separator  ""
+  opts.separator  "Commands"
+  opts.separator  "     install: creates a default yolo Rakefile in the current directory"
+
+  opts.on("-h","--help","help") do
+    puts @opt_parser
+  end
+end
+
+@opt_parser.parse ARGV
+
+case ARGV[0]
+when "install"
   Yolo::Config::Install.run
+else
+  puts @opt_parser
 end

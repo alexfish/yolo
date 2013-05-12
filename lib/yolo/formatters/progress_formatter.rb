@@ -18,6 +18,15 @@ module Yolo
       end
 
       #
+      # Outputs a green string stating that the rakefile was created
+      # @param  file [String] The path to the rakefile
+      #
+      # @return [type] [description]
+      def rakefile_created(file)
+        puts green("Rakefile created: #{file}")
+      end
+
+      #
       # Outputs a green string stating that setup is complete
       #
       def setup_complete

@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'yolo/formatters'
 
 module Yolo
   module Config
@@ -12,6 +13,8 @@ module Yolo
       def self.run
          self.move_rakefile
          self.rename_rakefile
+         `open Rakefile`
+         Yolo::Formatters::ProgressFormatter.new.rakefile_created(Dir.pwd + "/Rakefile")
       end
 
       private

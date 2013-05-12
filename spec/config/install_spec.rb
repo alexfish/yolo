@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Yolo::Config::Install do
   describe "when installing" do
     before do
+      Yolo::Formatters::ProgressFormatter.any_instance.stub(:puts)
       FileUtils.stub(:cp_r)
       FileUtils.stub(:mv)
       File.stub(:dirname){"current"}
@@ -11,6 +12,7 @@ describe Yolo::Config::Install do
     end
 
     it "should copy the default rakefile into place" do
+      Yolo::Config::Install.stub(:`)
       FileUtils.should_receive(:cp_r).with(@default_rakefile, "current")
       Yolo::Config::Install.run
     end
