@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require 'yolo'
+
+if ARGV[0] == "install"
+  puts "Installing"
+  `touch Rakefile`
+  `Rakefile << require 'yolo'`
+  Yolo::Config::Settings.instance
+end
