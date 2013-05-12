@@ -64,7 +64,7 @@ module Yolo
 
         #
         # Moves the projects releas notes file to a location
-        # @param  output_directory [type] [description]
+        # @param  directory [String] The directory to move the release notes to
         #
         # @return [type] [description]
         def self.move_release_notes(directory)

@@ -1,6 +1,4 @@
 require 'spec_helper'
-require "yolo/config/settings"
-require 'yolo/formatters'
 
 describe Yolo::Config::Settings do
 

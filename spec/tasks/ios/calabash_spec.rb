@@ -1,4 +1,4 @@
-require 'yolo/tasks'
+require 'spec_helper'
 
 describe Yolo::Tasks::Ios::Calabash do
   before do

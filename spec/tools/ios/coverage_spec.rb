@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'yolo/tools/ios/coverage'
-require 'yolo/formatters'
 
 describe Yolo::Tools::Ios::Coverage do
 

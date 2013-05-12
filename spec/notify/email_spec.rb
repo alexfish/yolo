@@ -1,7 +1,4 @@
 require 'spec_helper'
-require 'yolo/notify/email'
-require 'yolo/formatters'
-require 'yolo/config'
 
 describe Yolo::Notify::Email do
 

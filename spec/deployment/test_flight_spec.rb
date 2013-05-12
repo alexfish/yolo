@@ -1,8 +1,4 @@
 require 'spec_helper'
-require 'yolo/deployment'
-require 'yolo/formatters'
-require "yolo/tools/ios/release_notes"
-require 'yolo/config'
 
 describe Yolo::Deployment::TestFlight do
 

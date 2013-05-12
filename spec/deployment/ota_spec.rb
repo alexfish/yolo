@@ -1,8 +1,4 @@
 require 'spec_helper'
-require 'yolo/deployment'
-require 'yolo/formatters'
-require 'yolo/config'
-require 'json'
 
 describe Yolo::Deployment::OTA do
 

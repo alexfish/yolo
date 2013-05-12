@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'yolo/tools/git'
-require 'yolo/formatters'
 
 describe Yolo::Tools::Git do
 

@@ -1,4 +1,7 @@
 require 'coveralls'
+require 'yolo'
+require 'active_support/all'
+
 Coveralls.wear!
 
 RSpec.configure do |config|

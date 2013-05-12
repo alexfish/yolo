@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'yolo/tools/ios/xcode'
-require 'yolo/formatters'
 
 describe Yolo::Tools::Ios::Xcode do
   before do

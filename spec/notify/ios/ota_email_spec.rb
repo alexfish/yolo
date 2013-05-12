@@ -1,9 +1,4 @@
 require 'spec_helper'
-require 'yolo/notify/email'
-require 'yolo/notify/ios'
-require 'yolo/formatters'
-require 'yolo/config'
-require 'yolo/tools'
 
 describe Yolo::Notify::Ios::OTAEmail do
 

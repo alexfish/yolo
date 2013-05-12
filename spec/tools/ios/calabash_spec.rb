@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'yolo/tools/ios/calabash'
 
 describe Yolo::Tools::Ios::Calabash do
 

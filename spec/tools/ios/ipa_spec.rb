@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'yolo/tools/ios/ipa'
-require 'yolo/formatters'
 
 describe Yolo::Tools::Ios::IPA do
 

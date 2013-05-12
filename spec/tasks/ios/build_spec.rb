@@ -1,4 +1,4 @@
-require 'yolo/tasks'
+require 'spec_helper'
 
 describe Yolo::Tasks::Ios::Build do
   describe "when building an options string" do

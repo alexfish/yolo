@@ -1,7 +1,4 @@
 require 'spec_helper'
-require 'yolo/deployment'
-require 'yolo/formatters'
-require 'yolo/config'
 
 describe Yolo::Deployment::BaseDeployer do
 

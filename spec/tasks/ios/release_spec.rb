@@ -1,10 +1,4 @@
-require 'yolo/tasks'
-require 'yolo/tools'
-require 'yolo/notify'
-require "yolo/formatters"
-require "yolo/config"
-require "yolo/deployment"
-require 'active_support/all'
+require 'spec_helper'
 
 describe Yolo::Tasks::Ios::Release do
   before do
