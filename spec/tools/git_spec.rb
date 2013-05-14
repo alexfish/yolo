@@ -126,14 +126,16 @@ describe Yolo::Tools::Git do
     end
 
     it "should not get invalid tags" do
-      @log = @git.stub(:log){""}
-      @log.stub(:scan){nil}
+      @log = ""
+      @log.stub(:scan){}
+      @git.stub(:log){@log}
       @git.instance_eval{latest_tag}.should eq("")
     end
 
     it "should not get invalid commits" do
-      @log = @git.stub(:log){""}
-      @log.stub(:scan){nil}
+      @log = ""
+      @log.stub(:scan){[]}
+      @git.stub(:log){@log}
       @git.instance_eval{latest_commit}.should eq("")
     end
 

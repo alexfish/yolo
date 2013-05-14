@@ -146,7 +146,8 @@ module Yolo
       #
       # @return [String] The commit hash
       def latest_commit
-        match = log.scan(/\b[0-9a-f]{5,40}\b/).first
+        matches = log.scan(/\b[0-9a-f]{5,40}\b/)
+        match = matches.first
         if match.nil?
           ""
         else
