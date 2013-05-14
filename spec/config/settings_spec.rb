@@ -48,6 +48,12 @@ describe Yolo::Config::Settings do
       File.stub(:open)
       File.stub(:exist?){true}
       File.stub(:directory?){true}
+      @yaml = {
+        "deployment" => {
+          "api_token" => nil,
+          "team_token" => nil
+        }
+      }
     end
 
     it "should add an api token if missing" do
@@ -62,6 +68,16 @@ describe Yolo::Config::Settings do
       YAML.stub(:load_file){@yaml}
       Yolo::Config::Settings.instance.update_config
       @yaml["deployment"]["team_token"].should eq("example")
+    end
+
+    it "should write the new config file to disk" do
+      YAML.stub(:load_file){@yaml}
+      file = mock(File)
+      file.stub(:write)
+      File.stub(:open).and_yield(file)
+
+      file.should_receive(:write)
+      Yolo::Config::Settings.instance.update_config
     end
   end
 
