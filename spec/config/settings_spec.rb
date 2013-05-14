@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'yolo'
 
 describe Yolo::Config::Settings do
 

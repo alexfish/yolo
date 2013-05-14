@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'yolo'
 
 describe Yolo::Tasks::Ios::Coverage do
   before do
