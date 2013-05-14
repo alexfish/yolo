@@ -7,6 +7,9 @@ describe Yolo::Notify::Email do
     Yolo::Formatters::ErrorFormatter.any_instance.stub(:puts)
     Yolo::Formatters::ProgressFormatter.any_instance.stub(:puts)
 
+    @error_formatter = mock(Yolo::Formatters::ErrorFormatter)
+    Yolo::Formatters::ErrorFormatter.stub(:new){@error_formatter}
+
     @settings = Yolo::Config::Settings
     @settings.any_instance.stub(:mail_host){"test_host"}
     @settings.any_instance.stub(:mail_from){"test_from"}
@@ -14,7 +17,6 @@ describe Yolo::Notify::Email do
     @settings.any_instance.stub(:mail_account){"test_account"}
     @settings.any_instance.stub(:mail_password){"test_password"}
     @email = Yolo::Notify::Email.new
-    @email.stub(:body){"test body"}
     @email.to = "test_to"
   end
 
@@ -38,6 +40,10 @@ describe Yolo::Notify::Email do
     it "should load a password" do
       @email.password.should eq("test_password")
     end
+
+    it "should return an empty body" do
+      @email.body({}).should eq("")
+    end
   end
 
   describe "when sending" do
@@ -48,6 +54,7 @@ describe Yolo::Notify::Email do
       @smtp.stub(:send_message)
       @smtp.stub(:enable_starttls)
       @options = {}
+      @email.stub(:body){"test body"}
     end
 
     describe "with an account" do
@@ -66,6 +73,7 @@ describe Yolo::Notify::Email do
       before do
         @smtp.stub(:start).and_yield(@smtp)
         @email.account = nil
+        @email.stub(:body){"test body"}
       end
 
       it "should not send with tls" do
@@ -77,6 +85,12 @@ describe Yolo::Notify::Email do
         @smtp.should_receive(:send_message).with("test body", "test_from", "test_to")
         @email.send(@options)
       end
+
+      it "should output an error if missing details" do
+        @email.server = nil
+        @error_formatter.should_receive(:missing_email_details)
+        @email.send(@options)
+      end
     end
 
     describe "and loading options" do
@@ -84,6 +98,7 @@ describe Yolo::Notify::Email do
       before do
         @email.to = "test_to"
         @email.send(@options)
+        @email.stub(:body){"test body"}
       end
 
       it "should load a server if missing" do
