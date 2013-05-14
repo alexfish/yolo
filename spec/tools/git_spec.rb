@@ -4,10 +4,14 @@ require 'yolo'
 describe Yolo::Tools::Git do
 
   before do
-    @git = Yolo::Tools::Git.new
-    @git.project_name = "test"
     YAML.stub!(:load_file){{}}
     Yolo::Formatters::ProgressFormatter.any_instance.stub(:puts)
+  end
+
+  before(:each) do
+    @git = Yolo::Tools::Git.new
+    @git.project_name = "test"
+    File.any_instance.stub(:write)
   end
 
   describe "when checking for new commits" do
@@ -26,6 +30,11 @@ describe Yolo::Tools::Git do
       Yolo::Tools::Git.any_instance.stub(:latest_commit){"old"}
       @git.has_new_commit("").should eq(false)
     end
+
+    it "yaml tag should be empty if no project is set" do
+      @git.project_name = nil
+      @git.instance_eval{yaml_tag}.should eq("")
+    end
   end
 
   describe "when checking for new tags" do
@@ -43,6 +52,11 @@ describe Yolo::Tools::Git do
       Yolo::Tools::Git.any_instance.stub(:yaml_tag){"old"}
       Yolo::Tools::Git.any_instance.stub(:latest_tag){"old"}
       @git.has_new_tag("").should eq(false)
+    end
+
+    it "yaml commit should be empty if no project is set" do
+      @git.project_name = nil
+      @git.instance_eval{yaml_commit}.should eq("")
     end
   end
 
@@ -72,6 +86,20 @@ describe Yolo::Tools::Git do
       @git.instance_eval{yaml_commit}.should match("new commit")
     end
 
+    it "should overwrite the existing tag" do
+      @yaml = {"test" => {"tag" => "v1.2"}}
+      @git.instance_variable_set(:@yaml, @yaml)
+      @git.instance_eval{update_tag("new tag")}
+      @yaml["test"]["tag"].should eq("new tag")
+    end
+
+    it "should overwrite the existing commit" do
+      @yaml = {"test" => {"commit" => "1234567891023"}}
+      @git.instance_variable_set(:@yaml, @yaml)
+      @git.instance_eval{update_commit("new commit")}
+      @yaml["test"]["commit"].should eq("new commit")
+    end
+
   end
 
   describe "when saving data" do
@@ -95,6 +123,18 @@ describe Yolo::Tools::Git do
     it "should get the latest tag" do
       @git.stub(:log){"tag: v1.0, head, tag: v1.3.1, master"}
       @git.instance_eval{latest_tag}.should eq("v1.0")
+    end
+
+    it "should not get invalid tags" do
+      @log = @git.stub(:log){""}
+      @log.stub(:scan){nil}
+      @git.instance_eval{latest_tag}.should eq("")
+    end
+
+    it "should not get invalid commits" do
+      @log = @git.stub(:log){""}
+      @log.stub(:scan){nil}
+      @git.instance_eval{latest_commit}.should eq("")
     end
 
     it "should ignore jenkins tags" do
