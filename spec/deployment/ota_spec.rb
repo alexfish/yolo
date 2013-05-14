@@ -91,6 +91,12 @@ describe Yolo::Deployment::OTA do
       @ota.upload_complete("json")
     end
 
+    it "should not continue if json parsing fails" do
+      JSON.stub(:parse){nil}
+      @error_formatter.should_receive(:deploy_failed)
+      @ota.upload_complete("json")
+    end
+
     it "should parse the response" do
       @ota.deploy("test", nil) do |url, password|
         password.should eq("test_password")
