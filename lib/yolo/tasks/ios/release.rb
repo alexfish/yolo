@@ -37,9 +37,10 @@ module Yolo
         def app_path
           files = []
           Find.find(@xcode.build_path) do |path|
-            files << path if path =~ /.*#{name}-.*\/Build\/Products\/.*-iphoneos\/.*\.app$/
+            files << path if path =~ /\/Build\/Products\/.*-iphoneos\/#{name}\.app$/
           end
-          files.sort_by { |filename| File.mtime(filename)}.last # get the latest
+          path = files.sort_by { |filename| File.mtime(filename)}.last # get the latest
+          path
         end
 
         #

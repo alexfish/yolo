@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'yolo'
-  s.version     = '1.2.0'
+  s.version     = '1.2.1.pre'
   s.date        = Date.today.to_s
   s.executables << 'yolo'
   s.summary     = "YOLO!"
