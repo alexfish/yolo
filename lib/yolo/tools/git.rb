@@ -46,13 +46,18 @@ module Yolo
       # @return [BOOL] returns if there is a new tag to build
       def has_new_tag(name)
         set_project_name(name)
-        if yaml_tag == latest_tag
+        if latest_tag
+          if yaml_tag != latest_tag or has_new_commit(name)
+            @formatter.new_tag(latest_tag)
+            update_tag(latest_tag)
+            true
+          else
+            @formatter.no_new_tag
+            false
+          end
+        else
           @formatter.no_new_tag
           false
-        else
-          @formatter.new_tag(latest_tag)
-          update_tag(latest_tag)
-          true
         end
       end
 

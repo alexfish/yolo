@@ -51,7 +51,15 @@ describe Yolo::Tools::Git do
     it "should recognise existing tags" do
       Yolo::Tools::Git.any_instance.stub(:yaml_tag){"old"}
       Yolo::Tools::Git.any_instance.stub(:latest_tag){"old"}
+      Yolo::Tools::Git.any_instance.stub(:has_new_commit){false}
       @git.has_new_tag("").should eq(false)
+    end
+
+    it "should recognise a retagged commit" do
+      Yolo::Tools::Git.any_instance.stub(:yaml_tag){"old"}
+      Yolo::Tools::Git.any_instance.stub(:latest_tag){"old"}
+      Yolo::Tools::Git.any_instance.stub(:has_new_commit){true}
+      @git.has_new_tag("").should eq(true)
     end
 
     it "yaml commit should be empty if no project is set" do
