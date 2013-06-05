@@ -25,8 +25,10 @@ module Yolo
             while line = io.readline
               response << line
             end
-          rescue StandardError
-            @error_formatter.deploy_failed("Upload error")
+            if response.length == 0
+              @error_formatter.deploy_failed("Upload error")
+            end
+          rescue EOFError
           end
         end
         upload_complete(response) if response.length > 0
