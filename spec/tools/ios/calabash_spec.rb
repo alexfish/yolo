@@ -36,9 +36,13 @@ describe Yolo::Tools::Ios::Calabash do
       Yolo::Tools::Ios::Calabash.run
     end
 
-    it "should catch EOFError exceptions" do
+    it "should catch EOFError exceptions and output completion" do
       @io.stub(:readline).and_raise(EOFError)
-      Yolo::Tools::Ios::Calabash.should_receive(:puts)
+      @formatter = mock(Yolo::Formatters::ProgressFormatter)
+      Yolo::Formatters::ProgressFormatter.stub(:new){@formatter}
+      @formatter.stub(:tests_generated)
+
+      @formatter.should_receive(:tests_generated)
       Yolo::Tools::Ios::Calabash.run
     end
 

@@ -22,7 +22,7 @@ module Yolo
                 puts line
               end
             rescue EOFError
-              puts "Error while executing"
+              Yolo::Formatters::ProgressFormatter.new.tests_generated(output_dir)
             end
           end
           $?.exitstatus if $?
