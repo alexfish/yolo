@@ -167,11 +167,13 @@ module Yolo
       #
       # @return [String] The last commit hash from the project history
       def yaml_commit
-        if @yaml[project_name]
-          @yaml[project_name]["commit"]
-        else
-          ""
+        commit = ""
+        if @yaml
+          if @yaml[project_name]
+            commit = @yaml[project_name]["commit"]
+          end
         end
+        commit
       end
 
       #
@@ -179,11 +181,13 @@ module Yolo
       #
       # @return [String] The last tag from the project history
       def yaml_tag
-        if @yaml[project_name]
-          @yaml[project_name]["tag"]
-        else
-          ""
+        tag = ""
+        if @yaml
+          if  @yaml[project_name]
+            tag = @yaml[project_name]["tag"]
+          end
         end
+        tag
       end
 
       #
