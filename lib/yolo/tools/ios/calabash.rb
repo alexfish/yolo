@@ -15,8 +15,8 @@ module Yolo
         # @param  output_dir = "test-reports/cucumber" [String] Folder destination to output the test reports to
         #
         # @return [type] [description]
-        def self.run(format = :junit, output_dir = "test-reports/cucumber")
-          IO.popen("cucumber --format #{format.to_s} --out #{output_dir}") do |io|
+        def self.run(format = :junit, output_dir = "test-reports/cucumber", device = "iphone")
+          IO.popen("cucumber --format #{format.to_s} --out #{output_dir} DEVICE=#{device}") do |io|
             begin
               while line = io.readline
                 puts line
