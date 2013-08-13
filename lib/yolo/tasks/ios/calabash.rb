@@ -23,6 +23,7 @@ module Yolo
           self.format = :junit
           self.device = "iphone"
           self.output_dir = "test-reports/calabash"
+          super
         end
 
         #
