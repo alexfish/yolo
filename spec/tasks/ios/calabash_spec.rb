@@ -15,6 +15,10 @@ describe Yolo::Tasks::Ios::Calabash do
       @calabash.sdk.should eq("iphonesimulator")
     end
 
+    it "should set iphone as the default device" do
+      @calabash.device.should eq("iphone")
+    end
+
     it "should set test-reports/calabash as the default output directory" do
       @calabash.output_dir.should eq("test-reports/calabash")
     end

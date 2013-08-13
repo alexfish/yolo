@@ -25,8 +25,13 @@ describe Yolo::Tools::Ios::Calabash do
       Yolo::Tools::Ios::Calabash.run()
     end
 
-    it "pass test-reports/cucumber as the default output directory" do
+    it "should pass test-reports/cucumber as the default output directory" do
       IO.should_receive(:popen).with(/--out test-reports\/cucumber/)
+      Yolo::Tools::Ios::Calabash.run()
+    end
+
+    it "should pass iphone as the default device" do
+      IO.should_receive(:popen).with(/DEVICE=iphone/)
       Yolo::Tools::Ios::Calabash.run()
     end
 
