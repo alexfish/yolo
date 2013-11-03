@@ -139,5 +139,9 @@ describe Yolo::Config::Settings do
     it "should hold a mail from" do
       Yolo::Config::Settings.instance.mail_from.should eq("test_from")
     end
+
+    it "should hold a github token" do
+      Yolo::Config::Settings.instance.github_token.should eq("token")
+    end
   end
 end

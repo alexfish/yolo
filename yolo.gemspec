@@ -13,4 +13,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "ocunit2junit", ["= 1.2"]
   s.add_runtime_dependency "calabash-cucumber"
   s.add_runtime_dependency "redcarpet"
+  s.add_runtime_dependency "octokit", ["= 2.0"]
 end
