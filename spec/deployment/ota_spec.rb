@@ -63,8 +63,8 @@ describe Yolo::Deployment::OTA do
       @ota.upload
     end
 
-    it "should catch StandardError exceptions" do
-      @io.stub(:readline).and_raise(StandardError)
+    it "should catch empty responses" do
+      @io.stub(:readline){nil}
       @error_formatter.should_receive(:deploy_failed).at_least(1).times
       @ota.upload
     end

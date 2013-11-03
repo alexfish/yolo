@@ -45,15 +45,22 @@ module Yolo
       #
       # @return [BOOL] returns if there is a new tag to build
       def has_new_tag(name)
+        new_tag = false
         set_project_name(name)
-        if yaml_tag == latest_tag
-          @formatter.no_new_tag
-          false
-        else
-          @formatter.new_tag(latest_tag)
-          update_tag(latest_tag)
-          true
+
+        if latest_tag
+          if yaml_tag != latest_tag or has_new_commit(name)
+            @formatter.new_tag(latest_tag)
+            update_tag(latest_tag)
+            new_tag = true
+          end
         end
+
+        unless new_tag
+          @formatter.no_new_tag
+        end
+
+        new_tag
       end
 
       #
@@ -160,11 +167,13 @@ module Yolo
       #
       # @return [String] The last commit hash from the project history
       def yaml_commit
-        if @yaml[project_name]
-          @yaml[project_name]["commit"]
-        else
-          ""
+        commit = ""
+        if @yaml
+          if @yaml[project_name]
+            commit = @yaml[project_name]["commit"]
+          end
         end
+        commit
       end
 
       #
@@ -172,11 +181,13 @@ module Yolo
       #
       # @return [String] The last tag from the project history
       def yaml_tag
-        if @yaml[project_name]
-          @yaml[project_name]["tag"]
-        else
-          ""
+        tag = ""
+        if @yaml
+          if  @yaml[project_name]
+            tag = @yaml[project_name]["tag"]
+          end
         end
+        tag
       end
 
       #

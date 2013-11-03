@@ -74,6 +74,14 @@ module Yolo
         puts green("IPA saved to: #{ipa}")
       end
 
+       #
+      # Outputs a green string stating that the calabash tests ran
+      # @param  directory [String] The path to the tests
+      #
+      def tests_generated(directory)
+        puts green("Test reports saved to: #{directory}")
+      end
+
       #
       # Outputs an underlined bold string stating that the release notes are being generated
       #
