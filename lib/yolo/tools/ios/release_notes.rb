@@ -22,14 +22,6 @@ module Yolo
           File.open("#{directory}/release_notes.md", 'w') {|f|
             f.write("### Version\n- - -\n")
             f.write("#{xcode.version_number} (#{xcode.build_number})\n\n")
-            f.write("### Change log\n- - -\n")
-            f.write("* No Changes\n\n")
-            f.write("### Fixes\n- - -\n")
-            f.write("* No Fixes\n\n")
-            f.write("### Notes\n- - -\n")
-            f.write("No Notes\n\n")
-            f.write("### Known issues\n- - -\n")
-            f.write("No Known issues\n\n")
             f.write("### Date\n- - -\n")
             f.write("#{time.day}/#{time.month}/#{time.year} - #{time.hour}:#{time.min}")
           }
