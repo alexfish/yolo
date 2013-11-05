@@ -4,6 +4,7 @@ group :test do
   gem "rspec"
   gem "xcodebuild-rb"
   gem "ocunit2junit"
+  gem "octokit"
   gem "calabash-cucumber"
   gem "bundler"
   gem "rake"

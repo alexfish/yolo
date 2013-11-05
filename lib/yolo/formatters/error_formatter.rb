@@ -74,6 +74,10 @@ module Yolo
         puts red("Can't send mail notification, missing details")
       end
 
+      def no_github_token
+        puts red("No Github token found, please specify one in ~/.yolo/config.yml ")
+      end
+
       #
       # Outputs a red string stating that a release notes file could not be found
       # @param  notes [String] The path which should contain a notes file

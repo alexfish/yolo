@@ -5,6 +5,7 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
+    addressable (2.3.5)
     awesome_print (1.1.0)
     builder (3.2.0)
     calabash-cucumber (0.9.144)
@@ -32,6 +33,8 @@ GEM
       gherkin (~> 2.12.0)
       multi_json (~> 1.3)
     diff-lcs (1.2.4)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     ffi (1.8.1)
     formatador (0.2.4)
     geocoder (1.1.8)
@@ -61,6 +64,9 @@ GEM
     method_source (0.8.1)
     mime-types (1.23)
     multi_json (1.7.3)
+    multipart-post (1.2.0)
+    octokit (2.5.1)
+      sawyer (~> 0.5.1)
     ocunit2junit (1.2)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -89,6 +95,9 @@ GEM
     run_loop (0.0.9)
       json
       thor
+    sawyer (0.5.1)
+      addressable (~> 2.3.5)
+      faraday (~> 0.8, < 0.10)
     sim_launcher (0.4.6)
       sinatra
     simplecov (0.7.1)
@@ -119,6 +128,7 @@ DEPENDENCIES
   coveralls
   guard
   guard-rspec
+  octokit
   ocunit2junit
   rake
   redcarpet

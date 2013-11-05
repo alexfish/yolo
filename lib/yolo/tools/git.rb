@@ -79,6 +79,20 @@ module Yolo
         @commit
       end
 
+      #
+      # Finds the current branch using some regex and git branch
+      #
+      # @return [String] The current branch name
+      def current_branch
+        branch = `git branch`
+        branchs = branch.split("\n")
+        current_branch = ""
+        branchs.each do |b|
+          current_branch = b if b.count("*") == 1
+        end
+        current_branch.gsub("* ", "")
+      end
+
       private
 
       #
@@ -198,19 +212,6 @@ module Yolo
         `git log --decorate=short -n 1 --pretty=oneline`
       end
 
-      #
-      # Finds the current branch using some regex and git branch
-      #
-      # @return [String] The current branch name
-      def current_branch
-        branch = `git branch`
-        branchs = branch.split("\n")
-        current_branch = ""
-        branchs.each do |b|
-          current_branch = b if b.count("*") == 1
-        end
-        current_branch.gsub("* ", "")
-      end
     end
   end
 end

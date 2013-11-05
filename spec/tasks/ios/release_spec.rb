@@ -11,6 +11,10 @@ describe Yolo::Tasks::Ios::Release do
     @email.stub(:send)
     Yolo::Notify::Ios::OTAEmail.stub(:new){@email}
 
+    @github = mock(Yolo::Tools::Github)
+    @github.stub(:repo=)
+    Yolo::Tools::Github.stub(:new){@github}
+
     @ota = mock(Yolo::Deployment::OTA)
     Yolo::Deployment::OTA.stub(:new){@ota}
 
@@ -147,6 +151,18 @@ describe Yolo::Tasks::Ios::Release do
       Yolo::Deployment::OTA.stub(:new){nil}
       Yolo::Formatters::ErrorFormatter.any_instance.should_receive(:deployment_class_error)
       @release.deploy("")
+    end
+
+    it "should release to github if a repo is set" do
+      @github.should_receive(:release)
+      @release.stub(:github_repo){"test_repo"}
+      @release.release_to_github("")
+    end
+
+    it "should not release to github if no repo is set" do
+      @github.should_not_receive(:release)
+      @release.stub(:github_repo){nil}
+      @release.release_to_github("")
     end
 
     it "shouldnt build mail options without a url" do
