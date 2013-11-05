@@ -94,6 +94,13 @@ module Yolo
       end
 
       #
+      # Outputs a string stating that the github release is being generated
+      #
+      def creating_github_release
+        puts green("Generating Github release")
+      end
+
+      #
       # Outputs a green string stating that the release notes have been generated
       # @param  notes [String] The path to the release notes
       #

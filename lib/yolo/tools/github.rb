@@ -25,16 +25,32 @@ module Yolo
         end
       end
 
-      # Release the ipa using the github releases API, the ipa will be zipped and
+      # Release the bundle using the github releases API, the bundle will be zipped and
       # uploaded as well as the release notes used as the release body and
       # version for the release title
       #
-      # @param  ipa [String] The full path to the IPA file to deploy
+      # @param  bundle [String] The full path to the bundle folder to release
       # @param  version [String] The version of the release
       # @param  body [String] The body of the release
       #
-      def release(ipa, version, body)
-        @octokit.create_release(self.repo, version, options(body, version))
+      def release(bundle, version, body)
+        @progress = Yolo::Formatters::ProgressFormatter.new
+        @progress.creating_github_release
+        response = @octokit.create_release(self.repo, version, options(body, version))
+        if response
+          upload_url = response["upload_url"]
+          upload_bundle(bundle, upload_url)
+        end
+      end
+
+      # Upload the bundle to the github release url
+      #
+      # @param  bundle [String] The full path to the bundle folder to release
+      # @param  url [String] The github asset url returned from create_release
+      #
+      def upload_bundle(bundle, url)
+        response = @octokit.upload_asset(url, bundle)
+        puts response
       end
 
       private

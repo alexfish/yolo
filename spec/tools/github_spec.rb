@@ -30,10 +30,22 @@ describe Yolo::Tools::Github do
       @git.stub(:current_branch){"branch"}
 
       @github = Yolo::Tools::Github.new
+      @github.instance_variable_get(:@octokit).stub(:create_release)
     end
 
     it "should get the current git branch" do
       @github.instance_eval{current_branch}.should eq("branch")
+    end
+
+    it "should create the release" do
+      @github.instance_variable_get(:@octokit).should_receive(:create_release)
+      @github.release("path", "version", "body")
+    end
+
+    it "should upload the bundle" do
+      @github.instance_variable_get(:@octokit).should_receive(:create_release){{"upload_url" => "upload_url"}}
+      @github.should_receive(:upload_bundle).with("path", "upload_url")
+      @github.release("path", "version", "body")
     end
   end
 

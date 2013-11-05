@@ -136,12 +136,12 @@ module Yolo
         #
         # @param  ipa_path [String] The full path to the IPA file to deploy
         #
-        def release_to_github(ipa_path)
+        def release_to_github(bundle_path)
           if self.github_repo
             github = Yolo::Tools::Github.new
             notes = Yolo::Tools::Ios::ReleaseNotes.html
             github.repo = self.github_repo
-            github.release(ipa_path, version, notes)
+            github.release(bundle_path, version, notes)
           end
         end
 
@@ -190,7 +190,7 @@ module Yolo
                 xcodebuild :build
                 Yolo::Tools::Ios::IPA.generate(app_path,dsym_path,bundle_path) do |ipa|
                   deploy(ipa) if ipa and self.deployment
-                  release_to_github(ipa) if ipa and self.github_repo
+                  release_to_github(bundle_path) if ipa and self.github_repo
                 end
               end
 
