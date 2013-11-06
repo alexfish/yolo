@@ -20,4 +20,3 @@ deployment:
 # Github
 github:
   token: token
-  username: username
