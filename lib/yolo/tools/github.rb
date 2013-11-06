@@ -1,4 +1,3 @@
-require 'octokit'
 require "zip"
 require "net/http"
 require "uri"
