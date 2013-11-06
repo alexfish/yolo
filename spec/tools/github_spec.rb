@@ -47,6 +47,12 @@ describe Yolo::Tools::Github do
       @github.should_receive(:upload_bundle).with("path", "upload_url")
       @github.release("path", "version", "body")
     end
+
+    it "should zip the bundle" do
+      @github.instance_variable_get(:@octokit).stub(:upload_asset)
+      @github.should_receive(:zip_bundle).with("path")
+      @github.upload_bundle("path", "version")
+    end
   end
 
   describe "when generating options" do

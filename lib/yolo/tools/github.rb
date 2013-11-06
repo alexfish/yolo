@@ -1,4 +1,5 @@
 require 'octokit'
+require "zip/zip"
 
 module Yolo
   module Tools
@@ -51,11 +52,29 @@ module Yolo
       def upload_bundle(bundle, url)
         @progress = Yolo::Formatters::ProgressFormatter.new
         @progress.github_uploading
-        response = @octokit.upload_asset(url, bundle)
+        zipped_bundle = zip_bundle(bundle)
+        response = @octokit.upload_asset(url, zipped_bundle)
         puts response
       end
 
       private
+
+      # Zip the bundle ready for upload to github, the zip will have the same
+      # name as the bundle folder with .zip appended
+      #
+      # @param  bundle [String] The full path to the bundle folder to zip
+      #
+      def zip_bundle(bundle)
+        directory = bundle
+        zipfile_name = bundle + ".zip"
+
+        Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
+          Dir[File.join(directory, '**', '**')].each do |file|
+            zipfile.add(file.sub(directory, ''), file)
+          end
+          return zipfile
+        end
+      end
 
       #
       # Generates an options hash for a github release
