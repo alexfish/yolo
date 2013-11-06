@@ -29,7 +29,7 @@ module Yolo
           formatter = Yolo::Formatters::ProgressFormatter.new
           formatter.notes_generated("#{directory}/release_notes.md")
 
-          `open #{directory}/release_notes.md`
+          #`open #{directory}/release_notes.md`
         end
 
         #

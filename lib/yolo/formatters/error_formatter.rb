@@ -47,6 +47,14 @@ module Yolo
       end
 
       #
+      # Outputs a red string stating that there was an issue deploying the bundle to github
+      # @param  error [String] The error string
+      #
+      def github_upload_failed(error)
+        puts red("There was a problem deploying the bundle to github: #{error}")
+      end
+
+      #
       # Outputs a red string stating that no deploy URL was found in the config file
       #
       def no_deploy_url

@@ -113,8 +113,8 @@ module Yolo
       #
       # Outputs a green string stating that the github release finished
       #
-      def github_released(url)
-        puts green("Release completed: #{url}")
+      def github_released
+        puts green("Release completed")
       end
 
       #

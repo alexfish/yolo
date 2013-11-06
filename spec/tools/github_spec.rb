@@ -12,7 +12,7 @@ describe Yolo::Tools::Github do
     it "should load the token from settings" do
       Yolo::Config::Settings.instance.stub(:github_token){"token"}
       github = Yolo::Tools::Github.new
-      github.instance_variable_get(:@octokit).should_not eq(nil)
+      github.instance_variable_get(:@token).should_not eq(nil)
     end
 
     it "should thrown an error if there is no token" do
@@ -37,21 +37,10 @@ describe Yolo::Tools::Github do
       @github.instance_eval{current_branch}.should eq("branch")
     end
 
-    it "should create the release" do
-      @github.instance_variable_get(:@octokit).should_receive(:create_release)
-      @github.release("path", "version", "body")
-    end
-
-    it "should upload the bundle" do
-      @github.instance_variable_get(:@octokit).should_receive(:create_release){{"upload_url" => "upload_url"}}
-      @github.should_receive(:upload_bundle)
-      @github.release("path", "version", "body")
-    end
-
     it "should zip the bundle" do
       @github.instance_variable_get(:@octokit).stub(:upload_asset)
       @github.should_receive(:zip_bundle).with("path")
-      @github.upload_bundle("path", "version")
+      @github.upload_bundle("path", "version", "name")
     end
   end
 
@@ -59,20 +48,20 @@ describe Yolo::Tools::Github do
 
     before do
       github = Yolo::Tools::Github.new
-      github.stub(:current_branch){"branch"}
+      github.stub(:current_branch){"target_commitish"}
       @options = github.instance_eval{options("body", "version")}
     end
 
     it "should hold a version" do
-      @options[:name].should eq("version")
+      @options["name"].should eq("name")
     end
 
     it "should hold a body" do
-      @options[:body].should eq("body")
+      @options["body"].should eq("body")
     end
 
     it "should hold the target_commitish" do
-      @options[:target_commitish].should eq("branch")
+      @options["target_commitish"].should eq("target_commitish")
     end
   end
 end

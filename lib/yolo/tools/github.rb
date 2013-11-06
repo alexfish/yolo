@@ -1,5 +1,8 @@
 require 'octokit'
 require "zip"
+require "net/http"
+require "uri"
+require 'json'
 
 module Yolo
   module Tools
@@ -17,10 +20,8 @@ module Yolo
       # Creates the class with default variables
       #
       def initialize
-        token = Yolo::Config::Settings.instance.github_token
-        if token
-          @octokit = Octokit::Client.new :access_token => token
-        else
+        @token = Yolo::Config::Settings.instance.github_token
+        if !@token
           error = Yolo::Formatters::ErrorFormatter.new
           error.no_github_token
         end
@@ -37,11 +38,25 @@ module Yolo
       def release(bundle, version, body)
         @progress = Yolo::Formatters::ProgressFormatter.new
         @progress.creating_github_release
-        response = @octokit.create_release(self.repo, version, options(body, version))
-        response.each_key {|k| puts k}
+
+        uri = URI.parse("https://api.github.com/repos/#{self.repo}/releases?access_token=#{@token}")
+
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+
+        request = Net::HTTP::Post.new(uri.request_uri)
+        request.body = options(body, version)
+
+        # Tweak headers, removing this will default to application/x-www-form-urlencoded
+        request["Content-Type"] = "application/json"
+
+        response = http.request(request)
+        response = JSON.parse(response.body)
+
         @progress.created_release(version)
-        upload_url = response[:url]
-        upload_bundle(bundle, upload_url, "#{version}.zip")
+
+        url = response["upload_url"].gsub("{?name}","")
+        upload_bundle(bundle, url, "#{version}.zip")
       end
 
       # Upload the bundle to the github release url
@@ -53,20 +68,48 @@ module Yolo
         @progress = Yolo::Formatters::ProgressFormatter.new
         @progress.github_uploading
         zipped_bundle = zip_bundle(bundle)
-        options = {:content_type => "application/zip", :name => name}
-        response = @octokit.upload_asset(url, zipped_bundle, options)
-        if response
-          @progress.github_released(url)
+
+        response = ""
+        curl = curl_string(name, zipped_bundle, url)
+        puts curl
+        IO.popen(curl) do |io|
+          begin
+            while line = io.readline
+              response << line
+            end
+            if response.length == 0
+              @error_formatter.github_upload_failed("Upload error")
+            end
+          rescue EOFError
+          end
         end
+
+        @progress.github_released
       end
 
       private
+
+      # Generate a curl command string to upload the release to github with
+      #
+      # @param name [String] The name of the file
+      # @param zipped_bundle [String] The full path to the zipped bundle folder
+      # @param url [String] The URL for the request
+      #
+      # @return [String] The curl command string
+      def curl_string(name, zipped_bundle, url)
+        "curl -# -H \"Accept: application/vnd.github.manifold-preview\" \
+          -H \"Content-Type: application/zip\" \
+          --data-binary @#{zipped_bundle} \
+          \"#{url}?name=#{name}&access_token=#{@token}\"
+          "
+      end
 
       # Zip the bundle ready for upload to github, the zip will have the same
       # name as the bundle folder with .zip appended
       #
       # @param  bundle [String] The full path to the bundle folder to zip
       #
+      # @return [String] The zipped bundle path
       def zip_bundle(bundle)
         bundle.sub!(%r[/$],'')
         archive = File.join(bundle,File.basename(bundle))+'.zip'
@@ -85,8 +128,8 @@ module Yolo
       #
       # @return [String] The current branch name
       def options(body, version)
-        options = {:body => body, :name => version, :target_commitish => current_branch}
-        options
+        options = {"body" => body, "tag_name" => version, "name" => version, "target_commitish" => current_branch}
+        options.to_json
       end
 
       #

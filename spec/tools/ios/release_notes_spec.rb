@@ -54,11 +54,6 @@ describe Yolo::Tools::Ios::ReleaseNotes do
       @time.should_receive(:min)
       @release_notes.generate("path")
     end
-
-    it "should open the release notes after writting" do
-      @release_notes.should_receive(:`).with(/open current_path\/release_notes.md/)
-      @release_notes.generate("path")
-    end
   end
 
   describe "when parsing release notes to plain text" do
