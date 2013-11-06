@@ -1,5 +1,5 @@
 require 'octokit'
-require "zip/zip"
+require "zip"
 
 module Yolo
   module Tools
@@ -38,10 +38,10 @@ module Yolo
         @progress = Yolo::Formatters::ProgressFormatter.new
         @progress.creating_github_release
         response = @octokit.create_release(self.repo, version, options(body, version))
-        if response
-          upload_url = response["upload_url"]
-          upload_bundle(bundle, upload_url)
-        end
+        response.each_key {|k| puts k}
+        @progress.created_release(version)
+        upload_url = response[:url]
+        upload_bundle(bundle, upload_url, "#{version}.zip")
       end
 
       # Upload the bundle to the github release url
@@ -49,12 +49,15 @@ module Yolo
       # @param  bundle [String] The full path to the bundle folder to release
       # @param  url [String] The github asset url returned from create_release
       #
-      def upload_bundle(bundle, url)
+      def upload_bundle(bundle, url, name)
         @progress = Yolo::Formatters::ProgressFormatter.new
         @progress.github_uploading
         zipped_bundle = zip_bundle(bundle)
-        response = @octokit.upload_asset(url, zipped_bundle)
-        puts response
+        options = {:content_type => "application/zip", :name => name}
+        response = @octokit.upload_asset(url, zipped_bundle, options)
+        if response
+          @progress.github_released(url)
+        end
       end
 
       private
@@ -65,14 +68,15 @@ module Yolo
       # @param  bundle [String] The full path to the bundle folder to zip
       #
       def zip_bundle(bundle)
-        directory = bundle
-        zipfile_name = bundle + ".zip"
+        bundle.sub!(%r[/$],'')
+        archive = File.join(bundle,File.basename(bundle))+'.zip'
+        FileUtils.rm archive, :force=>true
 
-        Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
-          Dir[File.join(directory, '**', '**')].each do |file|
-            zipfile.add(file.sub(directory, ''), file)
+        Zip::File.open(archive, 'w') do |zipfile|
+          Dir["#{bundle}/**/**"].reject{|f|f==archive}.each do |file|
+            zipfile.add(file.sub(bundle+'/',''),file)
           end
-          return zipfile
+          return archive
         end
       end
 

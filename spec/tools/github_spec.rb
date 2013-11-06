@@ -44,7 +44,7 @@ describe Yolo::Tools::Github do
 
     it "should upload the bundle" do
       @github.instance_variable_get(:@octokit).should_receive(:create_release){{"upload_url" => "upload_url"}}
-      @github.should_receive(:upload_bundle).with("path", "upload_url")
+      @github.should_receive(:upload_bundle)
       @github.release("path", "version", "body")
     end
 

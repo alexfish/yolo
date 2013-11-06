@@ -13,7 +13,7 @@ group :test do
   gem "CFPropertyList"
   gem "redcarpet"
   gem "activesupport"
-  gem "rubyzip"
+  gem "rubyzip", "~> 1.1.0"
 end
 
 gem 'coveralls', require: false
