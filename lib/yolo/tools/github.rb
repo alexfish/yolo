@@ -49,6 +49,8 @@ module Yolo
       # @param  url [String] The github asset url returned from create_release
       #
       def upload_bundle(bundle, url)
+        @progress = Yolo::Formatters::ProgressFormatter.new
+        @progress.github_uploading
         response = @octokit.upload_asset(url, bundle)
         puts response
       end

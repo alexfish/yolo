@@ -97,7 +97,19 @@ module Yolo
       # Outputs a string stating that the github release is being generated
       #
       def creating_github_release
-        puts green("Generating Github release")
+        puts
+        github = "Generating Github release"
+        puts bold(github)
+        puts github.length.times.map {"="}.join
+        puts
+      end
+
+      def github_uploading
+        puts
+        github = "Uploading package"
+        puts bold(github)
+        puts github.length.times.map {"="}.join
+        puts
       end
 
       #
