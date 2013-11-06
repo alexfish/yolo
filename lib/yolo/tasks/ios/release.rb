@@ -16,6 +16,8 @@ module Yolo
         attr_accessor :deployment
         # A Hash of additional options
         attr_accessor :options
+        # A Github repo to release to
+        attr_accessor :github_repo
 
         #
         # Initializes the class with default settings
@@ -128,6 +130,22 @@ module Yolo
         end
 
         #
+        # Release the ipa using the github releases API, the ipa will be zipped and
+        # uploaded as well as the release notes used as the release body and
+        # version for the release title
+        #
+        # @param  ipa_path [String] The full path to the IPA file to deploy
+        #
+        def release_to_github(bundle_path)
+          if self.github_repo
+            github = Yolo::Tools::Github.new
+            notes = Yolo::Tools::Ios::ReleaseNotes.html
+            github.repo = self.github_repo
+            github.release(bundle_path, version, notes)
+          end
+        end
+
+        #
         # Sends a notificaiton email from a deployment
         # @param  url [String] The URL which the build has been deplyed too
         # @param  password [String] The password required to install the build
@@ -172,6 +190,7 @@ module Yolo
                 xcodebuild :build
                 Yolo::Tools::Ios::IPA.generate(app_path,dsym_path,bundle_path) do |ipa|
                   deploy(ipa) if ipa and self.deployment
+                  release_to_github(bundle_path) if ipa and self.github_repo
                 end
               end
 

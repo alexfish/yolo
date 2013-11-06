@@ -98,6 +98,9 @@ describe Yolo::Config::Settings do
           "port" => "test_port",
           "host" => "test_host",
           "from" => "test_from"
+        },
+        "github" => {
+          "token" => "test_token"
         }
       }
       YAML.stub(:load_file){@yaml}
@@ -138,6 +141,10 @@ describe Yolo::Config::Settings do
 
     it "should hold a mail from" do
       Yolo::Config::Settings.instance.mail_from.should eq("test_from")
+    end
+
+    it "should hold a github token" do
+      Yolo::Config::Settings.instance.github_token.should eq("test_token")
     end
   end
 end

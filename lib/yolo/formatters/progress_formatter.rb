@@ -94,6 +94,41 @@ module Yolo
       end
 
       #
+      # Outputs a string stating that the github release is being generated
+      #
+      def creating_github_release
+        github = "Generating Github release"
+        puts bold(github)
+        puts github.length.times.map {"="}.join
+        puts
+      end
+
+      #
+      # Outputs a green string stating that the github release was created
+      #
+      def created_release(version)
+        puts green("Release #{version} created")
+      end
+
+      #
+      # Outputs a green string stating that the github release finished
+      #
+      def github_released
+        puts green("Release completed")
+      end
+
+      #
+      # Outputs an underlined bold string stating that the is uploading
+      #
+      def github_uploading
+        puts
+        github = "Uploading package"
+        puts bold(github)
+        puts github.length.times.map {"="}.join
+        puts
+      end
+
+      #
       # Outputs a green string stating that the release notes have been generated
       # @param  notes [String] The path to the release notes
       #

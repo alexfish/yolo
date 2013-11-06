@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'yolo'
-  s.version     = '1.2.8'
+  s.version     = '1.3.1'
   s.date        = Date.today.to_s
   s.executables << 'yolo'
   s.summary     = "YOLO!"
@@ -14,4 +14,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "calabash-cucumber"
   s.add_runtime_dependency "redcarpet"
   s.license = 'MIT'
+  s.add_runtime_dependency "rubyzip", ["= 1.1.0"]
 end

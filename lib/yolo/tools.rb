@@ -9,4 +9,5 @@ module Yolo
 end
 
 require 'yolo/tools/git'
+require 'yolo/tools/github'
 require 'yolo/tools/ios'

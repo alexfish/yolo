@@ -169,6 +169,16 @@ module Yolo
       end
 
       #
+      # The github token used to connect to the github api
+      #
+      # @return [String] The token defined in config.yml
+      def github_token
+        if @yaml["github"]["token"] != "token"
+          return @yaml["github"]["token"]
+        end
+      end
+
+      #
       # The path to the users home directory, same as ~
       #
       # @return [String] The full path to the current users home directory

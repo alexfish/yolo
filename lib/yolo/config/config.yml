@@ -16,3 +16,7 @@ deployment:
   url: http://example.com
   api_token: example
   team_token: example
+
+# Github
+github:
+  token: token
