@@ -70,7 +70,6 @@ module Yolo
 
         response = ""
         curl = curl_string(name, zipped_bundle, url)
-        puts curl
         IO.popen(curl) do |io|
           begin
             while line = io.readline
