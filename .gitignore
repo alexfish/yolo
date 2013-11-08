@@ -28,3 +28,4 @@ tmp
 .yardoc
 _yardoc
 doc/
+Gemfile.lock
