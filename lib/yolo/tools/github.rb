@@ -1,4 +1,4 @@
-require "zip"
+require "zip/zip"
 require "net/http"
 require "uri"
 require 'json'
@@ -117,7 +117,7 @@ module Yolo
         archive = File.join(bundle,File.basename(bundle))+'.zip'
         FileUtils.rm archive, :force=>true
 
-        Zip::File.open(archive, 'w') do |zipfile|
+        Zip::ZipFile.open(archive, 'w') do |zipfile|
           Dir["#{bundle}/**/**"].reject{|f|f==archive}.each do |file|
             zipfile.add(file.sub(bundle+'/',''),file)
           end
