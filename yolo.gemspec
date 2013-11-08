@@ -13,5 +13,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "ocunit2junit", ["= 1.2"]
   s.add_runtime_dependency "calabash-cucumber"
   s.add_runtime_dependency "redcarpet"
-  s.add_runtime_dependency "rubyzip", ["= 1.1.0"]
+  s.add_runtime_dependency "rubyzip", [">= 1.0.0"]
 end
