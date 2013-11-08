@@ -52,10 +52,14 @@ module Yolo
         response = http.request(request)
         response = JSON.parse(response.body)
 
-        @progress.created_release(version)
-
-        url = response["upload_url"].gsub("{?name}","")
-        upload_bundle(bundle, url, "#{version}.zip")
+        if response.has_key?("upload_url")
+          @progress.created_release(version)
+          url = response["upload_url"].gsub("{?name}","")
+          upload_bundle(bundle, url, "#{version}.zip")
+        else
+          error = Yolo::Formatters::ErrorFormatter.new
+          error.no_github_release
+        end
       end
 
       # Upload the bundle to the github release url

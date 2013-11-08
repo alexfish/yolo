@@ -82,8 +82,18 @@ module Yolo
         puts red("Can't send mail notification, missing details")
       end
 
+      #
+      # Outputs a red string stating that the github token is missing in config
+      #
       def no_github_token
         puts red("No Github token found, please specify one in ~/.yolo/config.yml ")
+      end
+
+      #
+      # Outputs a red string stating that there was a problem creating a github release
+      #
+      def no_github_release
+        puts red("There was a problem creating the release, maybe the tag already exists")
       end
 
       #
