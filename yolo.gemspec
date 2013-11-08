@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'yolo'
-  s.version     = '1.3.2'
+  s.version     = '1.3.3'
   s.date        = Date.today.to_s
   s.executables << 'yolo'
   s.summary     = "YOLO!"
@@ -14,5 +14,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "ocunit2junit", ["= 1.2"]
   s.add_runtime_dependency "calabash-cucumber"
   s.add_runtime_dependency "redcarpet"
-  s.add_runtime_dependency "rubyzip", [">= 1.0.0"]
+  s.add_runtime_dependency "rubyzip", ["~> 0.9.9"]
 end
