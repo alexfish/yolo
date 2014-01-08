@@ -150,18 +150,26 @@ module Yolo
         # @param  url [String] The URL which the build has been deplyed too
         # @param  password [String] The password required to install the build
         #
-        # @return [type] [description]
         def send_notification(url, password)
           if url
             mail_options = {
               :to => self.mail_to,
               :ota_url => url,
-              :subject => "New #{name} build: #{version}",
+              :subject => "New #{name} build: #{version} (#{current_branch})",
               :title => name
             }
             mail_options[:ota_password] = password if password
             @emailer.send(mail_options)
           end
+        end
+
+        #
+        # The current git branch
+        #
+        # @return [String] The current git branch
+        def current_branch
+          git = Yolo::Tools::Git.new
+          git.current_branch
         end
 
         #
