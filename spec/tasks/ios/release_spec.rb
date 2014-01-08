@@ -172,13 +172,14 @@ describe Yolo::Tasks::Ios::Release do
     end
 
     it "should build mail options once deployed" do
+      Yolo::Tools::Git.stub(:current_branch){"develop"}
       @release.mail_to = "test@test.com"
       @ota.stub(:deploy).and_yield("url", "password")
       @email.should_receive(:send).with(
         {
           :to => "test@test.com",
           :ota_url => "url",
-          :subject=>"New testname build: 1.0",
+          :subject=>"New testname build: 1.0 (develop)",
           :title=>"testname",
           :ota_password=>"password"
         })
