@@ -155,7 +155,7 @@ module Yolo
             mail_options = {
               :to => self.mail_to,
               :ota_url => url,
-              :subject => "New #{name} build: #{version} (#{current_branch})",
+              :subject => "New #{name} build: #{version} #{current_branch}",
               :title => name
             }
             mail_options[:ota_password] = password if password
@@ -169,7 +169,10 @@ module Yolo
         # @return [String] The current git branch
         def current_branch
           git = Yolo::Tools::Git.new
-          git.current_branch
+          branch = git.current_branch
+          if git.current_branch != "(no branch)"
+            return "(#{branch})"
+          end
         end
 
         #
