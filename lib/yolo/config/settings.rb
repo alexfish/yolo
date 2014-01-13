@@ -113,7 +113,7 @@ module Yolo
       #
       # @return [String] The team token defined in config.yml
       def team_token
-        if @yaml["deployment"]["teamt_token"] != "example"
+        if @yaml["deployment"]["team_token"] != "example"
           @yaml["deployment"]["team_token"]
         end
       end
