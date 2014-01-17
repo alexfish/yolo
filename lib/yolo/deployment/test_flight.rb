@@ -1,3 +1,5 @@
+require "zip/zip"
+
 module Yolo
   module Deployment
 
@@ -20,7 +22,9 @@ module Yolo
         @progress_formatter = Yolo::Formatters::ProgressFormatter.new
         @progress_formatter.deploying_ipa(package_path)
 
-        IO.popen(curl_string(package_path, opts)) do |io|
+        dsym_zip_path = generate_dsym_zip(package_path)
+
+        IO.popen(curl_string(package_path, dsym_zip_path, opts)) do |io|
           begin
             while line = io.readline
               response << line
@@ -123,14 +127,36 @@ module Yolo
       end
 
       #
+      # Generates a zip file containing the dsym folder.
+      # The zip file is uploaded to test flight to help with debugging
+      # @param package_path The path to the package
+      #
+      # @return [String] The dSYM zip file location
+      def generate_dsym_zip(package_path)
+        dsym_path = package_path.sub(%r[\.ipa$],'.app.dSYM')
+
+        dsym_zip = File.path(dsym_path) + ".zip"
+        FileUtils.rm dsym_zip, :force => true
+
+        Zip::ZipFile.open(dsym_zip, 'w') do |zipfile|
+          Dir["#{dsym_path}/**/**"].reject{|f|f==dsym_zip}.each do |file|
+            zipfile.add(file.sub(dsym_path+'/',''),file)
+          end
+          return dsym_zip
+        end
+
+      end
+
+      #
       # Generates the CURL command string for test flight distribution
       # @param package_path The path to the package
       # @param  opts [Hash] The options array
       #
       # @return [String] The CURL command
-      def curl_string(package_path, opts)
+      def curl_string(package_path, dsym_zip_path, opts)
         string = "curl http://testflightapp.com/api/builds.json -X POST -# "
         string = string + "-F file=@#{package_path} "
+        string = string + "-F dsym=@#{dsym_zip_path} "
         string = string + "-F api_token='#{api_token}' " if api_token.length > 0
         string = string + "-F team_token='#{team_token}' " if team_token.length > 0
         string = string + "-F notes='#{notes}' " if notes.length > 0
