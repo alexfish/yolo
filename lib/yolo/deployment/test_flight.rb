@@ -134,7 +134,7 @@ module Yolo
         string = string + "-F api_token='#{api_token}' " if api_token.length > 0
         string = string + "-F team_token='#{team_token}' " if team_token.length > 0
         string = string + "-F notes='#{notes}' " if notes.length > 0
-        string = string + "-F notify=#{notify(opts)}" if opts
+        string = string + "-F notify=#{notify(opts)} " if opts
         string = string + "-F distribution_lists=#{distribution_lists(opts)}" if opts and distribution_lists(opts).length > 0
         string
       end
