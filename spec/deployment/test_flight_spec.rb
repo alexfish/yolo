@@ -109,47 +109,51 @@ describe Yolo::Deployment::TestFlight do
     end
 
     it "should use curl" do
-      @tf.instance_eval{curl_string("test", nil)}.should match(/curl/)
+      @tf.instance_eval{curl_string("test", "testdsym", nil)}.should match(/curl/)
     end
 
     it "should set the correct URL" do
-      @tf.instance_eval{curl_string("test", nil)}.should match(/http:\/\/testflightapp.com\/api\/builds.json/)
+      @tf.instance_eval{curl_string("test", "testdsym", nil)}.should match(/http:\/\/testflightapp.com\/api\/builds.json/)
     end
 
     it "should be a post request" do
-      @tf.instance_eval{curl_string("test", nil)}.should match(/-X POST -#/)
+      @tf.instance_eval{curl_string("test", "testdsym", nil)}.should match(/-X POST -#/)
     end
 
     it "should set the file path" do
-      @tf.instance_eval{curl_string("test", nil)}.should match(/-F file=@test/)
+      @tf.instance_eval{curl_string("test", "testdsym", nil)}.should match(/-F file=@test/)
+    end
+
+    it "should set dsym zip path" do
+      @tf.instance_eval{curl_string("test", "testdsym", nil)}.should match(/-F dsym=@testdsym/)
     end
 
     it "should set the api token" do
-      @tf.instance_eval{curl_string("test", nil)}.should match(/-F api_token='apitoken'/)
+      @tf.instance_eval{curl_string("test", "testdsym", nil)}.should match(/-F api_token='apitoken'/)
     end
 
     it "should set the team token" do
-      @tf.instance_eval{curl_string("test", nil)}.should match(/-F team_token='teamtoken'/)
+      @tf.instance_eval{curl_string("test", "testdsym", nil)}.should match(/-F team_token='teamtoken'/)
     end
 
     it "should set the notes" do
-      @tf.instance_eval{curl_string("test", nil)}.should match(/-F notes='notes'/)
+      @tf.instance_eval{curl_string("test", "testdsym", nil)}.should match(/-F notes='notes'/)
     end
 
     it "should set the notify string" do
-      @tf.instance_eval{curl_string("test", {})}.should match(/-F notify=notify/)
+      @tf.instance_eval{curl_string("test", "testdsym", {})}.should match(/-F notify=notify/)
     end
 
     it "should set the distribution lists" do
-      @tf.instance_eval{curl_string("test", {})}.should match(/-F distribution_lists=list/)
+      @tf.instance_eval{curl_string("test", "testdsym", {})}.should match(/-F distribution_lists=list/)
     end
 
     it "should not set notify with no options" do
-      @tf.instance_eval{curl_string("test", nil)}.should_not match(/-F notify=notify/)
+      @tf.instance_eval{curl_string("test", "testdsym", nil)}.should_not match(/-F notify=notify/)
     end
 
     it "should not set distribution lists with no options" do
-      @tf.instance_eval{curl_string("test", nil)}.should_not match(/-F distribution_lists=list/)
+      @tf.instance_eval{curl_string("test", "testdsym", nil)}.should_not match(/-F distribution_lists=list/)
     end
   end
 end
