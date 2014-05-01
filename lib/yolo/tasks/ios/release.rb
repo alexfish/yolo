@@ -32,6 +32,16 @@ module Yolo
           super
         end
 
+        def mail_to
+          mail_to = @mail_to
+
+          if !mail_to
+            mail_to = ENV['YOLO_RELEASE_MAIL_TO']
+          end
+
+          return mail_to
+        end
+
         # 
         # Returns the release class's configuration attribute, 
         # if no attribute is set the check for the config env var

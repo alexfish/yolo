@@ -198,5 +198,17 @@ describe Yolo::Tasks::Ios::Release do
       @release.configuration.should eq(config)
     end
 
+    it "should use the mail_to env var if no config is set" do
+      mail_to = "TEST_MAIL_TO"
+      ENV['YOLO_RELEASE_MAIL_TO'] = mail_to
+      @release.mail_to.should eq(mail_to)
+    end
+
+    it "should use the mail_to if it is set" do
+      mail_to = "TEST_MAIL_TO"
+      @release.mail_to = mail_to
+      @release.mail_to.should eq(mail_to)
+    end
+
   end
 end
