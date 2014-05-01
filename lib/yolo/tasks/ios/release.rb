@@ -32,6 +32,11 @@ module Yolo
           super
         end
 
+        # 
+        # Returns the release class's configuration attribute, 
+        # if no attribute is set the check for the config env var
+        #
+        # @return The release class's configuration attribute
         def configuration
           config = @configuration
           
