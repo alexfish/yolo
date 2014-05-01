@@ -2,7 +2,7 @@ yolo
 ====
 
 [![Coverage Status](https://coveralls.io/repos/alexfish/yolo/badge.png)](https://coveralls.io/r/alexfish/yolo)
-[![Build Status](https://travis-ci.org/alexfish/yolo.png)](https://travis-ci.org/alexefish/yolo)
+[![Build Status](https://travis-ci.org/alexfish/yolo.png)](https://travis-ci.org/alexfish/yolo)
 [![Gem Version](https://badge.fury.io/rb/yolo.png)](http://badge.fury.io/rb/yolo)
 
 yolo is a RubyGem which provides a Ruby interface to Continuous Integration build tools. yolo is currently geared towards the Xcode toolchain and iOS development.  
