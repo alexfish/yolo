@@ -32,6 +32,11 @@ module Yolo
           super
         end
 
+        # 
+        # Returns the release class's mail_to attribute, 
+        # if no attribute is set then check for the config env var
+        #
+        # @return The release class's mail_to attribute
         def mail_to
           mail_to = @mail_to
 
@@ -44,7 +49,7 @@ module Yolo
 
         # 
         # Returns the release class's configuration attribute, 
-        # if no attribute is set the check for the config env var
+        # if no attribute is set then check for the config env var
         #
         # @return The release class's configuration attribute
         def configuration
