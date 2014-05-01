@@ -185,5 +185,18 @@ describe Yolo::Tasks::Ios::Release do
         })
       @release.deploy("")
     end
+
+    it "should use the config env var if no config is set" do
+      config = "TEST_CONFIG"
+      ENV['YOLO_RELEASE_CONFIG'] = config
+      @release.configuration.should eq(config)
+    end
+
+    it "should use the config if it is set" do
+      config = "TEST_CONFIG"
+      @release.configuration = config
+      @release.configuration.should eq(config)
+    end
+
   end
 end

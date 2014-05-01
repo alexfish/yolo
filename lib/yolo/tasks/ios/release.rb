@@ -32,6 +32,16 @@ module Yolo
           super
         end
 
+        def configuration
+          config = @configuration
+          
+          if !config
+            config = ENV['YOLO_RELEASE_CONFIG']
+          end
+
+          return config
+        end
+
         #
         # Uses Xcode to find the full path to generated app file
         #
