@@ -42,6 +42,7 @@ module Yolo
 
           if !mail_to
             mail_to = ENV['YOLO_RELEASE_MAIL_TO']
+            mail_to = mail_to.split(",")
           end
 
           return mail_to
