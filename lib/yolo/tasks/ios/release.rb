@@ -36,7 +36,7 @@ module Yolo
         # Returns the release class's mail_to attribute, 
         # if no attribute is set then check for the config env var
         #
-        # @return The release class's mail_to attribute
+        # @return [Array] The release class's mail_to attribute
         def mail_to
           mail_to = @mail_to
 
@@ -49,10 +49,25 @@ module Yolo
         end
 
         # 
+        # Returns the release class's scheme attribute,
+        # if no attribute is set then check for the scheme env var
+        # 
+        # @return [String] The release class's scheme attribute
+        def scheme
+          scheme = @scheme
+
+          if !scheme
+            scheme = ENV['YOLO_RELEASE_SCHEME']
+          end
+
+          return scheme
+        end
+
+        # 
         # Returns the release class's configuration attribute, 
         # if no attribute is set then check for the config env var
         #
-        # @return The release class's configuration attribute
+        # @return [String] The release class's configuration attribute
         def configuration
           config = @configuration
           

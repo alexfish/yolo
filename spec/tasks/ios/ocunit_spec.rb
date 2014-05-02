@@ -14,6 +14,19 @@ describe Yolo::Tasks::Ios::OCUnit do
     it "should set junit as the default test output" do
       @ocunit.test_output.should eq(:junit)
     end
+
+    it "should use the scheme if it is set" do
+      scheme = "TEST_SCHEME"
+      @ocunit.scheme = scheme
+      @ocunit.scheme.should eq(scheme)
+    end
+
+    it "should use the scheme env var if no scheme is set" do
+      scheme = "TEST_SCHEME"
+      ENV['YOLO_OCUNIT_SCHEME'] = scheme
+      
+      @ocunit.scheme.should eq(scheme)
+    end
   end
 
   describe "when building an options string" do

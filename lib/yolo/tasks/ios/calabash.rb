@@ -26,6 +26,21 @@ module Yolo
           super
         end
 
+        # 
+        # Returns the calabash class's scheme attribute,
+        # if no attribute is set then check for the scheme env var
+        # 
+        # @return [String] The calabash class's scheme attribute
+        def scheme
+          scheme = @scheme
+
+          if !scheme
+            scheme = ENV['YOLO_CALABASH_SCHEME']
+          end
+
+          return scheme
+        end
+
         #
         # Defines rake tasks available to the Calabash class
         #

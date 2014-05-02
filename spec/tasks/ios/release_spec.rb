@@ -210,5 +210,18 @@ describe Yolo::Tasks::Ios::Release do
       @release.mail_to.should eq(mail_to)
     end
 
+    it "should use the scheme if it is set" do
+      scheme = "TEST_SCHEME"
+      @release.scheme = scheme
+      @release.scheme.should eq(scheme)
+    end
+
+    it "should use the scheme env var if no scheme is set" do
+      scheme = "TEST_SCHEME"
+      ENV['YOLO_RELEASE_SCHEME'] = scheme
+      
+      @release.scheme.should eq(scheme)
+    end
+
   end
 end

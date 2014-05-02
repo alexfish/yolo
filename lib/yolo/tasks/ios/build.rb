@@ -24,6 +24,21 @@ module Yolo
           return options.compact.join(" ")
         end
 
+        # 
+        # Returns the build class's scheme attribute,
+        # if no attribute is set then check for the scheme env var
+        # 
+        # @return [String] The build class's scheme attribute
+        def scheme
+          scheme = @scheme
+
+          if !scheme
+            scheme = ENV['YOLO_BUILD_SCHEME']
+          end
+
+          return scheme
+        end
+
         #
         # Defines rake tasks available to the Build class
         #

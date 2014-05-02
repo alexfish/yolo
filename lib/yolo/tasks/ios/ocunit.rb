@@ -35,6 +35,21 @@ module Yolo
           return options.compact.join(" ")
         end
 
+        # 
+        # Returns the ocunit class's scheme attribute,
+        # if no attribute is set then check for the scheme env var
+        # 
+        # @return [String] The ocunit class's scheme attribute
+        def scheme
+          scheme = @scheme
+
+          if !scheme
+            scheme = ENV['YOLO_OCUNIT_SCHEME']
+          end
+
+          return scheme
+        end
+
         #
         # Defines rake tasks available to the OCUnit class
         #

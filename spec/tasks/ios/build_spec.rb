@@ -19,5 +19,18 @@ describe Yolo::Tasks::Ios::Build do
       @buildtask.configuration = "Debug"
       @buildtask.build_opts_string.should match(/CODE_SIGN_IDENTITY='' CODE_SIGNING_REQUIRED=NO/)
     end
+
+    it "should use the scheme if it is set" do
+      scheme = "TEST_SCHEME"
+      @buildtask.scheme = scheme
+      @buildtask.scheme.should eq(scheme)
+    end
+
+    it "should use the scheme env var if no scheme is set" do
+      scheme = "TEST_SCHEME"
+      ENV['YOLO_BUILD_SCHEME'] = scheme
+      
+      @buildtask.scheme.should eq(scheme)
+    end
   end
 end

@@ -22,5 +22,18 @@ describe Yolo::Tasks::Ios::Calabash do
     it "should set test-reports/calabash as the default output directory" do
       @calabash.output_dir.should eq("test-reports/calabash")
     end
+
+    it "should use the scheme if it is set" do
+      scheme = "TEST_SCHEME"
+      @calabash.scheme = scheme
+      @calabash.scheme.should eq(scheme)
+    end
+
+    it "should use the scheme env var if no scheme is set" do
+      scheme = "TEST_SCHEME"
+      ENV['YOLO_CALABASH_SCHEME'] = scheme
+      
+      @calabash.scheme.should eq(scheme)
+    end
   end
 end
