@@ -1,6 +1,12 @@
 yolo
 ====
 
+## Deprecated
+
+Yolo is now deprecated, see [Tug](https://github.com/alexfish/tug) for a new and improved gem.
+
+- - -
+
 [![Coverage Status](https://coveralls.io/repos/alexfish/yolo/badge.png)](https://coveralls.io/r/alexfish/yolo)
 [![Build Status](https://travis-ci.org/alexfish/yolo.png)](https://travis-ci.org/alexfish/yolo)
 [![Gem Version](https://badge.fury.io/rb/yolo.png)](http://badge.fury.io/rb/yolo)
